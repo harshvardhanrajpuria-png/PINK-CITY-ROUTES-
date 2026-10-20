@@ -1,0 +1,6 @@
+{
+  "name": "Pinkcityroutes - Premier Travel & Tour Agency",
+  "description": "Curated domestic and international journeys, bespoke itineraries, and seamless travel support guided by Harshvardhan and team.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
