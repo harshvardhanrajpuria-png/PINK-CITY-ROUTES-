@@ -34,7 +34,7 @@ export const ContactSection: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const formattedMsg =
-      `Hello Harshvardhan,\n` +
+      `Hello Harsh Vardhan & Ananya,\n` +
       `My name is ${name}.\n` +
       `📍 Target Destination: ${destination}\n` +
       `👥 Travelers: ${travelers}\n` +
@@ -64,7 +64,7 @@ export const ContactSection: React.FC = () => {
                 Direct Agency Connection
               </div>
               <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white">
-                Connect with Harshvardhan Gupta, Ananya Gupta & Pinkcityroutes
+                Connect with Harsh Vardhan Gupta, Ananya Gupta & Pinkcityroutes
               </h2>
               <p className="mt-3 text-slate-300 text-sm sm:text-base leading-relaxed">
                 Whether you need a quick quote, have questions about hotel categories, or want to
@@ -76,7 +76,7 @@ export const ContactSection: React.FC = () => {
             <div className="space-y-4">
               {/* WhatsApp & Call */}
               <a
-                href={createWhatsAppUrl('Hello Harshvardhan & Ananya, I would like to plan a tour with Pinkcityroutes.')}
+                href={createWhatsAppUrl('Hello Harsh Vardhan & Ananya, I would like to plan a tour with Pinkcityroutes.')}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-500/50 hover:bg-white/10 transition-all group"
@@ -92,7 +92,7 @@ export const ContactSection: React.FC = () => {
                     {AGENCY_DETAILS.phone}
                   </span>
                   <span className="text-xs text-emerald-400 block mt-0.5">
-                    Harshvardhan Gupta & Ananya Gupta (Co-Founders)
+                    Harsh Vardhan Gupta & Ananya Gupta (Co-Founders)
                   </span>
                 </div>
               </a>
@@ -197,7 +197,7 @@ export const ContactSection: React.FC = () => {
                 Quick Itinerary Inquiry
               </h3>
               <p className="text-xs text-slate-300 mb-6">
-                Fill this quick brief to immediately chat with Harshvardhan on WhatsApp with your exact trip requirements.
+                Fill this quick brief to immediately chat with Harsh Vardhan & Ananya on WhatsApp with your exact trip requirements.
               </p>
 
               {submitted && (
@@ -296,7 +296,7 @@ export const ContactSection: React.FC = () => {
                     rows={3}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Tell Harshvardhan about your preferences (e.g., Honeymoon bed decoration, senior-friendly vehicle, vegetarian meals)..."
+                    placeholder="Tell Harsh Vardhan & Ananya about your preferences (e.g., Honeymoon bed decoration, senior-friendly vehicle, vegetarian meals)..."
                     className="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
                   />
                 </div>
@@ -306,7 +306,7 @@ export const ContactSection: React.FC = () => {
                   className="w-full inline-flex items-center justify-center gap-2.5 bg-[#25D366] hover:bg-[#1EBE5D] text-slate-950 font-bold text-base py-4 px-6 rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0"
                 >
                   <MessageSquare className="w-5 h-5 fill-slate-950/20 stroke-slate-950" />
-                  <span>Send Directly to Harshvardhan on WhatsApp</span>
+                  <span>Send Directly to Harsh Vardhan & Ananya on WhatsApp</span>
                 </button>
               </form>
             </div>

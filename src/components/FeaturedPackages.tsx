@@ -188,7 +188,7 @@ export const FeaturedPackages: React.FC = () => {
                 Need customized dates, extra days, or luxury suite upgrades?
               </h4>
               <p className="text-xs text-slate-600 mt-1">
-                Base package prices cover core travel essentials. Upgrading hotel tiers, private vehicles, or special sightseeing activities will be calculated transparently with zero hidden charges. Chat directly with Harshvardhan on WhatsApp (+91 98932 21141) for a customized real-time quote.
+                Base package prices cover core travel essentials. Upgrading hotel tiers, private vehicles, or special sightseeing activities will be calculated transparently with zero hidden charges. Chat directly with Harsh Vardhan Gupta & Ananya Gupta on WhatsApp (+91 98932 21141) for a customized real-time quote.
               </p>
             </div>
           </div>
@@ -247,7 +247,7 @@ export const FeaturedPackages: React.FC = () => {
                 </div>
                 <div className="p-3 bg-stone-50 rounded-xl border border-stone-100">
                   <div className="text-slate-400">Support</div>
-                  <div className="font-bold text-emerald-700 mt-0.5">24/7 Harshvardhan</div>
+                  <div className="font-bold text-emerald-700 mt-0.5">24/7 Harsh Vardhan & Ananya</div>
                 </div>
               </div>
 
@@ -358,7 +358,7 @@ export const FeaturedPackages: React.FC = () => {
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#128C7E] hover:bg-[#075E54] text-white text-xs font-bold px-6 py-3 rounded-xl shadow transition-all"
               >
                 <MessageSquare className="w-4 h-4" />
-                <span>Book / Inquire with Harshvardhan on WhatsApp</span>
+                <span>Book / Inquire with Harsh Vardhan & Ananya on WhatsApp</span>
               </a>
             </div>
           </div>

@@ -113,7 +113,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex items-center gap-2 sm:gap-3 text-center sm:text-left shrink-0">
             <span className="inline-flex items-center gap-1.5 text-amber-300 font-semibold tracking-wide">
               <ShieldCheck className="w-3.5 h-3.5 shrink-0 text-amber-400" />
-              Founded by Harshvardhan Gupta & Ananya Gupta
+              Founded by Harsh Vardhan Gupta & Ananya Gupta
             </span>
             <span className="hidden sm:inline text-slate-500">·</span>
             <span className="hidden sm:inline text-slate-300 text-[11px]">
@@ -336,7 +336,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 bg-[#128C7E] hover:bg-[#075E54] text-white text-xs font-bold px-3 xl:px-4 py-2 rounded-lg shadow-sm transition-all hover:shadow whitespace-nowrap shrink-0"
-              title="Chat with Harshvardhan & Ananya on WhatsApp"
+              title="Chat with Harsh Vardhan & Ananya on WhatsApp"
             >
               <MessageSquare className="w-4 h-4 fill-white/20 shrink-0" />
               <span>WhatsApp Us</span>

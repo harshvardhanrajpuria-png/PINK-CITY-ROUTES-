@@ -16,7 +16,7 @@ export const Testimonials: React.FC = () => {
           </h2>
           <p className="mt-4 text-slate-600 text-base sm:text-lg leading-relaxed">
             Real stories from honeymooners, families, and globetrotters who explored the world with
-            Pinkcityroutes and Harshvardhan.
+            Pinkcityroutes and co-founders Harsh Vardhan Gupta & Ananya Gupta.
           </p>
         </div>
 

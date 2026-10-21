@@ -186,7 +186,7 @@ export const FleetSection: React.FC = () => {
                 Book Any Vehicle Instantly with Chauffeur
               </h4>
               <p className="text-xs text-slate-300 mt-1">
-                Flexible hourly packages, outstation charters, and airport transfers guided directly by Harshvardhan Gupta, Ananya Gupta and our fleet ops.
+                Flexible hourly packages, outstation charters, and airport transfers guided directly by Harsh Vardhan Gupta, Ananya Gupta and our fleet ops.
               </p>
             </div>
           </div>

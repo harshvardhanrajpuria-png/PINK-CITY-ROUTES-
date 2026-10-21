@@ -76,7 +76,7 @@ export const AdminPasscodeModal: React.FC<AdminPasscodeModalProps> = ({
 
           <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-amber-300 bg-white/5 border border-white/10 px-2.5 py-0.5 rounded-full mb-1">
             <ShieldCheck className="w-3 h-3 text-emerald-400" />
-            Harshvardhan Gupta, Ananya Gupta & Editorial Access
+            Harsh Vardhan Gupta, Ananya Gupta & Editorial Access
           </div>
 
           <h3 className="font-display text-xl sm:text-2xl font-bold text-white tracking-tight">

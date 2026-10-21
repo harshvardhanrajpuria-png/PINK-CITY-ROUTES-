@@ -89,9 +89,9 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ initialDestination }) =>
     },
     {
       number: '02',
-      title: 'Receive a tailor-made day-by-day itinerary with transparent pricing from Harshvardhan',
+      title: 'Receive a tailor-made day-by-day itinerary with transparent pricing from Harsh Vardhan & Ananya',
       description:
-        'Harshvardhan reviews your request personally and crafts a bespoke route with handpicked boutique stays, scenic stops, and zero hidden markups.',
+        'Harsh Vardhan and Ananya review your request personally and craft a bespoke route with handpicked boutique stays, scenic stops, and zero hidden markups.',
       icon: FileCheck2,
       badge: 'Step 2: Founder Curation',
     },
@@ -107,7 +107,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ initialDestination }) =>
       number: '04',
       title: 'Pack your bags and embark on a memory of a lifetime with on-ground concierge support',
       description:
-        'Relax and explore seamlessly. Harshvardhan and our local fleet concierge stay connected on WhatsApp to ensure your comfort at every step.',
+        'Relax and explore seamlessly. Harsh Vardhan, Ananya, and our local fleet concierge stay connected on WhatsApp to ensure your comfort at every step.',
       icon: Headphones,
       badge: 'Step 4: Seamless Travel',
     },
@@ -137,7 +137,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ initialDestination }) =>
           </h2>
           <p className="mt-4 text-slate-600 text-base sm:text-lg leading-relaxed">
             From your first spark of inspiration to your return flight, experience seamless travel
-            curation guided personally by Harshvardhan and team.
+            curation guided personally by Harsh Vardhan, Ananya, and team.
           </p>
         </div>
 
@@ -174,7 +174,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ initialDestination }) =>
 
                 <div className="pt-4 mt-4 border-t border-stone-100 flex items-center gap-1.5 text-[11px] font-semibold text-slate-500">
                   <Check className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Harshvardhan Supervised</span>
+                  <span>Harsh Vardhan & Ananya Supervised</span>
                 </div>
               </div>
             );
@@ -194,7 +194,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ initialDestination }) =>
                   Build Your Custom Itinerary
                 </h3>
                 <p className="text-xs text-slate-500 mt-1">
-                  Select your preferences below to get an indicative quote and connect with Harshvardhan directly on WhatsApp.
+                  Select your preferences below to get an indicative quote and connect with Harsh Vardhan & Ananya directly on WhatsApp.
                 </p>
               </div>
 
@@ -423,7 +423,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ initialDestination }) =>
                     <span className="font-semibold text-amber-300 block mb-1">
                       Transparent Custom Add-ons & Pricing Notice:
                     </span>
-                    Base package prices cover core travel essentials. Upgrading hotel tiers, private vehicles, or special sightseeing activities will be calculated transparently with zero hidden charges. Chat directly with Harshvardhan Gupta & Ananya Gupta on WhatsApp (+91 98932 21141) for a customized real-time quote.
+                    Base package prices cover core travel essentials. Upgrading hotel tiers, private vehicles, or special sightseeing activities will be calculated transparently with zero hidden charges. Chat directly with Harsh Vardhan Gupta & Ananya Gupta on WhatsApp (+91 98932 21141) for a customized real-time quote.
                   </div>
                 </div>
               </div>
@@ -437,7 +437,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ initialDestination }) =>
                   className="w-full flex items-center justify-center gap-2.5 bg-[#25D366] hover:bg-[#1EBE5D] text-slate-950 font-bold text-sm py-3.5 px-6 rounded-xl shadow-lg transition-all"
                 >
                   <MessageSquare className="w-5 h-5 fill-slate-950/20" />
-                  <span>Send Request to Harshvardhan & Ananya on WhatsApp</span>
+                  <span>Send Request to Harsh Vardhan & Ananya on WhatsApp</span>
                 </a>
 
                 <button

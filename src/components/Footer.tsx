@@ -27,7 +27,7 @@ export const Footer: React.FC = () => {
                   Pinkcity<span className="text-[#C83E5C]">routes</span>
                 </span>
                 <span className="text-[11px] font-medium uppercase tracking-wider text-amber-300 block">
-                  Founded by Harshvardhan Gupta & Ananya Gupta
+                  Founded by Harsh Vardhan Gupta & Ananya Gupta
                 </span>
               </div>
             </div>
@@ -35,7 +35,7 @@ export const Footer: React.FC = () => {
             <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
               Pinkcityroutes is a premier travel and tour agency providing handpicked domestic and
               international journeys, bespoke itineraries, and seamless on-ground support guided by
-              Harshvardhan Gupta & Ananya Gupta.
+              Harsh Vardhan Gupta & Ananya Gupta.
             </p>
 
             <div className="pt-2 flex items-center gap-3">
@@ -54,7 +54,7 @@ export const Footer: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-lg bg-white/5 hover:bg-emerald-600/20 text-emerald-400 hover:text-emerald-300 flex items-center justify-center transition-all border border-white/10"
-                title="WhatsApp Harshvardhan"
+                title="WhatsApp Founders"
               >
                 <MessageSquare className="w-4 h-4" />
               </a>
@@ -160,8 +160,8 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="#founder" className="hover:text-amber-300 transition-colors">
-                  Meet Harshvardhan
+                <a href="#founders" className="hover:text-amber-300 transition-colors">
+                  Meet Our Co-Founders
                 </a>
               </li>
               <li>
@@ -185,7 +185,7 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2.5 text-xs text-slate-400">
               <li className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0" />
-                <span className="text-slate-200 font-medium">Founder: Harshvardhan</span>
+                <span className="text-slate-200 font-medium">Co-Founders: Harsh Vardhan Gupta & Ananya Gupta</span>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
@@ -241,7 +241,7 @@ export const Footer: React.FC = () => {
         <div className="pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <div>
             © {new Date().getFullYear()} <strong className="text-slate-300 font-semibold">Pinkcityroutes</strong>.
-            Founded by Harshvardhan Gupta & Ananya Gupta. All rights reserved.
+            Founded by Harsh Vardhan Gupta & Ananya Gupta. All rights reserved.
           </div>
 
           <div className="flex items-center gap-4">

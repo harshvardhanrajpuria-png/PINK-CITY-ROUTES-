@@ -231,7 +231,7 @@ export const TopDestinations: React.FC<TopDestinationsProps> = ({ onSelectDestin
                 </div>
                 <div>
                   <span className="text-slate-400 block font-medium">Personal Route Curation</span>
-                  <span className="font-semibold text-emerald-700 text-sm">By Harshvardhan</span>
+                  <span className="font-semibold text-emerald-700 text-sm">By Harsh Vardhan & Ananya</span>
                 </div>
               </div>
 

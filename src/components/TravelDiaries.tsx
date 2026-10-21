@@ -135,7 +135,7 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
     requireAdminAccess(() => {
       setFormData({
         title: '',
-        author: 'Harshvardhan Gupta & Ananya Gupta',
+        author: 'Harsh Vardhan Gupta & Ananya Gupta',
         location: 'Jaipur, Rajasthan',
         date: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
         travelerType: 'Curated Guide',
@@ -193,7 +193,7 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
           ? {
               ...b,
               title: formData.title,
-              author: formData.author || 'Harshvardhan Gupta & Ananya Gupta',
+              author: formData.author || 'Harsh Vardhan Gupta & Ananya Gupta',
               location: formData.location || 'Rajasthan, India',
               date: formData.date || 'Recent',
               travelerType: formData.travelerType,
@@ -227,7 +227,7 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
       const newPost: TravelDiary = {
         id: 'blog-' + Date.now(),
         title: formData.title,
-        author: formData.author || 'Harshvardhan Gupta & Ananya Gupta',
+        author: formData.author || 'Harsh Vardhan Gupta & Ananya Gupta',
         location: formData.location || 'Jaipur, Rajasthan',
         date: formData.date || 'Recent',
         travelerType: formData.travelerType,
@@ -368,7 +368,7 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
                   setIsPasscodeModalOpen(true);
                 }}
                 className="inline-flex items-center gap-1.5 bg-stone-100 hover:bg-stone-200 text-stone-600 hover:text-slate-900 text-xs font-medium py-2.5 px-3 rounded-xl transition-all"
-                title="Admin access for Harshvardhan Gupta & Ananya Gupta (PIN required)"
+                title="Admin access for Harsh Vardhan Gupta & Ananya Gupta (PIN required)"
               >
                 <Lock className="w-3.5 h-3.5 text-stone-400" />
                 <span className="hidden sm:inline">Author Access</span>
@@ -623,7 +623,7 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
                     type="text"
                     value={formData.author}
                     onChange={(e) => setFormData({ ...formData, author: e.target.value })}
-                    placeholder="e.g. Harshvardhan, Sneha & Rohan"
+                    placeholder="e.g. Harsh Vardhan, Sneha & Rohan"
                     className="w-full bg-[#FAF7F2] border border-stone-300 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
                   />
                 </div>
@@ -652,7 +652,7 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
                     onChange={(e) => setFormData({ ...formData, travelerType: e.target.value })}
                     className="w-full bg-[#FAF7F2] border border-stone-300 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
                   >
-                    <option value="Curated Guide">Curated Guide (Harshvardhan)</option>
+                    <option value="Curated Guide">Curated Guide (Harsh Vardhan & Ananya)</option>
                     <option value="Couple Trip">Couple Anniversary / Honeymoon</option>
                     <option value="Family Tour">Family Heritage Tour</option>
                     <option value="Solo Explorer">Solo Traveler Diary</option>
@@ -866,7 +866,7 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
 
                 <a
                   href={createWhatsAppUrl(
-                    `Hello Harshvardhan, I was reading the travel blog *${activeDiary.title}* on Pinkcityroutes. I would like to plan a similar tour!`
+                    `Hello Harsh Vardhan & Ananya, I was reading the travel blog *${activeDiary.title}* on Pinkcityroutes. I would like to plan a similar tour!`
                   )}
                   target="_blank"
                   rel="noopener noreferrer"

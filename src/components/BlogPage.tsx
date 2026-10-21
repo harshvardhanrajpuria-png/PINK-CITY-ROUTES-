@@ -71,7 +71,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenPlanner 
   // Form state
   const [formData, setFormData] = useState({
     title: '',
-    author: 'Harshvardhan (Founder)',
+    author: 'Harsh Vardhan (Co-Founder)',
     location: 'Jaipur, Rajasthan',
     date: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
     travelerType: "Founder's Guide",
@@ -141,7 +141,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenPlanner 
     requireAdminAccess(() => {
       setFormData({
         title: '',
-        author: 'Harshvardhan (Founder)',
+        author: 'Harsh Vardhan (Co-Founder)',
         location: 'Jaipur, Rajasthan',
         date: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
         travelerType: "Founder's Guide",
@@ -192,7 +192,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenPlanner 
 
     const highlightsArray = formData.highlights
       ? formData.highlights.split(',').map((s) => s.trim()).filter(Boolean)
-      : ['Personalized on-ground support by Harshvardhan', 'Private sanitized vehicle and verified stays'];
+      : ['Personalized on-ground support by Harsh Vardhan & Ananya Gupta', 'Private sanitized vehicle and verified stays'];
 
     if (editingDiary) {
       const updated = blogs.map((b) =>
@@ -200,7 +200,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenPlanner 
           ? {
               ...b,
               title: formData.title,
-              author: formData.author || 'Harshvardhan',
+              author: formData.author || 'Harsh Vardhan Gupta & Ananya Gupta',
               location: formData.location || 'Rajasthan, India',
               date: formData.date || 'Recent',
               travelerType: formData.travelerType,
@@ -234,7 +234,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenPlanner 
       const newPost: TravelDiary = {
         id: 'blog-' + Date.now(),
         title: formData.title,
-        author: formData.author || 'Harshvardhan',
+        author: formData.author || 'Harsh Vardhan Gupta & Ananya Gupta',
         location: formData.location || 'Jaipur, Rajasthan',
         date: formData.date || 'Recent',
         travelerType: formData.travelerType,
@@ -330,7 +330,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenPlanner 
                   Pinkcity<span className="text-[#C83E5C]">routes</span> Travel Blog
                 </span>
                 <span className="text-[10px] text-slate-500 hidden sm:block">
-                  Curated by Harshvardhan Gupta & Ananya Gupta · Direct WhatsApp {AGENCY_DETAILS.phone}
+                  Curated by Harsh Vardhan Gupta & Ananya Gupta · Direct WhatsApp {AGENCY_DETAILS.phone}
                 </span>
               </div>
             </div>
@@ -385,7 +385,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenPlanner 
               className="inline-flex items-center gap-1.5 bg-[#128C7E] hover:bg-[#075E54] text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow-sm transition-all"
             >
               <MessageSquare className="w-4 h-4" />
-              <span className="hidden md:inline">WhatsApp Harshvardhan</span>
+              <span className="hidden md:inline">WhatsApp Us</span>
             </a>
           </div>
         </div>
@@ -746,7 +746,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenPlanner 
                       onChange={(e) => setFormData({ ...formData, travelerType: e.target.value })}
                       className="w-full bg-[#FAF7F2] border border-stone-300 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
                     >
-                      <option value="Founder's Guide">Founder's Guide (Harshvardhan)</option>
+                      <option value="Founder's Guide">Founder's Guide (Harsh Vardhan & Ananya)</option>
                       <option value="Day Trip Guide">1-Day Sightseeing Guide</option>
                       <option value="Vehicle & Fleet">Fleet & Car Comparison</option>
                       <option value="Heritage & Culture">Heritage & Architecture</option>
@@ -1004,7 +1004,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenPlanner 
 
                 <a
                   href={createWhatsAppUrl(
-                    `Hello Harshvardhan, I was reading the travel blog *${activeDiary.title}* on Pinkcityroutes. I would like to plan a similar tour!`
+                    `Hello Harsh Vardhan & Ananya, I was reading the travel blog *${activeDiary.title}* on Pinkcityroutes. I would like to plan a similar tour!`
                   )}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -1036,7 +1036,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenPlanner 
             <span className="font-display font-bold text-white text-sm">
               Pinkcity<span className="text-[#C83E5C]">routes</span>
             </span>
-            <span>· Founded by Harshvardhan Gupta & Ananya Gupta</span>
+            <span>· Founded by Harsh Vardhan Gupta & Ananya Gupta</span>
           </div>
 
           <div className="flex items-center gap-4 text-xs">

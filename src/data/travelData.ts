@@ -54,10 +54,10 @@ export interface Testimonial {
 export const AGENCY_DETAILS = {
   name: 'Pinkcityroutes',
   tagline: 'Premier Travel & Tour Agency',
-  founder: 'Harshvardhan Gupta & Ananya Gupta',
+  founder: 'Harsh Vardhan Gupta & Ananya Gupta',
   founders: [
     {
-      name: 'Harshvardhan Gupta',
+      name: 'Harsh Vardhan Gupta',
       role: 'Co-Founder & Chief Travel Architect',
       focus: 'Heritage Routes, Fleet Logistics & Custom Itineraries',
     },
@@ -459,7 +459,7 @@ export const TESTIMONIALS: Testimonial[] = [
     destination: 'Udaipur & Jaipur Anniversary Tour',
     tripDate: 'February 2026',
     comment:
-      'Harshvardhan and Ananya planned our entire Udaipur and Jaipur anniversary trip flawlessly. Handpicked hotels and smooth transfers throughout!',
+      'Harsh Vardhan and Ananya planned our entire Udaipur and Jaipur anniversary trip flawlessly. Handpicked hotels and smooth transfers throughout!',
     rating: 5,
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
   },
@@ -481,7 +481,7 @@ export const TESTIMONIALS: Testimonial[] = [
     destination: 'Royal Rajasthan Heritage Circuit',
     tripDate: 'December 2025',
     comment:
-      'Best experience in Rajasthan! Transparent pricing and loved the surprise welcome goodies. Harshvardhan and Ananya were available 24/7.',
+      'Best experience in Rajasthan! Transparent pricing and loved the surprise welcome goodies. Harsh Vardhan and Ananya were available 24/7.',
     rating: 5,
     avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80',
   },
@@ -577,7 +577,7 @@ export const FAQS = [
   {
     question: 'How do I book a tour with Pinkcityroutes?',
     answer:
-      'Booking is effortless and transparent! You can click any package on this page to chat directly with co-founders Harshvardhan Gupta & Ananya Gupta on WhatsApp (+91 98932 21141) or use our Custom Tour Planner. We discuss your preferred dates, hotel style, and requirements, provide a finalized day-by-day itinerary, and confirm your booking with verified hotel & driver vouchers.',
+      'Booking is effortless and transparent! You can click any package on this page to chat directly with co-founders Harsh Vardhan Gupta & Ananya Gupta on WhatsApp (+91 98932 21141) or use our Custom Tour Planner. We discuss your preferred dates, hotel style, and requirements, provide a finalized day-by-day itinerary, and confirm your booking with verified hotel & driver vouchers.',
   },
   {
     question: 'Can all tour packages be customized to our preferences?',
@@ -592,7 +592,7 @@ export const FAQS = [
   {
     question: 'Will someone assist us during our trip?',
     answer:
-      'Yes! Unlike impersonal commercial travel websites, co-founders Harshvardhan Gupta & Ananya Gupta and our on-ground operations team are available 24/7 on WhatsApp and direct call (+91 98932 21141). Whether you need an early breakfast, a route tweak, or restaurant advice, we are just a quick message away.',
+      'Yes! Unlike impersonal commercial travel websites, co-founders Harsh Vardhan Gupta & Ananya Gupta and our on-ground operations team are available 24/7 on WhatsApp and direct call (+91 98932 21141). Whether you need an early breakfast, a route tweak, or restaurant advice, we are just a quick message away.',
   },
   {
     question: 'Do you arrange flights, train tickets, and international visas?',
@@ -854,9 +854,9 @@ export const TRAVEL_DIARIES: TravelDiary[] = [
     travelerType: 'Couple Anniversary Trip',
     readTime: '4 min read',
     excerpt:
-      'We started our day at 6:30 AM to catch the morning sun glowing against Maota Lake. Harshvardhan had arranged our driver Vikram, who navigated effortlessly and showed us hidden photography courtyards away from the rush...',
+      'We started our day at 6:30 AM to catch the morning sun glowing against Maota Lake. Harsh Vardhan had arranged our driver Vikram, who navigated effortlessly and showed us hidden photography courtyards away from the rush...',
     fullStory:
-      'We booked our anniversary journey with Pinkcityroutes on short notice, but Harshvardhan personally curated every detail. Our morning started at 6:30 AM as our clean Dzire pulled up in front of our heritage hotel in C-Scheme. The morning air in Jaipur was crisp. As we approached Amer Fort, the reflection of the sunlit golden fortifications in Maota Lake took our breath away. Our driver Vikram ji guided us to the best viewpoint right by Kesar Kyari garden before the tourist crowd arrived. We toured the Sheesh Mahal (Mirror Palace) where thousands of concave mirrors sparkle with a single matchstick. After Amer, we stopped for piping hot Pyaaz Kachoris and kulhad chai. Having Harshvardhan check in with us on WhatsApp during lunch to ensure everything was perfect made us feel like family rather than tourists.',
+      'We booked our anniversary journey with Pinkcityroutes on short notice, but Harsh Vardhan personally curated every detail. Our morning started at 6:30 AM as our clean Dzire pulled up in front of our heritage hotel in C-Scheme. The morning air in Jaipur was crisp. As we approached Amer Fort, the reflection of the sunlit golden fortifications in Maota Lake took our breath away. Our driver Vikram ji guided us to the best viewpoint right by Kesar Kyari garden before the tourist crowd arrived. We toured the Sheesh Mahal (Mirror Palace) where thousands of concave mirrors sparkle with a single matchstick. After Amer, we stopped for piping hot Pyaaz Kachoris and kulhad chai. Having Harsh Vardhan check in with us on WhatsApp during lunch to ensure everything was perfect made us feel like family rather than tourists.',
     highlights: [
       'Sunrise photography at Maota Lake & Kesar Kyari',
       'Intricate glasswork inside Sheesh Mahal',
@@ -876,7 +876,7 @@ export const TRAVEL_DIARIES: TravelDiary[] = [
     excerpt:
       'A prompt 6:00 AM pick-up from our hotel in an Innova Crysta. Within three smooth hours on the Yamuna Expressway, our kids were standing in awe before the majestic white marble domes of the Taj Mahal...',
     fullStory:
-      'Visiting the Taj Mahal was on our family’s bucket list for years, but we only had one free weekend in North India. Harshvardhan recommended the same-day Agra circuit in a Toyota Innova Crysta. The car was spotless with child-safe booster seating and chilled AC. We zoomed down the Yamuna Expressway without any hiccups, and the driver had already bought cold water bottles and arranged a licensed government guide at the gate. Seeing the Taj Mahal bathed in morning light is an unforgettable sight. After the Taj and Agra Fort, we stopped at an authentic marble inlay artisan workshop and savored fresh Agra Petha. We were safely back at our Delhi hotel by 8:30 PM. Truly 5-star personalized hospitality!',
+      'Visiting the Taj Mahal was on our family’s bucket list for years, but we only had one free weekend in North India. Harsh Vardhan recommended the same-day Agra circuit in a Toyota Innova Crysta. The car was spotless with child-safe booster seating and chilled AC. We zoomed down the Yamuna Expressway without any hiccups, and the driver had already bought cold water bottles and arranged a licensed government guide at the gate. Seeing the Taj Mahal bathed in morning light is an unforgettable sight. After the Taj and Agra Fort, we stopped at an authentic marble inlay artisan workshop and savored fresh Agra Petha. We were safely back at our Delhi hotel by 8:30 PM. Truly 5-star personalized hospitality!',
     highlights: [
       'Effortless 3-hour smooth highway drive via Yamuna Expressway',
       'Skip-the-line guided entrance to Taj Mahal',
@@ -896,7 +896,7 @@ export const TRAVEL_DIARIES: TravelDiary[] = [
     excerpt:
       'Waking up inside an intricately carved cedar wood houseboat felt like stepping into an old romantic classic. Drinking steaming saffron kahwa while wooden Shikaras glided past floating flower gardens...',
     fullStory:
-      'As a solo female traveler, safety and trustworthy on-ground support were my biggest priorities. Booking with Pinkcityroutes gave me 100% peace of mind because Harshvardhan gave me his direct personal WhatsApp and connected me with our verified Kashmiri chauffeur, Farooq. My morning on Dal Lake began with the soothing call to prayer and the gentle splash of cedar paddles. The Shikara boatman served authentic saffron Kahwa brewed with crushed almonds. We visited floating vegetable markets and photographed pink lotus blossoms. The next day in Gulmarg, Farooq assisted with the Gondola phase boarding without any lines. The level of care, respect, and hospitality shown by Pinkcityroutes made this trip the best memory of my life.',
+      'As a solo female traveler, safety and trustworthy on-ground support were my biggest priorities. Booking with Pinkcityroutes gave me 100% peace of mind because Harsh Vardhan gave me his direct personal WhatsApp and connected me with our verified Kashmiri chauffeur, Farooq. My morning on Dal Lake began with the soothing call to prayer and the gentle splash of cedar paddles. The Shikara boatman served authentic saffron Kahwa brewed with crushed almonds. We visited floating vegetable markets and photographed pink lotus blossoms. The next day in Gulmarg, Farooq assisted with the Gondola phase boarding without any lines. The level of care, respect, and hospitality shown by Pinkcityroutes made this trip the best memory of my life.',
     highlights: [
       'Traditional cedar houseboat stay with hot Kahwa at dawn',
       'Peaceful sunset Shikara ride across the lotus waterways',
@@ -907,8 +907,8 @@ export const TRAVEL_DIARIES: TravelDiary[] = [
   },
   {
     id: 'jaipur-sunset-secrets',
-    title: "Harshvardhan's Insider Guide: Sunset at Nahargarh & Secret Bazaars",
-    author: 'Harshvardhan (Founder)',
+    title: "Harsh Vardhan's Insider Guide: Sunset at Nahargarh & Secret Bazaars",
+    author: 'Harsh Vardhan (Co-Founder)',
     date: 'October 2026',
     location: 'Nahargarh Fort & Johari Bazaar, Jaipur',
     travelerType: "Founder's Guide",
@@ -928,7 +928,7 @@ export const TRAVEL_DIARIES: TravelDiary[] = [
   {
     id: 'rajasthan-highway-cabs',
     title: 'Choosing the Right Vehicle: Dzire vs Innova Crysta for Rajasthan Roads',
-    author: 'Harshvardhan (Founder)',
+    author: 'Harsh Vardhan (Co-Founder)',
     date: 'September 2026',
     location: 'Jaipur - Jodhpur - Udaipur Circuit',
     travelerType: 'Travel Advice',

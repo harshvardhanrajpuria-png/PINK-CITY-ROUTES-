@@ -82,7 +82,7 @@ export const ComplimentaryPerks: React.FC = () => {
         {/* Bottom hospitality assurance note */}
         <div className="mt-12 text-center text-xs text-slate-500 max-w-2xl mx-auto">
           *Terms & conditions apply on select third-party monument tickets and partner merchant vouchers.
-          All complimentary inclusions are coordinated seamlessly by Harshvardhan and your private chauffeur.
+          All complimentary inclusions are coordinated seamlessly by Harsh Vardhan & Ananya and your private chauffeur.
         </div>
       </div>
     </section>

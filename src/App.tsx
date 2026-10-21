@@ -155,7 +155,7 @@ export default function App() {
         {/* 12. Frequently Asked Questions */}
         <FaqSection />
 
-        {/* 13. Co-Founders Section: Harshvardhan Gupta & Ananya Gupta */}
+        {/* 13. Co-Founders Section: Harsh Vardhan Gupta & Ananya Gupta */}
         <FounderStory />
 
         {/* 14. Direct Contact & Office Details */}

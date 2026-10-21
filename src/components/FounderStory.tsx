@@ -37,7 +37,7 @@ export const FounderStory: React.FC = () => {
             Meet Our Co-Founders
           </h2>
           <p className="mt-4 text-slate-600 text-sm sm:text-base leading-relaxed">
-            Founded by <strong className="text-slate-900 font-semibold">Harshvardhan Gupta</strong> &{' '}
+            Founded by <strong className="text-slate-900 font-semibold">Harsh Vardhan Gupta</strong> &{' '}
             <strong className="text-slate-900 font-semibold">Ananya Gupta</strong> in Jaipur, Pinkcityroutes
             was born from a shared conviction: every journey should be treated with the same warmth, honesty,
             and flawless attention to detail as if our own family were traveling.
@@ -46,7 +46,7 @@ export const FounderStory: React.FC = () => {
 
         {/* 2 Co-Founders Side-by-Side Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 mb-16">
-          {/* Founder 1: Harshvardhan Gupta */}
+          {/* Founder 1: Harsh Vardhan Gupta */}
           <div className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/90 shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col justify-between relative group hover:-translate-y-1">
             <div className="absolute -top-3 right-6 bg-[#111A24] text-amber-300 text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-amber-300/30 shadow-sm flex items-center gap-1.5">
               <ShieldCheck className="w-3 h-3 text-emerald-400" />
@@ -60,16 +60,16 @@ export const FounderStory: React.FC = () => {
                   {!harshImgFailed ? (
                     <img
                       src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80"
-                      alt="Harshvardhan Gupta - Co-Founder of Pinkcityroutes"
+                      alt="Harsh Vardhan Gupta - Co-Founder of Pinkcityroutes"
                       onError={() => setHarshImgFailed(true)}
                       className="w-full h-full object-cover object-top filter brightness-95 group-hover:scale-105 transition-transform duration-500"
                     />
                   ) : (
                     <div className="w-full h-full flex flex-col items-center justify-center bg-slate-900 text-white p-4 text-center">
                       <div className="w-14 h-14 rounded-full bg-[#C83E5C] text-white flex items-center justify-center text-2xl font-bold font-display mb-2">
-                        HG
+                        HVG
                       </div>
-                      <span className="text-xs font-semibold">Harshvardhan</span>
+                      <span className="text-xs font-semibold">Harsh Vardhan</span>
                     </div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
@@ -86,14 +86,14 @@ export const FounderStory: React.FC = () => {
                     Bespoke Routes & Operations
                   </div>
                   <h3 className="font-display text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
-                    Harshvardhan Gupta
+                    Harsh Vardhan Gupta
                   </h3>
                   <p className="text-xs font-semibold text-[#C83E5C] mt-0.5">
                     Co-Founder & Chief Travel Architect
                   </p>
 
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mt-3">
-                    Born and raised in the heart of Jaipur, Harshvardhan has spent over a decade mapping
+                    Born and raised in the heart of Jaipur, Harsh Vardhan has spent over a decade mapping
                     the royal circuits of Rajasthan, the valleys of Kashmir, and cross-state highway corridors.
                     He personally inspects our private vehicle fleet and ensures transparent pricing with zero commissions.
                   </p>
@@ -138,14 +138,14 @@ export const FounderStory: React.FC = () => {
             <div className="pt-4 border-t border-stone-100 flex items-center justify-between gap-3">
               <a
                 href={createWhatsAppUrl(
-                  'Hello Harshvardhan, I would like to consult with you directly regarding my travel itinerary.'
+                  'Hello Harsh Vardhan, I would like to consult with you directly regarding my travel itinerary.'
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 inline-flex items-center justify-center gap-2 bg-[#128C7E] hover:bg-[#075E54] text-white text-xs font-bold py-3 px-4 rounded-xl shadow-xs transition-all"
               >
                 <MessageSquare className="w-4 h-4" />
-                <span>Chat with Harshvardhan on WhatsApp</span>
+                <span>Chat with Harsh Vardhan on WhatsApp</span>
               </a>
 
               <a
@@ -286,7 +286,7 @@ export const FounderStory: React.FC = () => {
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-2xl mx-auto">
               Whether you are traveling solo, planning a once-in-a-lifetime honeymoon, or coordinating a multi-generation
-              family reunion, Harshvardhan Gupta and Ananya Gupta oversee your journey with direct accountability.
+              family reunion, Harsh Vardhan Gupta and Ananya Gupta oversee your journey with direct accountability.
             </p>
 
             <div className="pt-4 flex flex-wrap items-center justify-center gap-4">

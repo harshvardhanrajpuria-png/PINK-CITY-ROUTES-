@@ -21,7 +21,7 @@ export const FloatingWhatsApp: React.FC = () => {
             </button>
             <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0 mt-1 animate-pulse" />
             <div>
-              <div className="font-bold text-slate-900">Plan with Harshvardhan</div>
+              <div className="font-bold text-slate-900">Plan with Harsh Vardhan & Ananya</div>
               <div className="text-[11px] text-slate-500 mt-0.5 leading-snug">
                 Ask about packages, dates & get a custom quote within minutes!
               </div>
@@ -34,10 +34,10 @@ export const FloatingWhatsApp: React.FC = () => {
           target="_blank"
           rel="noopener noreferrer"
           className="group flex items-center gap-2.5 bg-[#25D366] hover:bg-[#1EBE5D] text-slate-950 font-bold text-xs py-3.5 px-5 rounded-full shadow-2xl shadow-emerald-600/40 hover:scale-105 active:scale-95 transition-all"
-          title="Chat directly on WhatsApp with Harshvardhan"
+          title="Chat directly on WhatsApp with Harsh Vardhan & Ananya"
         >
           <MessageSquare className="w-5 h-5 fill-slate-950/20" />
-          <span className="tracking-wide">WhatsApp Harshvardhan</span>
+          <span className="tracking-wide">Chat with Harsh Vardhan & Ananya</span>
         </a>
       </div>
 

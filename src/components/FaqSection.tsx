@@ -66,7 +66,7 @@ export const FaqSection: React.FC = () => {
             Have a unique question or custom itinerary in mind?
           </p>
           <p className="text-xs text-slate-500 mt-1 mb-4">
-            Harshvardhan is available directly on WhatsApp to answer any specific query within minutes.
+            Co-founders Harsh Vardhan Gupta & Ananya Gupta are available directly on WhatsApp to answer any specific query within minutes.
           </p>
           <a
             href={getGeneralWhatsAppLink()}
@@ -74,7 +74,7 @@ export const FaqSection: React.FC = () => {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-[#128C7E] hover:bg-[#075E54] text-white text-xs font-bold px-5 py-2.5 rounded-xl shadow-sm transition-all"
           >
-            <span>Ask Harshvardhan on WhatsApp</span>
+            <span>Ask Harsh Vardhan & Ananya on WhatsApp</span>
           </a>
         </div>
       </div>
