@@ -20,13 +20,14 @@ export const Hero: React.FC<HeroProps> = ({ onExplorePackages, onOpenPlanner }) 
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-[#101b2b] via-[#16253b] to-[#1c2d47] text-white">
-      {/* Background imagery with subtle overlay and warm ambient glow */}
-      <div className="absolute inset-0 z-0 opacity-25 mix-blend-luminosity pointer-events-none">
+      {/* Background imagery with rich cinematic overlay and warm ambient glow */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=2000&q=80"
-          alt="Jaipur Amber Fort & Heritage Architecture"
-          className="w-full h-full object-cover object-center"
+          src="/assets/aistudio/Rajasthan-1_c57fba4b.jpg"
+          alt="Jaipur Amber Fort & Heritage Architecture - Pinkcityroutes"
+          className="w-full h-full object-cover object-center filter brightness-[0.42] saturate-[1.25]"
         />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#101b2b]/75 via-[#101b2b]/55 to-[#101b2b]/95" />
       </div>
 
       {/* Decorative gradient radial glows */}

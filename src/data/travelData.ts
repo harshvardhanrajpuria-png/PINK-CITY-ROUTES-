@@ -73,7 +73,7 @@ export const TOP_DESTINATIONS: Destination[] = [
     startingPrice: '₹12,999',
     duration: '4 - 8 Days',
     bestTime: 'October to March',
-    image: 'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80',
+    image: '/assets/aistudio/Rajasthan-1_c57fba4b.jpg',
     tagline: 'Palaces, Forts & Desert Royalty',
     keyAttractions: [
       'Amber Fort & Hawa Mahal',
@@ -204,7 +204,7 @@ export const FEATURED_PACKAGES: TourPackage[] = [
     startingPrice: 12999,
     formattedPrice: '₹12,999',
     category: 'domestic',
-    image: 'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80',
+    image: '/assets/aistudio/Rajasthan-1_c57fba4b.jpg',
     rating: 4.95,
     reviewsCount: 148,
     route: 'Jaipur · Amber · Nahargarh · Cultural Village',
