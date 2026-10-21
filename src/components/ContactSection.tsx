@@ -21,6 +21,15 @@ export const ContactSection: React.FC = () => {
   const [travelers, setTravelers] = useState('2');
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [copiedEmail, setCopiedEmail] = useState(false);
+
+  const handleCopyEmail = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigator.clipboard.writeText(AGENCY_DETAILS.email);
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2500);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -110,6 +119,38 @@ export const ContactSection: React.FC = () => {
                   </span>
                 </div>
               </a>
+
+              {/* Official Email */}
+              <div className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-amber-400/50 hover:bg-white/10 transition-all group">
+                <a
+                  href={`mailto:${AGENCY_DETAILS.email}`}
+                  className="flex items-center gap-4 flex-1 min-w-0"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    <Mail className="w-6 h-6" />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-[11px] uppercase tracking-wider text-slate-400 block font-semibold">
+                      Official Email
+                    </span>
+                    <span className="text-sm sm:text-base font-bold text-white group-hover:text-amber-300 transition-colors truncate block">
+                      {AGENCY_DETAILS.email}
+                    </span>
+                    <span className="text-xs text-amber-300/80 block mt-0.5 truncate">
+                      Direct inquiries & voucher confirmations
+                    </span>
+                  </div>
+                </a>
+
+                <button
+                  type="button"
+                  onClick={handleCopyEmail}
+                  className="ml-2 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-semibold text-amber-300 hover:text-white transition-colors shrink-0"
+                  title="Copy email address"
+                >
+                  {copiedEmail ? 'Copied ✓' : 'Copy'}
+                </button>
+              </div>
 
               {/* Physical Office Location in Jaipur */}
               <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/5 border border-white/10">

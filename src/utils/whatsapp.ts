@@ -67,3 +67,27 @@ export function getCouponWhatsAppLink(couponCode: string, discount: string): str
     `Please share package options and lock in my special rate!`;
   return createWhatsAppUrl(msg);
 }
+
+export function getOneDayTourWhatsAppLink(tourTitle: string, duration: string): string {
+  const msg =
+    `Hello Harshvardhan,\n` +
+    `I would like to book the *${tourTitle}* (${duration}).\n` +
+    `Please share availability, vehicle options, and pick-up details. Thank you!`;
+  return createWhatsAppUrl(msg);
+}
+
+export function getFleetBookingWhatsAppLink(vehicleName: string, capacity: string): string {
+  const msg =
+    `Hello Harshvardhan,\n` +
+    `I would like to book the *${vehicleName}* (${capacity}) with a dedicated chauffeur for our upcoming trip.\n` +
+    `Please share tariff rates, availability, and booking confirmation. Thank you!`;
+  return createWhatsAppUrl(msg);
+}
+
+export function getDiarySubmissionWhatsAppLink(): string {
+  const msg =
+    `Hello Harshvardhan,\n` +
+    `I traveled with Pinkcityroutes and would love to submit my daily travel story, review, and trip photos to be featured on your official Travel Diary and Instagram @pinkcityroutes!`;
+  return createWhatsAppUrl(msg);
+}
+

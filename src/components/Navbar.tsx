@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, MessageSquare, Instagram, Menu, X, Compass, ChevronRight, ShieldCheck } from 'lucide-react';
+import { Phone, MessageSquare, Instagram, Mail, Menu, X, ChevronRight, ShieldCheck, Sparkles, BookOpen } from 'lucide-react';
 import { AGENCY_DETAILS } from '../data/travelData';
 import { getGeneralWhatsAppLink } from '../utils/whatsapp';
 
 interface NavbarProps {
   onOpenPlanner: () => void;
+  onNavigateToBlog?: () => void;
+  onNavigateToHome?: () => void;
+  currentView?: 'home' | 'blog';
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenPlanner }) => {
+export const Navbar: React.FC<NavbarProps> = ({
+  onOpenPlanner,
+  onNavigateToBlog,
+  onNavigateToHome,
+  currentView = 'home',
+}) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -19,35 +27,73 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPlanner }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Responsive nav items with collision protection
   const navLinks = [
+    { name: '1-Day Tours', href: '#one-day-tours' },
+    { name: 'Fleet & Cars', href: '#fleet' },
+    { name: 'Tour Packages', href: '#packages' },
     { name: 'Destinations', href: '#destinations' },
-    { name: 'Packages', href: '#packages' },
-    { name: 'Offers & Coupons', href: '#coupons' },
-    { name: 'Complimentary Perks', href: '#perks' },
-    { name: 'How It Works', href: '#how-it-works' },
-    { name: 'Custom Planner', href: '#planner', onClick: onOpenPlanner },
-    { name: 'Founder Note', href: '#founder' },
-    { name: 'Reviews', href: '#reviews' },
+    {
+      name: 'Travel Blog',
+      href: '#diaries',
+      isBlog: true,
+      badge: 'Blog & Edit',
+    },
+    { name: 'Offers', href: '#coupons', hideOnLg: true },
     { name: 'Contact', href: '#contact' },
   ];
 
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, link: typeof navLinks[0]) => {
+    if (link.isBlog && onNavigateToBlog) {
+      e.preventDefault();
+      onNavigateToBlog();
+      return;
+    }
+
+    if (currentView === 'blog' && onNavigateToHome) {
+      e.preventDefault();
+      onNavigateToHome();
+      // Scroll to anchor on home after brief frame
+      setTimeout(() => {
+        const el = document.querySelector(link.href);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 50);
+    }
+  };
+
   return (
     <header className="sticky top-0 z-50 transition-all duration-300">
-      {/* Top Bar for Trust & Direct Contact */}
+      {/* Top Bar for Trust & Direct Contact with Official Email */}
       <div className="bg-[#111A24] text-amber-50/90 text-xs py-2 px-4 border-b border-amber-900/30">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-          <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-1.5 text-amber-300 font-medium">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2">
+          {/* Left: Founder Credibility */}
+          <div className="flex items-center gap-2 sm:gap-3 text-center sm:text-left">
+            <span className="inline-flex items-center gap-1.5 text-amber-300 font-semibold">
               <ShieldCheck className="w-3.5 h-3.5" />
               Founded & Managed by Harshvardhan
             </span>
-            <span className="hidden md:inline text-slate-500">·</span>
-            <span className="hidden md:inline text-slate-300">
-              Personalized Domestic & International Itineraries
+            <span className="hidden sm:inline text-slate-500">·</span>
+            <span className="hidden sm:inline text-slate-300 text-[11px]">
+              Jaipur Headquarters · Bespoke Journeys
             </span>
           </div>
 
-          <div className="flex items-center gap-4 text-xs">
+          {/* Right: Direct Phone, WhatsApp, Official Email, Instagram */}
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs">
+            {/* Official Email */}
+            <a
+              href={`mailto:${AGENCY_DETAILS.email}`}
+              className="inline-flex items-center gap-1.5 text-slate-200 hover:text-amber-300 transition-colors font-medium group"
+              title="Official Agency Email: harshvardhanrajpuria@gmail.com"
+            >
+              <Mail className="w-3.5 h-3.5 text-amber-300 shrink-0" />
+              <span className="hidden sm:inline text-[11px] text-amber-300 font-bold uppercase tracking-wider">Email:</span>
+              <span>{AGENCY_DETAILS.email}</span>
+            </a>
+
+            <span className="text-slate-600 hidden sm:inline">·</span>
+
+            {/* Direct Phone */}
             <a
               href={`tel:${AGENCY_DETAILS.phoneRaw}`}
               className="inline-flex items-center gap-1 text-slate-200 hover:text-amber-300 transition-colors"
@@ -55,7 +101,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPlanner }) => {
               <Phone className="w-3 h-3 text-emerald-400" />
               <span>{AGENCY_DETAILS.phone}</span>
             </a>
+
             <span className="text-slate-600">·</span>
+
+            {/* WhatsApp */}
             <a
               href={getGeneralWhatsAppLink()}
               target="_blank"
@@ -65,7 +114,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPlanner }) => {
               <MessageSquare className="w-3 h-3" />
               <span>WhatsApp Us</span>
             </a>
+
             <span className="text-slate-600">·</span>
+
+            {/* Instagram */}
             <a
               href={AGENCY_DETAILS.instagram}
               target="_blank"
@@ -74,67 +126,117 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPlanner }) => {
               title="Follow @pinkcityroutes on Instagram"
             >
               <Instagram className="w-3 h-3" />
-              <span className="hidden sm:inline">pinkcityroutes</span>
+              <span className="hidden lg:inline">@pinkcityroutes</span>
             </a>
           </div>
         </div>
       </div>
 
-      {/* Main Navbar */}
+      {/* Main Navbar with Anti-Collision Architecture */}
       <nav
         className={`transition-all duration-300 ${
           isScrolled
-            ? 'bg-white/95 backdrop-blur-md shadow-md py-3 border-b border-stone-200'
-            : 'bg-white/90 backdrop-blur-sm py-4 border-b border-stone-100'
+            ? 'bg-white/95 backdrop-blur-md shadow-md py-2.5 border-b border-stone-200'
+            : 'bg-white/90 backdrop-blur-sm py-3 border-b border-stone-100'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Brand Logo */}
-          <a href="#" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#E05A76] to-[#C83E5C] text-white flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
-              <Compass className="w-6 h-6 stroke-[2.2]" />
-            </div>
-            <div>
-              <span className="font-display text-2xl font-bold tracking-tight text-slate-900 block leading-tight">
-                Pinkcity<span className="text-[#C83E5C]">routes</span>
-              </span>
-              <span className="text-[11px] font-medium uppercase tracking-wider text-stone-500 block">
-                Tours & Bespoke Journeys
-              </span>
-            </div>
-          </a>
+          {/* Brand Logo with Guaranteed Spacing & Physical Divider */}
+          <div className="flex items-center shrink-0">
+            <a
+              href="#"
+              onClick={(e) => {
+                if (currentView === 'blog' && onNavigateToHome) {
+                  e.preventDefault();
+                  onNavigateToHome();
+                }
+              }}
+              className="flex items-center gap-2.5 sm:gap-3 group shrink-0 mr-4 lg:mr-6"
+            >
+              <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden shadow-sm border-2 border-[#C83E5C]/30 group-hover:scale-105 transition-transform shrink-0 bg-white">
+                <img
+                  src={AGENCY_DETAILS.logo}
+                  alt="Pinkcityroutes Official Brand Logo"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div>
+                <span className="font-display text-xl sm:text-2xl font-bold tracking-tight text-slate-900 block leading-tight whitespace-nowrap">
+                  Pinkcity<span className="text-[#C83E5C]">routes</span>
+                </span>
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-[#C83E5C] block whitespace-nowrap">
+                  Explore · Experience · Remember
+                </span>
+              </div>
+            </a>
 
-          {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={link.onClick}
-                className="text-sm font-medium text-slate-700 hover:text-[#C83E5C] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#C83E5C] hover:after:w-full after:transition-all"
-              >
-                {link.name}
-              </a>
-            ))}
+            {/* Boundary Divider so Pinkcityroutes Logo NEVER touches 1-Day Tours */}
+            <div className="hidden lg:block h-7 w-[1px] bg-stone-200 mr-5 xl:mr-7 shrink-0" />
           </div>
 
-          {/* Action CTAs */}
-          <div className="hidden md:flex items-center gap-3">
-            <button
-              onClick={onOpenPlanner}
-              className="text-xs font-semibold px-4 py-2.5 rounded-lg border border-stone-300 text-slate-700 hover:bg-stone-50 transition-colors"
-            >
-              Plan Custom Trip
-            </button>
-            <a
-              href={getGeneralWhatsAppLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#128C7E] hover:bg-[#075E54] text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow-sm transition-all hover:shadow"
-            >
-              <MessageSquare className="w-4 h-4 fill-white/20" />
-              <span>WhatsApp Harshvardhan</span>
-            </a>
+          {/* Desktop Navigation Links with Ample Spacing */}
+          <div className="hidden lg:flex items-center gap-3.5 xl:gap-6 min-w-0">
+            {navLinks.map((link) => {
+              if (link.hideOnLg) {
+                return (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={(e) => handleLinkClick(e, link)}
+                    className="hidden xl:flex text-xs xl:text-sm font-semibold text-slate-700 hover:text-[#C83E5C] transition-colors relative py-1.5 whitespace-nowrap items-center gap-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#C83E5C] hover:after:w-full after:transition-all"
+                  >
+                    <span>{link.name}</span>
+                  </a>
+                );
+              }
+
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={(e) => handleLinkClick(e, link)}
+                  className={`text-xs xl:text-sm font-semibold transition-colors relative py-1.5 whitespace-nowrap flex items-center gap-1.5 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#C83E5C] hover:after:w-full after:transition-all ${
+                    link.isBlog && currentView === 'blog'
+                      ? 'text-[#C83E5C] font-bold'
+                      : 'text-slate-700 hover:text-[#C83E5C]'
+                  }`}
+                >
+                  <span>{link.name}</span>
+                  {link.badge && (
+                    <span className="text-[9px] font-bold uppercase tracking-wider bg-rose-100 text-[#C83E5C] px-1.5 py-0.5 rounded shadow-2xs">
+                      {link.badge}
+                    </span>
+                  )}
+                </a>
+              );
+            })}
+          </div>
+
+          {/* Action CTAs with Boundary Divider so Contact NEVER touches buttons */}
+          <div className="hidden md:flex items-center shrink-0 ml-auto lg:ml-0">
+            {/* Boundary line */}
+            <div className="hidden lg:block h-7 w-[1px] bg-stone-200 ml-4 xl:ml-6 mr-3 xl:mr-4 shrink-0" />
+
+            <div className="flex items-center gap-2.5 shrink-0">
+              <button
+                onClick={onOpenPlanner}
+                className="hidden 2xl:inline-flex text-xs font-semibold px-3.5 py-2.5 rounded-lg border border-stone-300 text-slate-700 hover:bg-stone-50 transition-colors whitespace-nowrap"
+              >
+                Plan Custom Trip
+              </button>
+
+              <a
+                href={getGeneralWhatsAppLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 bg-[#128C7E] hover:bg-[#075E54] text-white text-xs font-bold px-3.5 xl:px-4 py-2.5 rounded-lg shadow-sm transition-all hover:shadow whitespace-nowrap"
+              >
+                <MessageSquare className="w-4 h-4 fill-white/20" />
+                <span>
+                  WhatsApp <span className="hidden xl:inline">Harshvardhan</span>
+                </span>
+              </a>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -166,16 +268,48 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPlanner }) => {
                 <a
                   key={link.name}
                   href={link.href}
-                  onClick={() => {
+                  onClick={(e) => {
                     setMobileMenuOpen(false);
-                    if (link.onClick) link.onClick();
+                    handleLinkClick(e, link);
                   }}
-                  className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-slate-800 hover:bg-stone-50"
+                  className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-semibold text-slate-800 hover:bg-stone-50"
                 >
-                  <span>{link.name}</span>
+                  <div className="flex items-center gap-2">
+                    <span>{link.name}</span>
+                    {link.badge && (
+                      <span className="text-[9px] font-bold uppercase tracking-wider bg-rose-100 text-[#C83E5C] px-1.5 py-0.5 rounded">
+                        {link.badge}
+                      </span>
+                    )}
+                  </div>
                   <ChevronRight className="w-4 h-4 text-stone-400" />
                 </a>
               ))}
+
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  if (onNavigateToBlog) onNavigateToBlog();
+                }}
+                className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-bold text-[#C83E5C] bg-rose-50 hover:bg-rose-100"
+              >
+                <div className="flex items-center gap-2">
+                  <BookOpen className="w-4 h-4" />
+                  <span>Blog Page & Regular Editor</span>
+                </div>
+                <ChevronRight className="w-4 h-4 text-[#C83E5C]" />
+              </button>
+
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenPlanner();
+                }}
+                className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-semibold text-slate-800 hover:bg-stone-50 text-left"
+              >
+                <span>Interactive Trip Planner</span>
+                <ChevronRight className="w-4 h-4 text-stone-400" />
+              </button>
             </div>
 
             <div className="pt-3 border-t border-stone-100 space-y-2">
@@ -183,28 +317,26 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPlanner }) => {
                 href={getGeneralWhatsAppLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 bg-[#128C7E] text-white py-3 px-4 rounded-xl text-sm font-semibold shadow-sm"
+                className="w-full flex items-center justify-center gap-2 bg-[#128C7E] text-white py-3 px-4 rounded-xl text-sm font-bold shadow-sm"
               >
                 <MessageSquare className="w-4 h-4" />
                 <span>Chat on WhatsApp (+91 98932 21141)</span>
               </a>
 
               <a
-                href={`tel:${AGENCY_DETAILS.phoneRaw}`}
-                className="w-full flex items-center justify-center gap-2 bg-stone-100 text-slate-800 py-3 px-4 rounded-xl text-sm font-semibold hover:bg-stone-200 transition-colors"
+                href={`mailto:${AGENCY_DETAILS.email}`}
+                className="w-full flex items-center justify-center gap-2 bg-stone-100 text-slate-800 py-2.5 px-4 rounded-xl text-xs font-semibold hover:bg-stone-200 transition-colors"
               >
-                <Phone className="w-4 h-4 text-emerald-600" />
-                <span>Call Harshvardhan: {AGENCY_DETAILS.phone}</span>
+                <Mail className="w-4 h-4 text-[#C83E5C]" />
+                <span>Email: {AGENCY_DETAILS.email}</span>
               </a>
 
               <a
-                href={AGENCY_DETAILS.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 border border-pink-200 text-pink-700 bg-pink-50/50 py-2.5 px-4 rounded-xl text-xs font-semibold"
+                href={`tel:${AGENCY_DETAILS.phoneRaw}`}
+                className="w-full flex items-center justify-center gap-2 bg-stone-100 text-slate-800 py-2.5 px-4 rounded-xl text-xs font-semibold hover:bg-stone-200 transition-colors"
               >
-                <Instagram className="w-4 h-4 text-pink-600" />
-                <span>Follow @pinkcityroutes on Instagram</span>
+                <Phone className="w-4 h-4 text-emerald-600" />
+                <span>Call Harshvardhan: {AGENCY_DETAILS.phone}</span>
               </a>
             </div>
           </div>

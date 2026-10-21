@@ -3,12 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useRef, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { DiscountBanner } from './components/DiscountBanner';
 import { CouponSection } from './components/CouponSection';
 import { ComplimentaryPerks } from './components/ComplimentaryPerks';
+import { OneDayTours } from './components/OneDayTours';
+import { FleetSection } from './components/FleetSection';
+import { TravelDiaries } from './components/TravelDiaries';
 import { TopDestinations } from './components/TopDestinations';
 import { FeaturedPackages } from './components/FeaturedPackages';
 import { HowItWorks } from './components/HowItWorks';
@@ -18,38 +21,96 @@ import { FaqSection } from './components/FaqSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
+import { BlogPage } from './components/BlogPage';
 
 export default function App() {
+  const [currentView, setCurrentView] = useState<'home' | 'blog'>(() => {
+    return window.location.hash === '#blog' ? 'blog' : 'home';
+  });
+
   const [selectedPlannerDestination, setSelectedPlannerDestination] = useState<string | undefined>(undefined);
 
+  // Sync hash with current view
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (window.location.hash === '#blog') {
+        setCurrentView('blog');
+      } else if (window.location.hash === '#home' || window.location.hash === '') {
+        setCurrentView('home');
+      }
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const navigateToBlog = () => {
+    setCurrentView('blog');
+    window.location.hash = '#blog';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const navigateToHome = () => {
+    setCurrentView('home');
+    window.location.hash = '#home';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleExplorePackages = () => {
-    const el = document.getElementById('packages');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+    if (currentView === 'blog') {
+      setCurrentView('home');
     }
+    setTimeout(() => {
+      const el = document.getElementById('packages');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 50);
   };
 
   const handleScrollToCoupons = () => {
-    const el = document.getElementById('coupons');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+    if (currentView === 'blog') {
+      setCurrentView('home');
     }
+    setTimeout(() => {
+      const el = document.getElementById('coupons');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 50);
   };
 
   const handleOpenPlanner = (destName?: string) => {
     if (destName) {
       setSelectedPlannerDestination(destName);
     }
-    const el = document.getElementById('planner');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+    if (currentView === 'blog') {
+      setCurrentView('home');
     }
+    setTimeout(() => {
+      const el = document.getElementById('planner');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 50);
   };
 
+  // If in dedicated Blog Page mode
+  if (currentView === 'blog') {
+    return (
+      <div className="min-h-screen flex flex-col bg-[#FAF7F2] text-slate-800 antialiased selection:bg-[#E05A76] selection:text-white">
+        <BlogPage
+          onBackToHome={navigateToHome}
+          onOpenPlanner={() => handleOpenPlanner()}
+        />
+        <FloatingWhatsApp />
+      </div>
+    );
+  }
+
+  // Home Page View
   return (
     <div className="min-h-screen flex flex-col bg-[#FAF7F2] text-slate-800 antialiased selection:bg-[#E05A76] selection:text-white">
       {/* Navigation */}
-      <Navbar onOpenPlanner={() => handleOpenPlanner()} />
+      <Navbar
+        currentView="home"
+        onOpenPlanner={() => handleOpenPlanner()}
+        onNavigateToBlog={navigateToBlog}
+        onNavigateToHome={navigateToHome}
+      />
 
       {/* Main Content Sections */}
       <main className="flex-1">
@@ -62,33 +123,42 @@ export default function App() {
         {/* 2. Instant Discount Banner (5% - 8% Off) */}
         <DiscountBanner onScrollToCoupons={handleScrollToCoupons} />
 
-        {/* 3. Top Destination Highlights */}
+        {/* 3. Curated 1-Day Sightseeing Tours */}
+        <OneDayTours />
+
+        {/* 4. Pinkcityroutes Fleet & Rental Categories */}
+        <FleetSection />
+
+        {/* 5. Top Destination Highlights */}
         <TopDestinations
           onSelectDestinationForPlan={(dest) => handleOpenPlanner(dest)}
         />
 
-        {/* 4. Featured Tour Packages */}
+        {/* 6. Featured Multi-Day Tour Packages */}
         <FeaturedPackages />
 
-        {/* 5. Exclusive Promo & Coupon Codes Section */}
+        {/* 7. Exclusive Promo & Coupon Codes Section */}
         <CouponSection />
 
-        {/* 6. Dedicated Complimentary Perks Section */}
+        {/* 8. Dedicated Complimentary Perks Section */}
         <ComplimentaryPerks />
 
-        {/* 7. How It Works / Custom Tour Planning */}
+        {/* 9. How It Works / Custom Tour Planning */}
         <HowItWorks initialDestination={selectedPlannerDestination} />
 
-        {/* 8. Founder Story / Why Pinkcityroutes */}
+        {/* 10. Traveler Diaries & Regular Blog Hub */}
+        <TravelDiaries onOpenDedicatedBlogPage={navigateToBlog} />
+
+        {/* 11. Founder Story / Why Pinkcityroutes */}
         <FounderStory />
 
-        {/* 9. Guest Testimonials with Authentic Indian Travelers */}
+        {/* 12. Guest Testimonials with Authentic Indian Travelers */}
         <Testimonials />
 
-        {/* 10. Frequently Asked Questions */}
+        {/* 13. Frequently Asked Questions */}
         <FaqSection />
 
-        {/* 11. Direct Contact & Office Details */}
+        {/* 14. Direct Contact & Office Details */}
         <ContactSection />
       </main>
 

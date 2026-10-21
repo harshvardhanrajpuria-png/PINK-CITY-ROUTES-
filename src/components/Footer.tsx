@@ -15,8 +15,12 @@ export const Footer: React.FC = () => {
           {/* Brand Info (2 cols) */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#E05A76] to-[#C83E5C] text-white flex items-center justify-center shadow">
-                <Compass className="w-6 h-6" />
+              <div className="relative w-12 h-12 rounded-full overflow-hidden shadow border border-white/20 shrink-0 bg-white">
+                <img
+                  src={AGENCY_DETAILS.logo}
+                  alt="Pinkcityroutes Brand Logo"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div>
                 <span className="font-display text-2xl font-bold tracking-tight text-white block">
@@ -111,8 +115,28 @@ export const Footer: React.FC = () => {
             </div>
             <ul className="space-y-2 text-xs text-slate-400">
               <li>
+                <a href="#one-day-tours" className="hover:text-amber-300 transition-colors">
+                  1-Day Sightseeing Tours
+                </a>
+              </li>
+              <li>
+                <a href="#fleet" className="hover:text-amber-300 transition-colors">
+                  Fleet & Car Rentals
+                </a>
+              </li>
+              <li>
+                <a href="#packages" className="hover:text-amber-300 transition-colors">
+                  Multi-Day Packages
+                </a>
+              </li>
+              <li>
                 <a href="#destinations" className="hover:text-amber-300 transition-colors">
                   Top Destinations
+                </a>
+              </li>
+              <li>
+                <a href="#diaries" className="hover:text-amber-300 transition-colors">
+                  Traveler Diaries & Blogs
                 </a>
               </li>
               <li>
@@ -181,6 +205,17 @@ export const Footer: React.FC = () => {
                   className="text-emerald-400 hover:text-emerald-300 font-semibold transition-colors"
                 >
                   WhatsApp: +91 98932 21141
+                </a>
+              </li>
+              <li className="flex items-center gap-2">
+                <Mail className="w-4 h-4 text-amber-300 shrink-0" />
+                <a
+                  href={`mailto:${AGENCY_DETAILS.email}`}
+                  className="hover:text-amber-300 transition-colors"
+                  title="Official Email"
+                >
+                  <span className="text-slate-400">Email: </span>
+                  <span className="text-slate-200 hover:text-amber-300">{AGENCY_DETAILS.email}</span>
                 </a>
               </li>
               <li className="flex items-center gap-2">

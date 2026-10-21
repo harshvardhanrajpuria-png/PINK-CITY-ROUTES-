@@ -59,7 +59,8 @@ export const AGENCY_DETAILS = {
   phoneRaw: '919893221141',
   instagram: 'https://www.instagram.com/pinkcityroutes',
   instagramHandle: '@pinkcityroutes',
-  email: 'trips@pinkcityroutes.com',
+  logo: '/assets/aistudio/pinkcityroutes_logo_c1ea2897.jpg',
+  email: 'harshvardhanrajpuria@gmail.com',
   address: 'Pink City Tower, MI Road / C-Scheme, Jaipur, Rajasthan 302001, India',
   whatsappBase: 'https://wa.me/919893221141',
 };
@@ -585,5 +586,351 @@ export const FAQS = [
     question: 'Do you arrange flights, train tickets, and international visas?',
     answer:
       'Yes, we provide end-to-end assistance! For domestic packages, we can suggest or book optimal flight connections, and for international journeys (like Dubai, Bali, Thailand), we assist with tourist visa filing, travel insurance, and flight ticketing.',
+  },
+];
+
+export interface OneDayTour {
+  id: string;
+  title: string;
+  badge: string;
+  duration: string;
+  hours: string;
+  routeHighlights: string;
+  stops: string[];
+  startingPrice: string;
+  inclusions: string[];
+  image: string;
+  bestFor: string;
+}
+
+export const ONE_DAY_TOURS: OneDayTour[] = [
+  {
+    id: 'jaipur-sightseeing',
+    title: 'Full-Day Royal Jaipur Sightseeing',
+    badge: 'Signature Tour',
+    duration: '8–10 Hours',
+    hours: 'Flexible Morning Start (8:00 AM – 10:00 AM)',
+    routeHighlights:
+      'Hawa Mahal, Amer Fort, Jal Mahal, City Palace, Jantar Mantar, and local Pink City artisan bazaars.',
+    stops: [
+      'Amer Fort & Maota Lake photo stop',
+      'Hawa Mahal (Palace of Winds)',
+      'Jal Mahal (Water Palace)',
+      'City Palace & Royal Armoury Museum',
+      'Jantar Mantar Astronomical Observatory',
+      'Johari & Bapu Bazaar Artisan Handicrafts',
+    ],
+    startingPrice: '₹1,999 / Cab',
+    inclusions: [
+      'Dedicated AC Sedan / SUV with verified chauffeur',
+      'Pick-up & drop from any Jaipur hotel / railway station / airport',
+      'All toll taxes, parking fees & fuel included',
+      'Local shopping assistance & verified artisan recommendation',
+    ],
+    image: '/assets/aistudio/Rajasthan-1_c57fba4b.jpg',
+    bestFor: 'Couples, families, solo explorers & heritage enthusiasts',
+  },
+  {
+    id: 'delhi-historical',
+    title: 'Full-Day Historical Delhi Tour',
+    badge: 'Capital Heritage',
+    duration: '8–10 Hours',
+    hours: 'Flexible Morning Start (8:30 AM – 9:30 AM)',
+    routeHighlights:
+      'India Gate, Qutub Minar, Red Fort, Humayun’s Tomb, Lotus Temple, and Connaught Place.',
+    stops: [
+      'Red Fort (Lal Qila) & Old Delhi panorama',
+      'India Gate & Kartavya Path memorial drive',
+      'Humayun’s Tomb (Mughal architectural jewel)',
+      'Qutub Minar complex & Iron Pillar',
+      'Lotus Temple (Baháʼí House of Worship)',
+      'Connaught Place colonial shopping & dining walk',
+    ],
+    startingPrice: '₹2,499 / Cab',
+    inclusions: [
+      'Pick-up & drop across any location in Delhi NCR (Delhi, Gurugram, Noida)',
+      'Private air-conditioned chauffeur-driven vehicle',
+      'Inter-state border permits, tolls & parking covered',
+      'Customizable lunch halt at legendary culinary hubs',
+    ],
+    image: 'https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1200&q=80',
+    bestFor: 'History buffs, transit travelers & family weekend explorers',
+  },
+  {
+    id: 'agra-taj-heritage',
+    title: 'Same-Day Agra Taj Heritage Tour',
+    badge: 'Wonder of the World',
+    duration: '10–12 Hours',
+    hours: 'Early Morning Departure (Sunrise or 6:00 AM)',
+    routeHighlights:
+      'Taj Mahal sunrise/day view, Agra Fort, Mehtab Bagh, and local marble craft markets.',
+    stops: [
+      'Iconic Taj Mahal (UNESCO World Heritage Site)',
+      'Agra Fort (Red sandstone royal imperial palaces)',
+      'Mehtab Bagh sunset garden view of Taj across the Yamuna River',
+      'Petha tasting & Agra marble inlay artisan ateliers',
+    ],
+    startingPrice: '₹3,499 / Cab',
+    inclusions: [
+      'Convenient same-day round-trip from Jaipur or Delhi via Yamuna / Agra Expressway',
+      'Experienced highway chauffeur trained for smooth express travel',
+      'All express highway tolls, state permits & parking covered',
+      'Assistance with skip-the-line monument entry ticketing',
+    ],
+    image: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80',
+    bestFor: 'Couples, international visitors & same-day transit itineraries',
+  },
+  {
+    id: 'custom-excursions',
+    title: 'Custom Same-Day Excursions',
+    badge: 'Spiritual & Heritage',
+    duration: '8–12 Hours',
+    hours: 'Flexible custom itinerary tailored to your pace',
+    routeHighlights:
+      'Pushkar Holy Lake & Brahma Temple / Ajmer Sharif Dargah / Mathura-Vrindavan Krishna Janmabhoomi circuits.',
+    stops: [
+      'Circuit A: Jaipur → Ajmer Sharif Dargah → Pushkar Holy Ghats & Brahma Temple',
+      'Circuit B: Delhi / Agra → Mathura Shri Krishna Janmabhoomi → Vrindavan Bankey Bihari Temple',
+      'Circuit C: Jaipur → Shekhawati Painted Havelis / Abhaneri Stepwell',
+      'Tailored halt for spiritual aarti and sacred temple prasadam',
+    ],
+    startingPrice: '₹2,999 / Cab',
+    inclusions: [
+      'Doorstep private pick-up & return transfer in sanitized AC vehicle',
+      'Courteous chauffeur knowledgeable in temple timings & parking',
+      'All interstate road taxes, union tolls & parking included',
+      'Full flexibility to stop at traditional highway dhabas & tea stalls',
+    ],
+    image: 'https://images.unsplash.com/photo-1609137144822-0a1835749f50?auto=format&fit=crop&w=1200&q=80',
+    bestFor: 'Devotional pilgrimages, families, and cultural wanderers',
+  },
+];
+
+export interface FleetCategory {
+  id: string;
+  name: string;
+  models: string;
+  category: 'sedan' | 'suv' | 'luxury' | 'coach';
+  passengerCapacity: string;
+  luggageCapacity: string;
+  rateEstimate: string;
+  idealFor: string;
+  features: string[];
+  image: string;
+}
+
+export const FLEET_CATEGORIES: FleetCategory[] = [
+  {
+    id: 'sedan',
+    name: 'Budget & Executive Sedans',
+    models: 'Maruti Suzuki Swift Dzire, Toyota Etios',
+    category: 'sedan',
+    passengerCapacity: '4 Passengers',
+    luggageCapacity: '2 Large Bags + 2 Handbags',
+    rateEstimate: 'Starting ₹1,799 / Day',
+    idealFor: 'Couples, solo travelers, and city sightseeing.',
+    features: ['Chilled Air-Conditioning', 'Clean & Sanitized Interiors', 'Experienced City Chauffeur', 'Mobile Charging Ports'],
+    image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    id: 'family-suv',
+    name: 'Family SUVs',
+    models: 'Maruti Suzuki Ertiga, Kia Carens',
+    category: 'suv',
+    passengerCapacity: '6 Passengers',
+    luggageCapacity: '3–4 Medium Bags',
+    rateEstimate: 'Starting ₹2,499 / Day',
+    idealFor: 'Comfortable legroom for medium families and airport transfers.',
+    features: ['Tri-Zone Roof AC Vents', 'Ample Legroom & Reclining Rows', 'Punctual Chauffeur Service', 'Smooth Highway Drive'],
+    image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    id: 'premium-muv',
+    name: 'Premium MUVs',
+    models: 'Toyota Innova Crysta',
+    category: 'suv',
+    passengerCapacity: '6–7 Passengers',
+    luggageCapacity: '4–5 Large Bags',
+    rateEstimate: 'Starting ₹3,499 / Day',
+    idealFor: 'Long-distance highway comfort, executive business travel.',
+    features: ['Superior Highway Shock Absorption', 'Plush Captain Seat Options', 'Professional Uniformed Chauffeur', 'High Luggage Boot Space'],
+    image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    id: 'ultra-luxury-suv',
+    name: 'Ultra-Luxury SUVs',
+    models: 'Toyota Fortuner 4x4',
+    category: 'luxury',
+    passengerCapacity: '6 Passengers',
+    luggageCapacity: '4 Large Bags',
+    rateEstimate: 'Starting ₹6,999 / Day',
+    idealFor: 'VIP travel, royal heritage tours, premium event arrivals.',
+    features: ['Commanding Road Presence', 'Leather Seating & Sunroof', 'All-Terrain Smooth Stability', 'VIP Chauffeur Concierge'],
+    image: 'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    id: 'luxury-executive',
+    name: 'Luxury Executive Cars',
+    models: 'Audi A6, BMW 5 Series, Mercedes-Benz E-Class',
+    category: 'luxury',
+    passengerCapacity: '4 Passengers',
+    luggageCapacity: '3 Suitcases',
+    rateEstimate: 'Starting ₹9,999 / Day',
+    idealFor: 'Wedding convoys, VIP guests, and high-end luxury transfers.',
+    features: ['Signature German Luxury', 'Rear Passenger Climate Control', 'Chauffeur with White-Glove Protocol', 'Mineral Water & Refreshments'],
+    image: 'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    id: 'tempo-12',
+    name: 'Standard Tempo Traveler',
+    models: 'Force Motors (9 to 12 Seater)',
+    category: 'coach',
+    passengerCapacity: '9–12 Passengers',
+    luggageCapacity: '8–10 Large Bags',
+    rateEstimate: 'Starting ₹4,999 / Day',
+    idealFor: 'Small group tours, pushback seats, individual AC vents.',
+    features: ['High-Roof Walkthrough Cabin', 'Individual AC Vents per Row', 'Pushback Ergonomic Seats', 'Dedicated Music & Mic System'],
+    image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    id: 'tempo-maharaja',
+    name: 'Luxury Maharaja Tempo Traveler',
+    models: 'Force Maharaja Modified (16 to 20 Seater)',
+    category: 'coach',
+    passengerCapacity: '16–20 Passengers',
+    luggageCapacity: '14–16 Bags in Rear Boot',
+    rateEstimate: 'Starting ₹6,499 / Day',
+    idealFor: 'Reclining luxury captain seats, ample luggage space, audio-video setups.',
+    features: ['Ultra-Plush 1x1 Captain Recliners', 'Ambient LED Mood Ceiling Lighting', 'Wide LED TV & Dolby Surround Sound', 'Rear Luggage Compartment'],
+    image: 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    id: 'volvo-coach',
+    name: 'Luxury Volvo & Mini Coaches',
+    models: 'BharatBenz & Volvo Multi-Axle (27 to 45 Seater)',
+    category: 'coach',
+    passengerCapacity: 'Up to 45 Passengers',
+    luggageCapacity: 'Massive Undercarriage Storage',
+    rateEstimate: 'Custom Route Quotation',
+    idealFor: 'Large corporate outings, wedding delegations, and state tour groups.',
+    features: ['Air-Suspension Glide Ride', 'Huge Luggage Undercarriage', 'Dual Chauffeur Support on Long Routes', 'Public Address Mic System'],
+    image: 'https://images.unsplash.com/photo-1570125909517-53cb21c89ff2?auto=format&fit=crop&w=800&q=80',
+  },
+];
+
+export interface TravelDiary {
+  id: string;
+  title: string;
+  author: string;
+  date: string;
+  location: string;
+  excerpt: string;
+  fullStory: string;
+  highlights: string[];
+  image: string;
+  travelerType: string;
+  readTime?: string;
+}
+
+export const TRAVEL_DIARIES: TravelDiary[] = [
+  {
+    id: 'amer-fort-sunrise',
+    title: 'Day 1 in the Pink City: Exploring Amer Fort at Sunrise',
+    author: 'Sneha & Rohan (Delhi)',
+    date: 'October 2026',
+    location: 'Amer Fort, Jaipur',
+    travelerType: 'Couple Anniversary Trip',
+    readTime: '4 min read',
+    excerpt:
+      'We started our day at 6:30 AM to catch the morning sun glowing against Maota Lake. Harshvardhan had arranged our driver Vikram, who navigated effortlessly and showed us hidden photography courtyards away from the rush...',
+    fullStory:
+      'We booked our anniversary journey with Pinkcityroutes on short notice, but Harshvardhan personally curated every detail. Our morning started at 6:30 AM as our clean Dzire pulled up in front of our heritage hotel in C-Scheme. The morning air in Jaipur was crisp. As we approached Amer Fort, the reflection of the sunlit golden fortifications in Maota Lake took our breath away. Our driver Vikram ji guided us to the best viewpoint right by Kesar Kyari garden before the tourist crowd arrived. We toured the Sheesh Mahal (Mirror Palace) where thousands of concave mirrors sparkle with a single matchstick. After Amer, we stopped for piping hot Pyaaz Kachoris and kulhad chai. Having Harshvardhan check in with us on WhatsApp during lunch to ensure everything was perfect made us feel like family rather than tourists.',
+    highlights: [
+      'Sunrise photography at Maota Lake & Kesar Kyari',
+      'Intricate glasswork inside Sheesh Mahal',
+      'Authentic Jaipur street food stop for Pyaaz Kachori',
+      'Seamless chauffeur coordination and zero parking hassles',
+    ],
+    image: '/assets/aistudio/Rajasthan-1_c57fba4b.jpg',
+  },
+  {
+    id: 'taj-mahal-expedition',
+    title: 'Cruising the Yamuna Expressway: Our Same-Day Taj Mahal Expedition',
+    author: 'Amit Verma (Bengaluru)',
+    date: 'September 2026',
+    location: 'Yamuna Expressway & Taj Mahal, Agra',
+    travelerType: 'Family Vacation',
+    readTime: '5 min read',
+    excerpt:
+      'A prompt 6:00 AM pick-up from our hotel in an Innova Crysta. Within three smooth hours on the Yamuna Expressway, our kids were standing in awe before the majestic white marble domes of the Taj Mahal...',
+    fullStory:
+      'Visiting the Taj Mahal was on our family’s bucket list for years, but we only had one free weekend in North India. Harshvardhan recommended the same-day Agra circuit in a Toyota Innova Crysta. The car was spotless with child-safe booster seating and chilled AC. We zoomed down the Yamuna Expressway without any hiccups, and the driver had already bought cold water bottles and arranged a licensed government guide at the gate. Seeing the Taj Mahal bathed in morning light is an unforgettable sight. After the Taj and Agra Fort, we stopped at an authentic marble inlay artisan workshop and savored fresh Agra Petha. We were safely back at our Delhi hotel by 8:30 PM. Truly 5-star personalized hospitality!',
+    highlights: [
+      'Effortless 3-hour smooth highway drive via Yamuna Expressway',
+      'Skip-the-line guided entrance to Taj Mahal',
+      'Agra Fort historical chambers and Shah Jahan’s river balcony',
+      'Safe and comfortable same-day return for the entire family',
+    ],
+    image: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80',
+  },
+  {
+    id: 'dal-lake-snow',
+    title: 'Chasing Snow & Shikaras: A Day on Dal Lake',
+    author: 'Pooja Patel (Ahmedabad)',
+    date: 'August 2026',
+    location: 'Dal Lake & Gulmarg, Kashmir',
+    travelerType: 'Solo Cultural Traveler',
+    readTime: '4 min read',
+    excerpt:
+      'Waking up inside an intricately carved cedar wood houseboat felt like stepping into an old romantic classic. Drinking steaming saffron kahwa while wooden Shikaras glided past floating flower gardens...',
+    fullStory:
+      'As a solo female traveler, safety and trustworthy on-ground support were my biggest priorities. Booking with Pinkcityroutes gave me 100% peace of mind because Harshvardhan gave me his direct personal WhatsApp and connected me with our verified Kashmiri chauffeur, Farooq. My morning on Dal Lake began with the soothing call to prayer and the gentle splash of cedar paddles. The Shikara boatman served authentic saffron Kahwa brewed with crushed almonds. We visited floating vegetable markets and photographed pink lotus blossoms. The next day in Gulmarg, Farooq assisted with the Gondola phase boarding without any lines. The level of care, respect, and hospitality shown by Pinkcityroutes made this trip the best memory of my life.',
+    highlights: [
+      'Traditional cedar houseboat stay with hot Kahwa at dawn',
+      'Peaceful sunset Shikara ride across the lotus waterways',
+      'Safe, respectful, and verified on-ground chauffeur care',
+      '24/7 direct founder availability on WhatsApp',
+    ],
+    image: 'https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=80',
+  },
+  {
+    id: 'jaipur-sunset-secrets',
+    title: "Harshvardhan's Insider Guide: Sunset at Nahargarh & Secret Bazaars",
+    author: 'Harshvardhan (Founder)',
+    date: 'October 2026',
+    location: 'Nahargarh Fort & Johari Bazaar, Jaipur',
+    travelerType: "Founder's Guide",
+    readTime: '6 min read',
+    excerpt:
+      'Growing up in Jaipur, I know the exact 45 minutes when the Pink City turns molten gold from the ramparts of Nahargarh. Here are my favorite local spots that standard guidebooks miss...',
+    fullStory:
+      'Most visitors rush between Amber Fort and City Palace and miss the magical twilight of Jaipur. When clients ask me for one memory they must take home, I tell them to head up the serpentine hills of Nahargarh Fort around 5:15 PM. As the sun dips behind the Aravallis, the entire Pink City spreads out beneath you like a carpet of warm terracotta.\n\nAfter soaking in the breeze at Padao open-air deck, take a leisurely drive down into the walled city. Head straight to LMB in Johari Bazaar for their authentic Ghewar, or stop by Samrat on Chaura Rasta for piping hot Samosas with mint chutney. Traveling with our dedicated private chauffeur means you never have to haggle with local auto rickshaws or worry about one-way heritage gates.',
+    highlights: [
+      'Golden hour panoramic vista at Nahargarh Fort ramparts',
+      'Heritage evening walk through illuminated Johari Bazaar gates',
+      'Authentic Ghewar and street food tasting at generational sweetshops',
+      'Pre-planned vehicle parking with zero traffic stress',
+    ],
+    image: 'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80',
+  },
+  {
+    id: 'rajasthan-highway-cabs',
+    title: 'Choosing the Right Vehicle: Dzire vs Innova Crysta for Rajasthan Roads',
+    author: 'Harshvardhan (Founder)',
+    date: 'September 2026',
+    location: 'Jaipur - Jodhpur - Udaipur Circuit',
+    travelerType: 'Travel Advice',
+    readTime: '5 min read',
+    excerpt:
+      'Planning a 7-day Rajasthan road trip? Here is a practical breakdown of boot space, suspension, passenger comfort, and highway handling to help you choose the best ride...',
+    fullStory:
+      'Rajasthan is best experienced through the windshield of a car. The drive between Jaipur, Pushkar, Jodhpur, and Udaipur transitions from six-lane expressways to scenic desert curves.\n\nFor couples or solo travelers with 2 medium bags, the Maruti Suzuki Swift Dzire or Toyota Etios offers unbeatable fuel efficiency, nippy maneuverability in narrow old-city alleys, and chilled AC. But if you are traveling with family (4 to 6 people) or have elderly parents, the Toyota Innova Crysta is in a class of its own. Its long-wheelbase suspension absorbs highway undulations effortlessly, captain seats allow afternoon naps, and the large boot swallows 4 full-sized suitcases without crowding passenger legroom.\n\nAll our vehicles come with commercial permits, clean seat covers, chilled water bottles, and experienced highway drivers.',
+    highlights: [
+      'Swift Dzire: Perfect for 2–3 passengers and old-city bazaar lanes',
+      'Innova Crysta: Supreme comfort and luggage space for families & highways',
+      'Tempo Traveler: Maharaja recliners for group journeys of 9–16 people',
+      'Verified commercial chauffeurs with interstate border permits included',
+    ],
+    image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
   },
 ];
