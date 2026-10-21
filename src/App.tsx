@@ -149,14 +149,14 @@ export default function App() {
         {/* 10. Traveler Diaries & Regular Blog Hub */}
         <TravelDiaries onOpenDedicatedBlogPage={navigateToBlog} />
 
-        {/* 11. Founder Story / Why Pinkcityroutes */}
-        <FounderStory />
-
-        {/* 12. Guest Testimonials with Authentic Indian Travelers */}
+        {/* 11. Guest Testimonials with Authentic Indian Travelers */}
         <Testimonials />
 
-        {/* 13. Frequently Asked Questions */}
+        {/* 12. Frequently Asked Questions */}
         <FaqSection />
+
+        {/* 13. Co-Founders Section: Harshvardhan Gupta & Ananya Gupta */}
+        <FounderStory />
 
         {/* 14. Direct Contact & Office Details */}
         <ContactSection />

@@ -54,7 +54,19 @@ export interface Testimonial {
 export const AGENCY_DETAILS = {
   name: 'Pinkcityroutes',
   tagline: 'Premier Travel & Tour Agency',
-  founder: 'Harshvardhan',
+  founder: 'Harshvardhan Gupta & Ananya Gupta',
+  founders: [
+    {
+      name: 'Harshvardhan Gupta',
+      role: 'Co-Founder & Chief Travel Architect',
+      focus: 'Heritage Routes, Fleet Logistics & Custom Itineraries',
+    },
+    {
+      name: 'Ananya Gupta',
+      role: 'Co-Founder & Experience Director',
+      focus: 'Boutique Stays, Cultural Curation & Guest Relations',
+    },
+  ],
   phone: '+91 98932 21141',
   phoneRaw: '919893221141',
   instagram: 'https://www.instagram.com/pinkcityroutes',
@@ -447,7 +459,7 @@ export const TESTIMONIALS: Testimonial[] = [
     destination: 'Udaipur & Jaipur Anniversary Tour',
     tripDate: 'February 2026',
     comment:
-      'Harshvardhan planned our entire Udaipur and Jaipur anniversary trip flawlessly. Handpicked hotels and smooth transfers throughout!',
+      'Harshvardhan and Ananya planned our entire Udaipur and Jaipur anniversary trip flawlessly. Handpicked hotels and smooth transfers throughout!',
     rating: 5,
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
   },
@@ -469,7 +481,7 @@ export const TESTIMONIALS: Testimonial[] = [
     destination: 'Royal Rajasthan Heritage Circuit',
     tripDate: 'December 2025',
     comment:
-      'Best experience in Rajasthan! Transparent pricing and loved the surprise welcome goodies. Harshvardhan was available 24/7.',
+      'Best experience in Rajasthan! Transparent pricing and loved the surprise welcome goodies. Harshvardhan and Ananya were available 24/7.',
     rating: 5,
     avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80',
   },
@@ -565,7 +577,7 @@ export const FAQS = [
   {
     question: 'How do I book a tour with Pinkcityroutes?',
     answer:
-      'Booking is effortless and transparent! You can click any package on this page to chat directly with founder Harshvardhan on WhatsApp (+91 98932 21141) or use our Custom Tour Planner. We discuss your preferred dates, hotel style, and requirements, provide a finalized day-by-day itinerary, and confirm your booking with verified hotel & driver vouchers.',
+      'Booking is effortless and transparent! You can click any package on this page to chat directly with co-founders Harshvardhan Gupta & Ananya Gupta on WhatsApp (+91 98932 21141) or use our Custom Tour Planner. We discuss your preferred dates, hotel style, and requirements, provide a finalized day-by-day itinerary, and confirm your booking with verified hotel & driver vouchers.',
   },
   {
     question: 'Can all tour packages be customized to our preferences?',
@@ -580,7 +592,7 @@ export const FAQS = [
   {
     question: 'Will someone assist us during our trip?',
     answer:
-      'Yes! Unlike impersonal commercial travel websites, founder Harshvardhan and our on-ground operations team are available 24/7 on WhatsApp and direct call (+91 98932 21141). Whether you need an early breakfast, a route tweak, or restaurant advice, we are just a quick message away.',
+      'Yes! Unlike impersonal commercial travel websites, co-founders Harshvardhan Gupta & Ananya Gupta and our on-ground operations team are available 24/7 on WhatsApp and direct call (+91 98932 21141). Whether you need an early breakfast, a route tweak, or restaurant advice, we are just a quick message away.',
   },
   {
     question: 'Do you arrange flights, train tickets, and international visas?',

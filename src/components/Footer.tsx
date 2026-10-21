@@ -27,7 +27,7 @@ export const Footer: React.FC = () => {
                   Pinkcity<span className="text-[#C83E5C]">routes</span>
                 </span>
                 <span className="text-[11px] font-medium uppercase tracking-wider text-amber-300 block">
-                  Founded by Harshvardhan
+                  Founded by Harshvardhan Gupta & Ananya Gupta
                 </span>
               </div>
             </div>
@@ -35,7 +35,7 @@ export const Footer: React.FC = () => {
             <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
               Pinkcityroutes is a premier travel and tour agency providing handpicked domestic and
               international journeys, bespoke itineraries, and seamless on-ground support guided by
-              Harshvardhan and team.
+              Harshvardhan Gupta & Ananya Gupta.
             </p>
 
             <div className="pt-2 flex items-center gap-3">
@@ -241,7 +241,7 @@ export const Footer: React.FC = () => {
         <div className="pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <div>
             © {new Date().getFullYear()} <strong className="text-slate-300 font-semibold">Pinkcityroutes</strong>.
-            Founded by Harshvardhan. All rights reserved.
+            Founded by Harshvardhan Gupta & Ananya Gupta. All rights reserved.
           </div>
 
           <div className="flex items-center gap-4">

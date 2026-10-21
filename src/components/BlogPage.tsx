@@ -330,7 +330,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenPlanner 
                   Pinkcity<span className="text-[#C83E5C]">routes</span> Travel Blog
                 </span>
                 <span className="text-[10px] text-slate-500 hidden sm:block">
-                  Curated by Harshvardhan · Direct WhatsApp {AGENCY_DETAILS.phone}
+                  Curated by Harshvardhan Gupta & Ananya Gupta · Direct WhatsApp {AGENCY_DETAILS.phone}
                 </span>
               </div>
             </div>
@@ -1036,7 +1036,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenPlanner 
             <span className="font-display font-bold text-white text-sm">
               Pinkcity<span className="text-[#C83E5C]">routes</span>
             </span>
-            <span>· Founded & Managed by Harshvardhan</span>
+            <span>· Founded by Harshvardhan Gupta & Ananya Gupta</span>
           </div>
 
           <div className="flex items-center gap-4 text-xs">

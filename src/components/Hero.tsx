@@ -59,7 +59,7 @@ export const Hero: React.FC<HeroProps> = ({ onExplorePackages, onOpenPlanner }) 
               Jaipur's Premier Travel Agency
             </span>
             <span aria-hidden="true" className="text-amber-500/50">·</span>
-            <span>Founded by Harshvardhan</span>
+            <span>Founded by Harshvardhan Gupta & Ananya Gupta</span>
             <span aria-hidden="true" className="text-amber-500/50">·</span>
             <span className="text-emerald-400">24/7 Concierge</span>
           </div>
@@ -75,7 +75,7 @@ export const Hero: React.FC<HeroProps> = ({ onExplorePackages, onOpenPlanner }) 
           {/* Exact Required Subheadline */}
           <p className="text-lg sm:text-xl text-slate-200 font-normal leading-relaxed max-w-3xl mx-auto mb-10">
             Curated domestic and international journeys, bespoke itineraries, and seamless travel
-            support guided by Harshvardhan and team.
+            support guided by Harshvardhan Gupta & Ananya Gupta.
           </p>
 
           {/* Exact Required Primary Call to Action buttons */}
@@ -169,7 +169,7 @@ export const Hero: React.FC<HeroProps> = ({ onExplorePackages, onOpenPlanner }) 
           </div>
           <div className="space-y-1">
             <div className="text-2xl sm:text-3xl font-display font-bold text-emerald-400">24/7</div>
-            <div className="text-xs text-slate-300">Direct Founder Access</div>
+            <div className="text-xs text-slate-300">Direct Co-Founders Access</div>
           </div>
         </div>
       </div>

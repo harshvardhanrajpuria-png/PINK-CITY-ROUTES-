@@ -64,11 +64,11 @@ export const ContactSection: React.FC = () => {
                 Direct Agency Connection
               </div>
               <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white">
-                Connect with Harshvardhan & Pinkcityroutes
+                Connect with Harshvardhan Gupta, Ananya Gupta & Pinkcityroutes
               </h2>
               <p className="mt-3 text-slate-300 text-sm sm:text-base leading-relaxed">
                 Whether you need a quick quote, have questions about hotel categories, or want to
-                co-design an international journey, we are always ready to assist you.
+                co-design an international journey, our co-founders are always ready to assist you.
               </p>
             </div>
 
@@ -76,7 +76,7 @@ export const ContactSection: React.FC = () => {
             <div className="space-y-4">
               {/* WhatsApp & Call */}
               <a
-                href={createWhatsAppUrl('Hello Harshvardhan, I would like to plan a tour with Pinkcityroutes.')}
+                href={createWhatsAppUrl('Hello Harshvardhan & Ananya, I would like to plan a tour with Pinkcityroutes.')}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-500/50 hover:bg-white/10 transition-all group"
@@ -92,7 +92,7 @@ export const ContactSection: React.FC = () => {
                     {AGENCY_DETAILS.phone}
                   </span>
                   <span className="text-xs text-emerald-400 block mt-0.5">
-                    Harshvardhan (Founder & Agency Owner)
+                    Harshvardhan Gupta & Ananya Gupta (Co-Founders)
                   </span>
                 </div>
               </a>

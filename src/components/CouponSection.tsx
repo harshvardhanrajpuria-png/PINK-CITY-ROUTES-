@@ -28,7 +28,7 @@ export const CouponSection: React.FC = () => {
           </h2>
           <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
             Unlock instant savings on your personalized holiday. Choose a coupon code below and mention
-            it directly to Harshvardhan when locking in your bespoke itinerary.
+            it directly to Harshvardhan Gupta & Ananya Gupta when locking in your bespoke itinerary.
           </p>
         </div>
 
@@ -127,7 +127,7 @@ export const CouponSection: React.FC = () => {
           <p className="text-xs text-slate-700 font-medium flex items-center justify-center gap-2">
             <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
             <span>
-              <strong>Note:</strong> Apply coupons directly when confirming your booking with Harshvardhan on WhatsApp.
+              <strong>Note:</strong> Apply coupons directly when confirming your booking with Harshvardhan Gupta & Ananya Gupta on WhatsApp.
             </span>
           </p>
         </div>

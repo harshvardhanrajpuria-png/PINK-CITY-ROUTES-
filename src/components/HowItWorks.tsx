@@ -423,7 +423,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ initialDestination }) =>
                     <span className="font-semibold text-amber-300 block mb-1">
                       Transparent Custom Add-ons & Pricing Notice:
                     </span>
-                    Base package prices cover core travel essentials. Upgrading hotel tiers, private vehicles, or special sightseeing activities will be calculated transparently with zero hidden charges. Chat directly with Harshvardhan on WhatsApp (+91 98932 21141) for a customized real-time quote.
+                    Base package prices cover core travel essentials. Upgrading hotel tiers, private vehicles, or special sightseeing activities will be calculated transparently with zero hidden charges. Chat directly with Harshvardhan Gupta & Ananya Gupta on WhatsApp (+91 98932 21141) for a customized real-time quote.
                   </div>
                 </div>
               </div>
@@ -437,7 +437,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ initialDestination }) =>
                   className="w-full flex items-center justify-center gap-2.5 bg-[#25D366] hover:bg-[#1EBE5D] text-slate-950 font-bold text-sm py-3.5 px-6 rounded-xl shadow-lg transition-all"
                 >
                   <MessageSquare className="w-5 h-5 fill-slate-950/20" />
-                  <span>Send Request to Harshvardhan on WhatsApp</span>
+                  <span>Send Request to Harshvardhan & Ananya on WhatsApp</span>
                 </a>
 
                 <button

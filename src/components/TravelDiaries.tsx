@@ -135,7 +135,7 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
     requireAdminAccess(() => {
       setFormData({
         title: '',
-        author: 'Harshvardhan & Pinkcityroutes',
+        author: 'Harshvardhan Gupta & Ananya Gupta',
         location: 'Jaipur, Rajasthan',
         date: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
         travelerType: 'Curated Guide',
@@ -193,7 +193,7 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
           ? {
               ...b,
               title: formData.title,
-              author: formData.author || 'Harshvardhan',
+              author: formData.author || 'Harshvardhan Gupta & Ananya Gupta',
               location: formData.location || 'Rajasthan, India',
               date: formData.date || 'Recent',
               travelerType: formData.travelerType,
@@ -227,7 +227,7 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
       const newPost: TravelDiary = {
         id: 'blog-' + Date.now(),
         title: formData.title,
-        author: formData.author || 'Harshvardhan',
+        author: formData.author || 'Harshvardhan Gupta & Ananya Gupta',
         location: formData.location || 'Jaipur, Rajasthan',
         date: formData.date || 'Recent',
         travelerType: formData.travelerType,
@@ -368,7 +368,7 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
                   setIsPasscodeModalOpen(true);
                 }}
                 className="inline-flex items-center gap-1.5 bg-stone-100 hover:bg-stone-200 text-stone-600 hover:text-slate-900 text-xs font-medium py-2.5 px-3 rounded-xl transition-all"
-                title="Admin access for Harshvardhan (PIN required)"
+                title="Admin access for Harshvardhan Gupta & Ananya Gupta (PIN required)"
               >
                 <Lock className="w-3.5 h-3.5 text-stone-400" />
                 <span className="hidden sm:inline">Author Access</span>
