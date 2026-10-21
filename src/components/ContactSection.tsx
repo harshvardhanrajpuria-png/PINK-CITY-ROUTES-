@@ -10,13 +10,15 @@ import {
   Send,
   CheckCircle2,
 } from 'lucide-react';
-import { AGENCY_DETAILS } from '../data/travelData';
+import { AGENCY_DETAILS, FEATURED_PACKAGES } from '../data/travelData';
 import { createWhatsAppUrl } from '../utils/whatsapp';
 
 export const ContactSection: React.FC = () => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [destination, setDestination] = useState('Royal Rajasthan Heritage');
+  const [destination, setDestination] = useState(
+    FEATURED_PACKAGES[0]?.title || 'The Pink City Royal Forts & Palaces Express'
+  );
   const [dates, setDates] = useState('');
   const [travelers, setTravelers] = useState('2');
   const [message, setMessage] = useState('');
@@ -120,7 +122,7 @@ export const ContactSection: React.FC = () => {
                 </div>
               </a>
 
-              {/* Official Email */}
+              {/* Primary Email */}
               <div className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-amber-400/50 hover:bg-white/10 transition-all group">
                 <a
                   href={`mailto:${AGENCY_DETAILS.email}`}
@@ -130,25 +132,66 @@ export const ContactSection: React.FC = () => {
                     <Mail className="w-6 h-6" />
                   </div>
                   <div className="min-w-0">
-                    <span className="text-[11px] uppercase tracking-wider text-slate-400 block font-semibold">
-                      Official Email
+                    <span className="text-[11px] uppercase tracking-wider text-amber-300 block font-bold">
+                      Primary Email
                     </span>
                     <span className="text-sm sm:text-base font-bold text-white group-hover:text-amber-300 transition-colors truncate block">
                       {AGENCY_DETAILS.email}
                     </span>
-                    <span className="text-xs text-amber-300/80 block mt-0.5 truncate">
-                      Direct inquiries & voucher confirmations
+                    <span className="text-xs text-slate-400 block mt-0.5 truncate">
+                      Main bookings, inquiries & voucher confirmations
                     </span>
                   </div>
                 </a>
 
                 <button
                   type="button"
-                  onClick={handleCopyEmail}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigator.clipboard.writeText(AGENCY_DETAILS.email);
+                    setCopiedEmail(true);
+                    setTimeout(() => setCopiedEmail(false), 2500);
+                  }}
                   className="ml-2 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-semibold text-amber-300 hover:text-white transition-colors shrink-0"
-                  title="Copy email address"
+                  title="Copy primary email"
                 >
                   {copiedEmail ? 'Copied ✓' : 'Copy'}
+                </button>
+              </div>
+
+              {/* Business Email */}
+              <div className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-amber-400/50 hover:bg-white/10 transition-all group">
+                <a
+                  href={`mailto:${AGENCY_DETAILS.businessEmail}`}
+                  className="flex items-center gap-4 flex-1 min-w-0"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-300 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    <Mail className="w-6 h-6" />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-[11px] uppercase tracking-wider text-slate-400 block font-semibold">
+                      Business Email
+                    </span>
+                    <span className="text-sm sm:text-base font-bold text-white group-hover:text-blue-300 transition-colors truncate block">
+                      {AGENCY_DETAILS.businessEmail}
+                    </span>
+                    <span className="text-xs text-slate-400 block mt-0.5 truncate">
+                      Corporate partnerships & administrative contact
+                    </span>
+                  </div>
+                </a>
+
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigator.clipboard.writeText(AGENCY_DETAILS.businessEmail);
+                    alert('Business email copied to clipboard!');
+                  }}
+                  className="ml-2 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-semibold text-slate-300 hover:text-white transition-colors shrink-0"
+                  title="Copy business email"
+                >
+                  Copy
                 </button>
               </div>
 
@@ -249,12 +292,11 @@ export const ContactSection: React.FC = () => {
                       onChange={(e) => setDestination(e.target.value)}
                       className="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
                     >
-                      <option value="Royal Rajasthan Heritage (4D/3N)">Royal Rajasthan Heritage (4D/3N)</option>
-                      <option value="Kashmir Valley Getaway (6D/5N)">Kashmir Valley Getaway (6D/5N)</option>
-                      <option value="Dubai Highlights & Desert Safari (5D/4N)">Dubai Highlights & Desert Safari (5D/4N)</option>
-                      <option value="Kerala Backwaters & Munnar">Kerala Backwaters & Munnar</option>
-                      <option value="Bali Island Retreat">Bali Island Retreat</option>
-                      <option value="Thailand Wonders & Islands">Thailand Wonders & Islands</option>
+                      {FEATURED_PACKAGES.map((pkg) => (
+                        <option key={pkg.id} value={`${pkg.title} (${pkg.duration})`}>
+                          {pkg.title} ({pkg.duration})
+                        </option>
+                      ))}
                       <option value="Custom Tailored Tour">Custom Tailored Tour</option>
                     </select>
                   </div>

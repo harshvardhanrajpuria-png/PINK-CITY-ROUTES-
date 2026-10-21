@@ -77,32 +77,32 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2 text-xs text-slate-400">
               <li>
                 <a href="#packages" className="hover:text-amber-300 transition-colors">
-                  Royal Rajasthan Heritage (4D/3N)
+                  The Pink City Express (2D/1N)
                 </a>
               </li>
               <li>
                 <a href="#packages" className="hover:text-amber-300 transition-colors">
-                  Kashmir Valley Getaway (6D/5N)
+                  Jaipur, Ajmer & Pushkar Trail (3D/2N)
                 </a>
               </li>
               <li>
                 <a href="#packages" className="hover:text-amber-300 transition-colors">
-                  Dubai Highlights & Desert Safari (5D/4N)
+                  Ranthambore Tiger Escape (3D/2N)
                 </a>
               </li>
               <li>
-                <a href="#destinations" className="hover:text-amber-300 transition-colors">
-                  Kerala Backwaters Retreat
+                <a href="#packages" className="hover:text-amber-300 transition-colors">
+                  Jaipur to Udaipur Royal Corridor (5D/4N)
                 </a>
               </li>
               <li>
-                <a href="#destinations" className="hover:text-amber-300 transition-colors">
-                  Bali Island Honeymoon
+                <a href="#packages" className="hover:text-amber-300 transition-colors">
+                  The Great Thar Desert Expedition (9D/8N)
                 </a>
               </li>
               <li>
-                <a href="#destinations" className="hover:text-amber-300 transition-colors">
-                  Thailand Islands Tour
+                <a href="#packages" className="hover:text-amber-300 transition-colors">
+                  The Timeless Golden Triangle (6D/5N)
                 </a>
               </li>
             </ul>
@@ -126,12 +126,7 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <a href="#packages" className="hover:text-amber-300 transition-colors">
-                  Multi-Day Packages
-                </a>
-              </li>
-              <li>
-                <a href="#destinations" className="hover:text-amber-300 transition-colors">
-                  Top Destinations
+                  13 Tour Packages
                 </a>
               </li>
               <li>
@@ -212,10 +207,21 @@ export const Footer: React.FC = () => {
                 <a
                   href={`mailto:${AGENCY_DETAILS.email}`}
                   className="hover:text-amber-300 transition-colors"
-                  title="Official Email"
+                  title="Primary Official Email"
                 >
-                  <span className="text-slate-400">Email: </span>
+                  <span className="text-slate-400">Primary Email: </span>
                   <span className="text-slate-200 hover:text-amber-300">{AGENCY_DETAILS.email}</span>
+                </a>
+              </li>
+              <li className="flex items-center gap-2">
+                <Mail className="w-4 h-4 text-blue-300 shrink-0" />
+                <a
+                  href={`mailto:${AGENCY_DETAILS.businessEmail}`}
+                  className="hover:text-blue-300 transition-colors"
+                  title="Business Email"
+                >
+                  <span className="text-slate-400">Business Email: </span>
+                  <span className="text-slate-200 hover:text-blue-300">{AGENCY_DETAILS.businessEmail}</span>
                 </a>
               </li>
               <li className="flex items-center gap-2">

@@ -60,7 +60,6 @@ export const Navbar: React.FC<NavbarProps> = ({
     { name: '1-Day Tours', href: '#one-day-tours' },
     { name: 'Fleet & Cars', href: '#fleet' },
     { name: 'Tour Packages', href: '#packages' },
-    { name: 'Destinations', href: '#destinations' },
     {
       name: 'Travel Blog',
       href: '#diaries',
@@ -123,11 +122,11 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Right: Direct Phone, WhatsApp, Official Email, Instagram */}
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs shrink-0">
-            {/* Official Email */}
+            {/* Primary Email */}
             <a
               href={`mailto:${AGENCY_DETAILS.email}`}
               className="inline-flex items-center gap-1.5 text-slate-200 hover:text-amber-300 transition-colors font-medium group"
-              title="Official Agency Email: harshvardhanrajpuria@gmail.com"
+              title={`Primary Email: ${AGENCY_DETAILS.email}`}
             >
               <Mail className="w-3.5 h-3.5 text-amber-300 shrink-0" />
               <span className="hidden sm:inline text-[11px] text-amber-300 font-bold uppercase tracking-wider">

@@ -12,7 +12,6 @@ import { ComplimentaryPerks } from './components/ComplimentaryPerks';
 import { OneDayTours } from './components/OneDayTours';
 import { FleetSection } from './components/FleetSection';
 import { TravelDiaries } from './components/TravelDiaries';
-import { TopDestinations } from './components/TopDestinations';
 import { FeaturedPackages } from './components/FeaturedPackages';
 import { HowItWorks } from './components/HowItWorks';
 import { FounderStory } from './components/FounderStory';
@@ -22,6 +21,7 @@ import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { BlogPage } from './components/BlogPage';
+import { TravelerAdvisoryModal } from './components/TravelerAdvisoryModal';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<'home' | 'blog'>(() => {
@@ -97,6 +97,7 @@ export default function App() {
           onOpenPlanner={() => handleOpenPlanner()}
         />
         <FloatingWhatsApp />
+        <TravelerAdvisoryModal />
       </div>
     );
   }
@@ -129,10 +130,6 @@ export default function App() {
         {/* 4. Pinkcityroutes Fleet & Rental Categories */}
         <FleetSection />
 
-        {/* 5. Top Destination Highlights */}
-        <TopDestinations
-          onSelectDestinationForPlan={(dest) => handleOpenPlanner(dest)}
-        />
 
         {/* 6. Featured Multi-Day Tour Packages */}
         <FeaturedPackages />
@@ -167,6 +164,9 @@ export default function App() {
 
       {/* Floating WhatsApp and Mobile sticky bar */}
       <FloatingWhatsApp />
+
+      {/* Persistent Traveler Notice & Operational Policy */}
+      <TravelerAdvisoryModal />
     </div>
   );
 }
