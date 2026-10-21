@@ -22,9 +22,14 @@ import {
   Mail,
   Instagram,
   Compass,
+  Lock,
+  Unlock,
+  ShieldCheck,
 } from 'lucide-react';
 import { TRAVEL_DIARIES, TravelDiary, AGENCY_DETAILS } from '../data/travelData';
 import { createWhatsAppUrl, getGeneralWhatsAppLink } from '../utils/whatsapp';
+import { isAdminSessionActive, setAdminSessionActive } from '../utils/adminAuth';
+import { AdminPasscodeModal } from './AdminPasscodeModal';
 
 const STORAGE_KEY = 'pinkcityroutes_user_blogs_v2';
 
@@ -49,6 +54,11 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenPlanner 
     }
     return TRAVEL_DIARIES;
   });
+
+  // Admin authentication state: regular visitors are strictly view-only
+  const [isAdmin, setIsAdmin] = useState<boolean>(() => isAdminSessionActive());
+  const [isPasscodeModalOpen, setIsPasscodeModalOpen] = useState(false);
+  const [pendingAdminAction, setPendingAdminAction] = useState<(() => void) | null>(null);
 
   const [activeDiary, setActiveDiary] = useState<TravelDiary | null>(null);
   const [editingDiary, setEditingDiary] = useState<TravelDiary | null>(null);
@@ -98,44 +108,82 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenPlanner 
     setTimeout(() => setToastMessage(null), 3500);
   };
 
-  const handleOpenNewPost = () => {
-    setFormData({
-      title: '',
-      author: 'Harshvardhan (Founder)',
-      location: 'Jaipur, Rajasthan',
-      date: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
-      travelerType: "Founder's Guide",
-      readTime: '4 min read',
-      excerpt: '',
-      fullStory: '',
-      highlights: 'Royal palace exploration, Verified local street food, Private chauffeur care',
-      image: '/assets/aistudio/Rajasthan-1_c57fba4b.jpg',
-    });
+  // Guard function to ensure admin authentication before mutating
+  const requireAdminAccess = (action: () => void) => {
+    if (isAdmin) {
+      action();
+    } else {
+      setPendingAdminAction(() => action);
+      setIsPasscodeModalOpen(true);
+    }
+  };
+
+  // Called when secret PIN is correctly validated
+  const handlePasscodeSuccess = () => {
+    setIsAdmin(true);
+    showToast('Admin Mode unlocked! Blog management controls active.');
+    if (pendingAdminAction) {
+      pendingAdminAction();
+      setPendingAdminAction(null);
+    }
+  };
+
+  // Lock admin mode and return to view-only
+  const handleLockAdmin = () => {
+    setAdminSessionActive(false);
+    setIsAdmin(false);
+    setIsCreatingNew(false);
     setEditingDiary(null);
-    setIsCreatingNew(true);
-    setEditorTab('edit');
+    showToast('Admin Mode locked. Blog page is now in View-Only mode.');
+  };
+
+  const handleOpenNewPost = () => {
+    requireAdminAccess(() => {
+      setFormData({
+        title: '',
+        author: 'Harshvardhan (Founder)',
+        location: 'Jaipur, Rajasthan',
+        date: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
+        travelerType: "Founder's Guide",
+        readTime: '4 min read',
+        excerpt: '',
+        fullStory: '',
+        highlights: 'Royal palace exploration, Verified local street food, Private chauffeur care',
+        image: '/assets/aistudio/Rajasthan-1_c57fba4b.jpg',
+      });
+      setEditingDiary(null);
+      setIsCreatingNew(true);
+      setEditorTab('edit');
+    });
   };
 
   const handleOpenEdit = (diary: TravelDiary) => {
-    setFormData({
-      title: diary.title,
-      author: diary.author,
-      location: diary.location,
-      date: diary.date,
-      travelerType: diary.travelerType,
-      readTime: diary.readTime || '4 min read',
-      excerpt: diary.excerpt,
-      fullStory: diary.fullStory,
-      highlights: diary.highlights ? diary.highlights.join(', ') : '',
-      image: diary.image,
+    requireAdminAccess(() => {
+      setFormData({
+        title: diary.title,
+        author: diary.author,
+        location: diary.location,
+        date: diary.date,
+        travelerType: diary.travelerType,
+        readTime: diary.readTime || '4 min read',
+        excerpt: diary.excerpt,
+        fullStory: diary.fullStory,
+        highlights: diary.highlights ? diary.highlights.join(', ') : '',
+        image: diary.image,
+      });
+      setEditingDiary(diary);
+      setIsCreatingNew(false);
+      setEditorTab('edit');
     });
-    setEditingDiary(diary);
-    setIsCreatingNew(false);
-    setEditorTab('edit');
   };
 
   const handleSaveBlog = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!isAdmin) {
+      setIsPasscodeModalOpen(true);
+      return;
+    }
 
     if (!formData.title.trim() || !formData.fullStory.trim()) {
       showToast('Please enter both a blog title and story content.');
@@ -205,24 +253,28 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenPlanner 
   };
 
   const handleDeleteBlog = (id: string) => {
-    if (confirm('Are you sure you want to delete this blog post?')) {
-      const filtered = blogs.filter((b) => b.id !== id);
-      setBlogs(filtered);
-      showToast('Blog post deleted.');
-      if (activeDiary && activeDiary.id === id) {
-        setActiveDiary(null);
+    requireAdminAccess(() => {
+      if (confirm('Are you sure you want to delete this blog post?')) {
+        const filtered = blogs.filter((b) => b.id !== id);
+        setBlogs(filtered);
+        showToast('Blog post deleted.');
+        if (activeDiary && activeDiary.id === id) {
+          setActiveDiary(null);
+        }
+        setEditingDiary(null);
+        setIsCreatingNew(false);
       }
-      setEditingDiary(null);
-      setIsCreatingNew(false);
-    }
+    });
   };
 
   const handleResetToDefault = () => {
-    if (confirm('Reset all blog posts to default sample travel stories?')) {
-      setBlogs(TRAVEL_DIARIES);
-      localStorage.removeItem(STORAGE_KEY);
-      showToast('Restored default blogs.');
-    }
+    requireAdminAccess(() => {
+      if (confirm('Reset all blog posts to default sample travel stories?')) {
+        setBlogs(TRAVEL_DIARIES);
+        localStorage.removeItem(STORAGE_KEY);
+        showToast('Restored default blogs.');
+      }
+    });
   };
 
   const filteredBlogs = blogs.filter((diary) => {
@@ -278,21 +330,53 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenPlanner 
                   Pinkcity<span className="text-[#C83E5C]">routes</span> Travel Blog
                 </span>
                 <span className="text-[10px] text-slate-500 hidden sm:block">
-                  Curated & Edited by Harshvardhan · Direct WhatsApp {AGENCY_DETAILS.phone}
+                  Curated by Harshvardhan · Direct WhatsApp {AGENCY_DETAILS.phone}
                 </span>
               </div>
             </div>
           </div>
 
           <div className="flex items-center gap-2.5">
-            <button
-              onClick={handleOpenNewPost}
-              className="inline-flex items-center gap-1.5 bg-[#C83E5C] hover:bg-[#B0334E] text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow-sm transition-all hover:scale-105"
-            >
-              <PlusCircle className="w-4 h-4" />
-              <span className="hidden sm:inline">Write New Blog</span>
-              <span className="sm:hidden">Write</span>
-            </button>
+            {/* If Admin Mode Active: show publish & lock controls */}
+            {isAdmin ? (
+              <>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 border border-amber-300 text-amber-900 text-xs font-bold shadow-xs">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                  <span className="hidden md:inline">Admin Mode</span>
+                </div>
+
+                <button
+                  onClick={handleOpenNewPost}
+                  className="inline-flex items-center gap-1.5 bg-[#C83E5C] hover:bg-[#B0334E] text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow-sm transition-all hover:scale-105"
+                >
+                  <PlusCircle className="w-4 h-4" />
+                  <span className="hidden sm:inline">Write New Blog</span>
+                  <span className="sm:hidden">Write</span>
+                </button>
+
+                <button
+                  onClick={handleLockAdmin}
+                  className="inline-flex items-center gap-1 text-slate-600 hover:text-rose-600 bg-stone-100 hover:bg-rose-50 text-xs font-semibold px-2.5 py-2 rounded-xl border border-stone-200 transition-colors"
+                  title="Lock admin controls"
+                >
+                  <Lock className="w-3.5 h-3.5 text-slate-500" />
+                  <span className="hidden lg:inline">Lock</span>
+                </button>
+              </>
+            ) : (
+              /* Regular visitor: Subtle author access login button */
+              <button
+                onClick={() => {
+                  setPendingAdminAction(() => handleOpenNewPost);
+                  setIsPasscodeModalOpen(true);
+                }}
+                className="inline-flex items-center gap-1.5 bg-stone-100 hover:bg-stone-200 text-slate-700 text-xs font-semibold px-3 py-2 rounded-xl transition-all"
+                title="Admin Passcode Required to Publish"
+              >
+                <Lock className="w-3.5 h-3.5 text-stone-500" />
+                <span className="hidden sm:inline">Author Login</span>
+              </button>
+            )}
 
             <a
               href={getGeneralWhatsAppLink()}
@@ -323,31 +407,47 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenPlanner 
             </h1>
             <p className="mt-4 text-slate-300 text-sm sm:text-base leading-relaxed">
               Read authentic day-by-day travelogues, vehicle comparisons, and local Pink City insider guides.
-              As the agency founder, Harshvardhan regularly edits and publishes field notes to help you plan
-              effortless journeys.
+              All itineraries and travel notes are curated to help you plan effortless journeys.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <button
-                onClick={handleOpenNewPost}
-                className="inline-flex items-center gap-2 bg-[#C83E5C] hover:bg-[#B0334E] text-white text-xs sm:text-sm font-bold py-3 px-5 rounded-xl shadow-lg transition-all hover:scale-105"
-              >
-                <PlusCircle className="w-4 h-4" />
-                <span>Publish New Blog Post</span>
-              </button>
+              {isAdmin ? (
+                <>
+                  <button
+                    onClick={handleOpenNewPost}
+                    className="inline-flex items-center gap-2 bg-[#C83E5C] hover:bg-[#B0334E] text-white text-xs sm:text-sm font-bold py-3 px-5 rounded-xl shadow-lg transition-all hover:scale-105"
+                  >
+                    <PlusCircle className="w-4 h-4" />
+                    <span>Publish New Blog Post</span>
+                  </button>
 
-              <button
-                onClick={handleResetToDefault}
-                className="inline-flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-slate-200 text-xs font-semibold py-3 px-4 rounded-xl border border-white/15 transition-all"
-                title="Restore default articles"
-              >
-                <RotateCcw className="w-3.5 h-3.5 text-amber-300" />
-                <span>Reset Sample Articles</span>
-              </button>
+                  <button
+                    onClick={handleResetToDefault}
+                    className="inline-flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-slate-200 text-xs font-semibold py-3 px-4 rounded-xl border border-white/15 transition-all"
+                    title="Restore default articles"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5 text-amber-300" />
+                    <span>Reset Sample Articles</span>
+                  </button>
+                </>
+              ) : (
+                <div className="flex flex-wrap items-center gap-3">
+                  <div className="text-xs text-slate-300 bg-white/10 border border-white/15 px-3.5 py-2.5 rounded-xl">
+                    Showing <strong className="text-white">{blogs.length}</strong> active published stories · View-only guest mode
+                  </div>
 
-              <div className="text-xs text-slate-400 pl-2">
-                Showing <strong className="text-white">{blogs.length}</strong> active published stories
-              </div>
+                  <button
+                    onClick={() => {
+                      setPendingAdminAction(() => handleOpenNewPost);
+                      setIsPasscodeModalOpen(true);
+                    }}
+                    className="inline-flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-slate-200 text-xs font-semibold py-2.5 px-3.5 rounded-xl border border-white/15 transition-all"
+                  >
+                    <Lock className="w-3.5 h-3.5 text-amber-300" />
+                    <span>Admin Login to Publish</span>
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -399,15 +499,17 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenPlanner 
             <BookOpen className="w-12 h-12 text-stone-300 mx-auto mb-3" />
             <h3 className="font-display text-xl font-bold text-slate-900">No blog articles found</h3>
             <p className="text-xs text-slate-500 mt-1 mb-4">
-              Try searching with a different keyword or create a new blog article now.
+              Try searching with a different keyword or browse other categories.
             </p>
-            <button
-              onClick={handleOpenNewPost}
-              className="inline-flex items-center gap-2 bg-[#C83E5C] text-white text-xs font-bold py-2.5 px-5 rounded-xl shadow-sm"
-            >
-              <PlusCircle className="w-4 h-4" />
-              <span>Write New Blog Post</span>
-            </button>
+            {isAdmin && (
+              <button
+                onClick={handleOpenNewPost}
+                className="inline-flex items-center gap-2 bg-[#C83E5C] text-white text-xs font-bold py-2.5 px-5 rounded-xl shadow-sm"
+              >
+                <PlusCircle className="w-4 h-4" />
+                <span>Write New Blog Post</span>
+              </button>
+            )}
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -432,14 +534,16 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenPlanner 
                       {diary.travelerType}
                     </span>
 
-                    {/* Quick Edit Button */}
-                    <button
-                      onClick={() => handleOpenEdit(diary)}
-                      className="absolute top-3.5 right-3.5 bg-white/95 hover:bg-white text-slate-800 p-2 rounded-lg shadow-sm transition-all hover:scale-105"
-                      title="Edit this regular blog"
-                    >
-                      <Edit3 className="w-3.5 h-3.5 text-[#C83E5C]" />
-                    </button>
+                    {/* Quick Edit Button (Admin Only) */}
+                    {isAdmin && (
+                      <button
+                        onClick={() => handleOpenEdit(diary)}
+                        className="absolute top-3.5 right-3.5 bg-white/95 hover:bg-white text-slate-800 p-2 rounded-lg shadow-sm transition-all hover:scale-105"
+                        title="Edit this regular blog"
+                      >
+                        <Edit3 className="w-3.5 h-3.5 text-[#C83E5C]" />
+                      </button>
+                    )}
 
                     {/* Location & Read Time on Image bottom */}
                     <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-amber-200 font-medium">
@@ -475,176 +579,151 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenPlanner 
                   </div>
                 </div>
 
-                {/* Footer Actions */}
+                {/* Footer Actions: Strictly View-Only for Guests, Full Controls for Admin */}
                 <div className="p-6 pt-0 space-y-2">
                   <div className="flex items-center gap-2">
                     <button
                       type="button"
                       onClick={() => setActiveDiary(diary)}
-                      className="flex-1 text-xs font-bold py-2.5 px-4 rounded-xl text-slate-800 bg-[#FAF7F2] hover:bg-stone-200 transition-colors flex items-center justify-between group-hover:text-[#C83E5C]"
+                      className={`text-xs font-bold py-2.5 px-4 rounded-xl text-slate-800 bg-[#FAF7F2] hover:bg-stone-200 transition-colors flex items-center justify-between group-hover:text-[#C83E5C] ${
+                        isAdmin ? 'flex-1' : 'w-full'
+                      }`}
                     >
                       <span>Read Full Article</span>
                       <Eye className="w-4 h-4 text-stone-400" />
                     </button>
 
-                    <button
-                      type="button"
-                      onClick={() => handleOpenEdit(diary)}
-                      className="p-2.5 rounded-xl border border-stone-200 hover:border-[#C83E5C] text-slate-600 hover:text-[#C83E5C] hover:bg-rose-50 transition-colors"
-                      title="Edit blog post"
-                    >
-                      <Edit3 className="w-4 h-4" />
-                    </button>
+                    {/* Admin-only controls */}
+                    {isAdmin && (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => handleOpenEdit(diary)}
+                          className="p-2.5 rounded-xl border border-stone-200 hover:border-[#C83E5C] text-slate-600 hover:text-[#C83E5C] hover:bg-rose-50 transition-colors"
+                          title="Edit blog post"
+                        >
+                          <Edit3 className="w-4 h-4" />
+                        </button>
 
-                    <button
-                      type="button"
-                      onClick={() => handleDeleteBlog(diary.id)}
-                      className="p-2.5 rounded-xl border border-stone-200 hover:border-rose-400 text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
-                      title="Delete blog post"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteBlog(diary.id)}
+                          className="p-2.5 rounded-xl border border-stone-200 hover:border-rose-400 text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+                          title="Delete blog post"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
               </article>
             ))}
           </div>
         )}
-
-        {/* Agency Note & Inquiry Box */}
-        <div className="mt-16 bg-[#101B2B] text-white rounded-3xl p-8 sm:p-10 border border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-amber-300 block mb-1">
-              Personal Concierge Support
-            </span>
-            <h3 className="font-display text-2xl font-bold">
-              Want a custom tour designed based on these stories?
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-xl">
-              Talk directly with Harshvardhan to customize routes, vehicle selections, and hotel categories with zero middleman markups.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3 shrink-0">
-            <a
-              href={getGeneralWhatsAppLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1EBE5D] text-slate-950 font-bold text-xs sm:text-sm py-3 px-5 rounded-xl shadow-lg transition-all"
-            >
-              <MessageSquare className="w-4 h-4" />
-              <span>WhatsApp +91 98932 21141</span>
-            </a>
-
-            <a
-              href={`mailto:${AGENCY_DETAILS.email}`}
-              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-semibold py-3 px-4 rounded-xl border border-white/20 transition-all"
-            >
-              <Mail className="w-4 h-4 text-amber-300" />
-              <span>{AGENCY_DETAILS.email}</span>
-            </a>
-          </div>
-        </div>
       </main>
 
-      {/* Editor Modal for Creating or Editing Blog Posts */}
-      {(isCreatingNew || editingDiary) && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-200">
+      {/* Editor Modal: STRICTLY Admin Only */}
+      {isAdmin && (isCreatingNew || editingDiary) && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="bg-white rounded-3xl max-w-3xl w-full overflow-hidden shadow-2xl border border-stone-200 max-h-[92vh] flex flex-col">
             {/* Header */}
-            <div className="p-6 bg-slate-900 text-white flex items-center justify-between">
-              <div>
-                <span className="text-xs uppercase tracking-wider text-amber-300 font-bold block mb-1">
-                  {editingDiary ? 'Edit Regular Blog Post' : 'Create & Publish New Regular Blog'}
-                </span>
-                <h3 className="font-display text-2xl font-bold">
-                  {editingDiary ? 'Update Travel Article' : 'Write a New Journey Story'}
-                </h3>
+            <div className="p-6 border-b border-stone-200 flex items-center justify-between bg-[#FAF7F2]">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-[#C83E5C]/10 text-[#C83E5C] flex items-center justify-center font-bold">
+                  {isCreatingNew ? <PlusCircle className="w-5 h-5" /> : <Edit3 className="w-5 h-5" />}
+                </div>
+                <div>
+                  <h3 className="font-display font-bold text-slate-900 text-lg">
+                    {isCreatingNew ? 'Publish New Blog Post' : 'Edit Travel Blog Post'}
+                  </h3>
+                  <p className="text-xs text-slate-500">
+                    Admin verified controls · Saves to Pinkcityroutes blog storage
+                  </p>
+                </div>
               </div>
 
-              {/* Tabs: Edit vs Preview */}
+              {/* Mode Toggle & Close */}
               <div className="flex items-center gap-2">
-                <div className="bg-slate-800 p-1 rounded-xl flex items-center text-xs">
+                <div className="bg-stone-200/80 p-1 rounded-xl flex items-center text-xs font-semibold">
                   <button
                     type="button"
                     onClick={() => setEditorTab('edit')}
-                    className={`px-3 py-1.5 rounded-lg font-semibold transition-colors ${
-                      editorTab === 'edit' ? 'bg-[#C83E5C] text-white' : 'text-slate-400 hover:text-white'
+                    className={`px-3 py-1 rounded-lg transition-all ${
+                      editorTab === 'edit' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600'
                     }`}
                   >
-                    Edit Mode
+                    Edit
                   </button>
                   <button
                     type="button"
                     onClick={() => setEditorTab('preview')}
-                    className={`px-3 py-1.5 rounded-lg font-semibold transition-colors ${
-                      editorTab === 'preview' ? 'bg-[#C83E5C] text-white' : 'text-slate-400 hover:text-white'
+                    className={`px-3 py-1 rounded-lg transition-all ${
+                      editorTab === 'preview' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600'
                     }`}
                   >
-                    Live Preview
+                    Preview
                   </button>
                 </div>
 
                 <button
                   onClick={() => {
-                    setEditingDiary(null);
                     setIsCreatingNew(false);
+                    setEditingDiary(null);
                   }}
-                  className="p-2 rounded-full text-slate-400 hover:text-white hover:bg-slate-800 transition-colors ml-2"
+                  className="p-2 text-stone-400 hover:text-slate-800 rounded-full hover:bg-stone-200 transition-colors"
+                  aria-label="Close"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
             </div>
 
-            {/* Modal Body */}
+            {/* Tab: Edit Mode */}
             {editorTab === 'edit' ? (
-              <form onSubmit={handleSaveBlog} className="p-6 overflow-y-auto space-y-4 text-left text-xs">
-                {/* Title */}
+              <form onSubmit={handleSaveBlog} className="p-6 overflow-y-auto space-y-4 flex-1">
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
                     Blog Title *
                   </label>
                   <input
                     type="text"
-                    required
                     value={formData.title}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    placeholder="e.g. Day 1 in the Pink City: Sunrise Forts & Heritage Bazaars"
-                    className="w-full bg-stone-50 border border-stone-300 rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
+                    placeholder="e.g. Secret Sunset Viewpoints of Nahargarh Fort"
+                    className="w-full bg-[#FAF7F2] border border-stone-300 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
+                    required
                   />
                 </div>
 
-                {/* Author, Location, Read Time, Category */}
-                <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
                       Author Name
                     </label>
                     <input
                       type="text"
                       value={formData.author}
                       onChange={(e) => setFormData({ ...formData, author: e.target.value })}
-                      placeholder="Harshvardhan (Founder)"
-                      className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
+                      className="w-full bg-[#FAF7F2] border border-stone-300 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                      Destination / Place
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                      Destination / City
                     </label>
                     <input
                       type="text"
                       value={formData.location}
                       onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                      placeholder="Jaipur, Rajasthan"
-                      className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
+                      placeholder="e.g. Jaipur, Rajasthan"
+                      className="w-full bg-[#FAF7F2] border border-stone-300 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
                       Read Time
                     </label>
                     <input
@@ -652,148 +731,158 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenPlanner 
                       value={formData.readTime}
                       onChange={(e) => setFormData({ ...formData, readTime: e.target.value })}
                       placeholder="e.g. 5 min read"
-                      className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
+                      className="w-full bg-[#FAF7F2] border border-stone-300 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
                     />
                   </div>
+                </div>
 
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                      Category
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                      Category Tag
                     </label>
                     <select
                       value={formData.travelerType}
                       onChange={(e) => setFormData({ ...formData, travelerType: e.target.value })}
-                      className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
+                      className="w-full bg-[#FAF7F2] border border-stone-300 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
                     >
-                      <option value="Founder's Guide">Founder's Guide</option>
-                      <option value="1-Day Sightseeing">1-Day Sightseeing</option>
-                      <option value="Travel Advice">Travel Advice</option>
-                      <option value="Couple Trip">Couple Trip</option>
-                      <option value="Family Vacation">Family Vacation</option>
-                      <option value="Solo Traveler">Solo Traveler</option>
+                      <option value="Founder's Guide">Founder's Guide (Harshvardhan)</option>
+                      <option value="Day Trip Guide">1-Day Sightseeing Guide</option>
+                      <option value="Vehicle & Fleet">Fleet & Car Comparison</option>
+                      <option value="Heritage & Culture">Heritage & Architecture</option>
+                      <option value="Food & Markets">Street Food & Artisan Bazaars</option>
+                      <option value="Guest Diary">Client Travel Story</option>
                     </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                      Display Date
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.date}
+                      onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                      className="w-full bg-[#FAF7F2] border border-stone-300 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
+                    />
                   </div>
                 </div>
 
-                {/* Cover Image Selector */}
+                {/* Preset Photos */}
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 flex items-center justify-between">
-                    <span>Cover Image URL</span>
-                    <span className="text-[10px] text-slate-400 lowercase">select a preset photo or paste image link</span>
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    Select Cover Photo
                   </label>
-                  <input
-                    type="url"
-                    value={formData.image}
-                    onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                    className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
-                  />
-                  <div className="flex flex-wrap gap-1.5 mt-2">
-                    {presetPhotos.map((p) => (
+                  <div className="flex flex-wrap gap-2 mb-2">
+                    {presetPhotos.map((p, idx) => (
                       <button
-                        key={p.label}
                         type="button"
+                        key={idx}
                         onClick={() => setFormData({ ...formData, image: p.url })}
-                        className={`text-[10px] px-2.5 py-1 rounded-md border transition-all ${
+                        className={`text-[11px] px-2.5 py-1 rounded-lg border transition-all ${
                           formData.image === p.url
-                            ? 'bg-[#C83E5C] text-white border-[#C83E5C] font-bold'
-                            : 'bg-white text-slate-600 border-stone-200 hover:bg-stone-50'
+                            ? 'border-[#C83E5C] bg-[#C83E5C] text-white font-bold'
+                            : 'border-stone-300 bg-white text-slate-700 hover:bg-stone-100'
                         }`}
                       >
                         {p.label}
                       </button>
                     ))}
                   </div>
-                </div>
-
-                {/* Excerpt */}
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                    Short Excerpt / Teaser (for cards)
-                  </label>
                   <input
                     type="text"
-                    value={formData.excerpt}
-                    onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
-                    placeholder="Brief 1-2 sentence preview..."
-                    className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
+                    value={formData.image}
+                    onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                    placeholder="Or paste an image URL..."
+                    className="w-full bg-[#FAF7F2] border border-stone-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
                   />
                 </div>
 
-                {/* Full Story Content */}
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                    Full Blog Article Content * (Supports multiple paragraphs)
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    Card Short Excerpt (Preview text)
                   </label>
                   <textarea
-                    rows={7}
-                    required
-                    value={formData.fullStory}
-                    onChange={(e) => setFormData({ ...formData, fullStory: e.target.value })}
-                    placeholder="Write detailed advice, timings, stops, food recommendations, and driver insights..."
-                    className="w-full bg-stone-50 border border-stone-300 rounded-xl px-4 py-3 text-xs leading-relaxed text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
+                    value={formData.excerpt}
+                    onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
+                    placeholder="Concise 2-sentence summary for the blog card..."
+                    rows={2}
+                    className="w-full bg-[#FAF7F2] border border-stone-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
                   />
                 </div>
 
-                {/* Highlights */}
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                    Key Highlights & Traveler Tips (comma-separated)
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    Full Travel Article / Itinerary Breakdown *
+                  </label>
+                  <textarea
+                    value={formData.fullStory}
+                    onChange={(e) => setFormData({ ...formData, fullStory: e.target.value })}
+                    placeholder="Write your complete guide, tips, schedule, secret viewpoints, recommended stops, and vehicle advice..."
+                    rows={8}
+                    className="w-full bg-[#FAF7F2] border border-stone-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    Key Highlights & Tips (comma-separated)
                   </label>
                   <input
                     type="text"
                     value={formData.highlights}
                     onChange={(e) => setFormData({ ...formData, highlights: e.target.value })}
-                    placeholder="e.g. Sunrise timing at 6:30 AM, Skip ticket queue, Kulhad chai stop"
-                    className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
+                    placeholder="e.g. Best photography spot, Private AC cab recommended, Verified local restaurant"
+                    className="w-full bg-[#FAF7F2] border border-stone-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
                   />
                 </div>
 
-                {/* Actions */}
-                <div className="pt-4 border-t border-stone-200 flex items-center justify-between gap-3">
-                  {editingDiary ? (
+                {/* Form Buttons */}
+                <div className="pt-4 border-t border-stone-200 flex items-center justify-between">
+                  {editingDiary && (
                     <button
                       type="button"
                       onClick={() => handleDeleteBlog(editingDiary.id)}
-                      className="inline-flex items-center gap-1.5 text-rose-600 hover:text-rose-700 px-3 py-2 rounded-lg hover:bg-rose-50 transition-colors font-semibold"
+                      className="inline-flex items-center gap-1.5 text-rose-600 hover:text-rose-700 text-xs font-bold px-3 py-2 rounded-xl hover:bg-rose-50"
                     >
-                      <Trash2 className="w-3.5 h-3.5" />
+                      <Trash2 className="w-4 h-4" />
                       <span>Delete Blog</span>
                     </button>
-                  ) : (
-                    <div />
                   )}
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 ml-auto">
                     <button
                       type="button"
                       onClick={() => {
-                        setEditingDiary(null);
                         setIsCreatingNew(false);
+                        setEditingDiary(null);
                       }}
-                      className="px-4 py-2 rounded-xl text-slate-600 hover:bg-stone-100 font-semibold"
+                      className="px-4 py-2.5 rounded-xl border border-stone-300 text-slate-700 hover:bg-stone-100 text-xs font-bold transition-colors"
                     >
                       Cancel
                     </button>
+
                     <button
                       type="submit"
-                      className="inline-flex items-center gap-2 bg-[#C83E5C] hover:bg-[#B0334E] text-white font-bold px-6 py-2.5 rounded-xl shadow transition-all"
+                      className="inline-flex items-center gap-1.5 bg-[#C83E5C] hover:bg-[#B0334E] text-white text-xs font-bold px-5 py-2.5 rounded-xl shadow-md transition-all hover:scale-105"
                     >
                       <Save className="w-4 h-4" />
-                      <span>Save & Publish Blog</span>
+                      <span>{isCreatingNew ? 'Publish Blog' : 'Save Changes'}</span>
                     </button>
                   </div>
                 </div>
               </form>
             ) : (
-              /* Live Preview Mode */
-              <div className="p-6 overflow-y-auto space-y-6">
-                <div className="relative h-60 rounded-2xl overflow-hidden bg-stone-900">
+              /* Tab: Live Preview Mode */
+              <div className="p-6 overflow-y-auto space-y-6 flex-1">
+                <div className="relative h-60 bg-stone-900 rounded-2xl overflow-hidden">
                   <img
                     src={formData.image}
-                    alt={formData.title || 'Preview'}
+                    alt={formData.title}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent" />
                   <div className="absolute bottom-4 left-6 right-6 text-white">
                     <span className="text-[11px] uppercase tracking-wider text-amber-300 font-bold block mb-1">
                       {formData.location} · {formData.date}
@@ -830,7 +919,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenPlanner 
         </div>
       )}
 
-      {/* Reader Modal */}
+      {/* Reader Modal (Available to all visitors) */}
       {activeDiary && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-stone-200 max-h-[92vh] flex flex-col">
@@ -895,16 +984,23 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenPlanner 
               )}
 
               <div className="pt-3 border-t border-stone-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-                <button
-                  onClick={() => {
-                    handleOpenEdit(activeDiary);
-                    setActiveDiary(null);
-                  }}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 text-slate-700 hover:text-[#C83E5C] font-bold px-3 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 transition-colors"
-                >
-                  <Edit3 className="w-3.5 h-3.5" />
-                  <span>Edit This Blog</span>
-                </button>
+                {/* Edit button is only visible to Admin */}
+                {isAdmin ? (
+                  <button
+                    onClick={() => {
+                      handleOpenEdit(activeDiary);
+                      setActiveDiary(null);
+                    }}
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 text-slate-700 hover:text-[#C83E5C] font-bold px-3 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 transition-colors"
+                  >
+                    <Edit3 className="w-3.5 h-3.5" />
+                    <span>Edit This Blog</span>
+                  </button>
+                ) : (
+                  <div className="text-[11px] text-slate-400">
+                    Curated on-ground travel guide
+                  </div>
+                )}
 
                 <a
                   href={createWhatsAppUrl(
@@ -912,7 +1008,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenPlanner 
                   )}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 bg-[#128C7E] text-white font-bold px-5 py-2.5 rounded-xl shadow-xs transition-all"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 bg-[#128C7E] hover:bg-[#075E54] text-white font-bold px-5 py-2.5 rounded-xl shadow-xs transition-all"
                 >
                   <MessageSquare className="w-3.5 h-3.5" />
                   <span>Plan Similar Journey on WhatsApp</span>
@@ -922,6 +1018,16 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenPlanner 
           </div>
         </div>
       )}
+
+      {/* Secret Admin Passcode Modal */}
+      <AdminPasscodeModal
+        isOpen={isPasscodeModalOpen}
+        onClose={() => {
+          setIsPasscodeModalOpen(false);
+          setPendingAdminAction(null);
+        }}
+        onSuccess={handlePasscodeSuccess}
+      />
 
       {/* Blog Page Footer */}
       <footer className="bg-[#0A121D] text-slate-400 py-8 border-t border-slate-800 text-xs">

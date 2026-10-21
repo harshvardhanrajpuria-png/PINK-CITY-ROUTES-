@@ -19,9 +19,14 @@ import {
   RotateCcw,
   Tag,
   Share2,
+  Lock,
+  Unlock,
+  ShieldCheck,
 } from 'lucide-react';
 import { TRAVEL_DIARIES, TravelDiary, AGENCY_DETAILS } from '../data/travelData';
 import { getDiarySubmissionWhatsAppLink, createWhatsAppUrl } from '../utils/whatsapp';
+import { isAdminSessionActive, setAdminSessionActive } from '../utils/adminAuth';
+import { AdminPasscodeModal } from './AdminPasscodeModal';
 
 const STORAGE_KEY = 'pinkcityroutes_user_blogs_v2';
 
@@ -45,6 +50,11 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
     }
     return TRAVEL_DIARIES;
   });
+
+  // Admin authentication state - regular visitors are strictly view-only
+  const [isAdmin, setIsAdmin] = useState<boolean>(() => isAdminSessionActive());
+  const [isPasscodeModalOpen, setIsPasscodeModalOpen] = useState(false);
+  const [pendingAdminAction, setPendingAdminAction] = useState<(() => void) | null>(null);
 
   // State for active reader modal, editor modal, search, and category filter
   const [activeDiary, setActiveDiary] = useState<TravelDiary | null>(null);
@@ -91,43 +101,81 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
     setTimeout(() => setToastMessage(null), 3000);
   };
 
-  // Open editor for a new post
-  const handleOpenNewPost = () => {
-    setFormData({
-      title: '',
-      author: 'Harshvardhan & Pinkcityroutes',
-      location: 'Jaipur, Rajasthan',
-      date: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
-      travelerType: 'Curated Guide',
-      excerpt: '',
-      fullStory: '',
-      highlights: 'Royal palace exploration, Verified local dining, Private chauffeur support',
-      image: '/assets/aistudio/Rajasthan-1_c57fba4b.jpg',
-    });
-    setEditingDiary(null);
-    setIsCreatingNew(true);
+  // Guard function to ensure admin authentication before mutating
+  const requireAdminAccess = (action: () => void) => {
+    if (isAdmin) {
+      action();
+    } else {
+      setPendingAdminAction(() => action);
+      setIsPasscodeModalOpen(true);
+    }
   };
 
-  // Open editor for an existing post
-  const handleOpenEdit = (diary: TravelDiary) => {
-    setFormData({
-      title: diary.title,
-      author: diary.author,
-      location: diary.location,
-      date: diary.date,
-      travelerType: diary.travelerType,
-      excerpt: diary.excerpt,
-      fullStory: diary.fullStory,
-      highlights: diary.highlights.join(', '),
-      image: diary.image,
-    });
-    setEditingDiary(diary);
+  // Called when secret PIN is correctly validated
+  const handlePasscodeSuccess = () => {
+    setIsAdmin(true);
+    showToast('Admin Mode unlocked! Blog management controls active.');
+    if (pendingAdminAction) {
+      pendingAdminAction();
+      setPendingAdminAction(null);
+    }
+  };
+
+  // Lock admin mode and return to view-only
+  const handleLockAdmin = () => {
+    setAdminSessionActive(false);
+    setIsAdmin(false);
     setIsCreatingNew(false);
+    setEditingDiary(null);
+    showToast('Admin Mode locked. Section is now in View-Only mode.');
+  };
+
+  // Open editor for a new post (Admin only)
+  const handleOpenNewPost = () => {
+    requireAdminAccess(() => {
+      setFormData({
+        title: '',
+        author: 'Harshvardhan & Pinkcityroutes',
+        location: 'Jaipur, Rajasthan',
+        date: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
+        travelerType: 'Curated Guide',
+        excerpt: '',
+        fullStory: '',
+        highlights: 'Royal palace exploration, Verified local dining, Private chauffeur support',
+        image: '/assets/aistudio/Rajasthan-1_c57fba4b.jpg',
+      });
+      setEditingDiary(null);
+      setIsCreatingNew(true);
+    });
+  };
+
+  // Open editor for an existing post (Admin only)
+  const handleOpenEdit = (diary: TravelDiary) => {
+    requireAdminAccess(() => {
+      setFormData({
+        title: diary.title,
+        author: diary.author,
+        location: diary.location,
+        date: diary.date,
+        travelerType: diary.travelerType,
+        excerpt: diary.excerpt,
+        fullStory: diary.fullStory,
+        highlights: diary.highlights.join(', '),
+        image: diary.image,
+      });
+      setEditingDiary(diary);
+      setIsCreatingNew(false);
+    });
   };
 
   // Save changes (update or insert)
   const handleSaveBlog = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!isAdmin) {
+      setIsPasscodeModalOpen(true);
+      return;
+    }
 
     if (!formData.title.trim() || !formData.fullStory.trim()) {
       showToast('Please provide a title and story text.');
@@ -158,6 +206,7 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
       );
       setBlogs(updatedList);
       showToast('Blog post updated successfully!');
+
       // Update reader modal if open
       if (activeDiary && activeDiary.id === editingDiary.id) {
         setActiveDiary({
@@ -195,27 +244,31 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
     setIsCreatingNew(false);
   };
 
-  // Delete a post
+  // Delete a post (Admin only)
   const handleDeleteBlog = (id: string) => {
-    if (confirm('Are you sure you want to delete this blog post?')) {
-      const filtered = blogs.filter((b) => b.id !== id);
-      setBlogs(filtered);
-      showToast('Blog post deleted.');
-      if (activeDiary && activeDiary.id === id) {
-        setActiveDiary(null);
+    requireAdminAccess(() => {
+      if (confirm('Are you sure you want to delete this blog post?')) {
+        const filtered = blogs.filter((b) => b.id !== id);
+        setBlogs(filtered);
+        showToast('Blog post deleted.');
+        if (activeDiary && activeDiary.id === id) {
+          setActiveDiary(null);
+        }
+        setEditingDiary(null);
+        setIsCreatingNew(false);
       }
-      setEditingDiary(null);
-      setIsCreatingNew(false);
-    }
+    });
   };
 
-  // Reset to original starter blogs
+  // Reset to original starter blogs (Admin only)
   const handleResetToDefault = () => {
-    if (confirm('Reset blogs back to the original default stories?')) {
-      setBlogs(TRAVEL_DIARIES);
-      localStorage.removeItem(STORAGE_KEY);
-      showToast('Restored default blogs.');
-    }
+    requireAdminAccess(() => {
+      if (confirm('Reset blogs back to the original default stories?')) {
+        setBlogs(TRAVEL_DIARIES);
+        localStorage.removeItem(STORAGE_KEY);
+        showToast('Restored default blogs.');
+      }
+    });
   };
 
   // Filtered blogs list
@@ -256,12 +309,12 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
               Pinkcityroutes Travel Diaries — Stories From the Road
             </h2>
             <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
-              Every day brings a new journey. Read real daily trip logs written by our travelers, edit and
-              publish your regular travel blogs, or submit your own day's experience.
+              Every day brings a new journey. Read real daily trip logs written by our travelers, browse
+              curated itineraries, or submit your own day's experience to be featured.
             </p>
           </div>
 
-          {/* Action: Open Blog Page, Write New Blog & Reset */}
+          {/* Action Buttons: View-Only for Visitors; Unlocked for Verified Admin */}
           <div className="flex flex-wrap items-center gap-2.5 self-start md:self-auto shrink-0">
             {onOpenDedicatedBlogPage && (
               <button
@@ -269,25 +322,58 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
                 className="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold py-2.5 px-4 rounded-xl shadow-sm transition-all"
               >
                 <BookOpen className="w-4 h-4 text-amber-300" />
-                <span>Open Blog Page & Editor</span>
+                <span>Open Full Blog Page</span>
               </button>
             )}
 
-            <button
-              onClick={handleOpenNewPost}
-              className="inline-flex items-center gap-2 bg-[#C83E5C] hover:bg-[#B0334E] text-white text-xs font-bold py-2.5 px-4 rounded-xl shadow-sm transition-all hover:scale-105 active:scale-95"
-            >
-              <PlusCircle className="w-4 h-4" />
-              <span>Write / Edit Blog</span>
-            </button>
+            {/* If Admin Mode is active: show publish, reset & lock controls */}
+            {isAdmin ? (
+              <>
+                <div className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-50 border border-amber-300 text-amber-900 text-xs font-bold shadow-xs">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                  <span className="hidden sm:inline">Admin Active</span>
+                </div>
 
-            <button
-              onClick={handleResetToDefault}
-              className="p-2.5 text-slate-500 hover:text-slate-800 bg-stone-100 hover:bg-stone-200 rounded-xl transition-colors text-xs font-medium"
-              title="Reset to default blogs"
-            >
-              <RotateCcw className="w-4 h-4" />
-            </button>
+                <button
+                  onClick={handleOpenNewPost}
+                  className="inline-flex items-center gap-2 bg-[#C83E5C] hover:bg-[#B0334E] text-white text-xs font-bold py-2.5 px-4 rounded-xl shadow-sm transition-all hover:scale-105 active:scale-95"
+                  title="Create and publish new blog"
+                >
+                  <PlusCircle className="w-4 h-4" />
+                  <span>Write / Add Blog</span>
+                </button>
+
+                <button
+                  onClick={handleResetToDefault}
+                  className="p-2.5 text-slate-500 hover:text-slate-800 bg-stone-100 hover:bg-stone-200 rounded-xl transition-colors text-xs font-medium"
+                  title="Reset to default blogs"
+                >
+                  <RotateCcw className="w-4 h-4" />
+                </button>
+
+                <button
+                  onClick={handleLockAdmin}
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-stone-100 hover:bg-rose-50 text-slate-700 hover:text-rose-600 text-xs font-semibold border border-stone-200 transition-colors"
+                  title="Lock admin controls and return to view-only"
+                >
+                  <Lock className="w-3.5 h-3.5 text-slate-500" />
+                  <span>Lock Admin</span>
+                </button>
+              </>
+            ) : (
+              /* Regular visitors: Discreet author login lock to unlock editor */
+              <button
+                onClick={() => {
+                  setPendingAdminAction(() => handleOpenNewPost);
+                  setIsPasscodeModalOpen(true);
+                }}
+                className="inline-flex items-center gap-1.5 bg-stone-100 hover:bg-stone-200 text-stone-600 hover:text-slate-900 text-xs font-medium py-2.5 px-3 rounded-xl transition-all"
+                title="Admin access for Harshvardhan (PIN required)"
+              >
+                <Lock className="w-3.5 h-3.5 text-stone-400" />
+                <span className="hidden sm:inline">Author Access</span>
+              </button>
+            )}
           </div>
         </div>
 
@@ -321,29 +407,30 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
           </div>
         </div>
 
-        {/* Blog Cards Grid */}
+        {/* Blog Post Cards Grid */}
         {filteredBlogs.length === 0 ? (
-          <div className="text-center py-16 p-8 bg-[#FAF7F2] rounded-3xl border border-dashed border-stone-300">
-            <BookOpen className="w-12 h-12 text-stone-400 mx-auto mb-3" />
-            <h3 className="font-display text-lg font-bold text-slate-900">No blog posts found</h3>
-            <p className="text-xs text-slate-500 mt-1 mb-4">Try another search keyword or create a new blog post.</p>
-            <button
-              onClick={handleOpenNewPost}
-              className="inline-flex items-center gap-2 bg-[#C83E5C] text-white text-xs font-bold py-2 px-4 rounded-xl"
-            >
-              <PlusCircle className="w-4 h-4" />
-              <span>Write First Blog</span>
-            </button>
+          <div className="text-center py-16 bg-stone-50 rounded-2xl border border-dashed border-stone-300">
+            <BookOpen className="w-12 h-12 text-stone-300 mx-auto mb-3" />
+            <p className="text-sm text-slate-500 font-medium">No travel blogs found matching your search.</p>
+            {isAdmin && (
+              <button
+                onClick={handleOpenNewPost}
+                className="mt-4 inline-flex items-center gap-1.5 text-xs text-[#C83E5C] font-bold hover:underline"
+              >
+                <PlusCircle className="w-4 h-4" />
+                <span>Create a new blog post</span>
+              </button>
+            )}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredBlogs.map((diary) => (
               <article
                 key={diary.id}
-                className="bg-white rounded-2xl border border-stone-200/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1"
+                className="bg-white rounded-2xl border border-stone-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1"
               >
                 <div>
-                  {/* Photo with Edit button overlay */}
+                  {/* Photo Header */}
                   <div className="relative h-52 overflow-hidden bg-stone-100">
                     <img
                       src={diary.image}
@@ -351,20 +438,23 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
                       loading="lazy"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
 
+                    {/* Category Tag */}
                     <span className="absolute top-3.5 left-3.5 bg-slate-900/80 backdrop-blur-xs text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md border border-white/10">
                       {diary.travelerType}
                     </span>
 
-                    {/* Quick Edit Icon on Card */}
-                    <button
-                      onClick={() => handleOpenEdit(diary)}
-                      className="absolute top-3.5 right-3.5 bg-white/90 hover:bg-white text-slate-800 p-2 rounded-lg shadow-sm transition-all hover:scale-105"
-                      title="Edit this blog post"
-                    >
-                      <Edit3 className="w-3.5 h-3.5 text-[#C83E5C]" />
-                    </button>
+                    {/* Quick Edit Icon on Card (Admin Only) */}
+                    {isAdmin && (
+                      <button
+                        onClick={() => handleOpenEdit(diary)}
+                        className="absolute top-3.5 right-3.5 bg-white/90 hover:bg-white text-slate-800 p-2 rounded-lg shadow-sm transition-all hover:scale-105"
+                        title="Edit this blog post"
+                      >
+                        <Edit3 className="w-3.5 h-3.5 text-[#C83E5C]" />
+                      </button>
+                    )}
 
                     <div className="absolute bottom-3 left-3 text-xs text-amber-200 flex items-center gap-1 font-medium">
                       <MapPin className="w-3 h-3 text-rose-300" />
@@ -391,25 +481,41 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
                   </div>
                 </div>
 
-                {/* Card Actions: Read Full Story & Edit */}
+                {/* Card Actions: Strictly View-Only for Visitors, Full Controls for Admin */}
                 <div className="p-6 pt-0 flex items-center gap-2">
                   <button
                     type="button"
                     onClick={() => setActiveDiary(diary)}
-                    className="flex-1 text-xs font-bold py-2.5 px-4 rounded-xl text-slate-800 bg-[#FAF7F2] hover:bg-stone-200/80 transition-colors flex items-center justify-between group-hover:text-[#C83E5C]"
+                    className={`text-xs font-bold py-2.5 px-4 rounded-xl text-slate-800 bg-[#FAF7F2] hover:bg-stone-200/80 transition-colors flex items-center justify-between group-hover:text-[#C83E5C] ${
+                      isAdmin ? 'flex-1' : 'w-full'
+                    }`}
                   >
                     <span>Read Full Story</span>
                     <ChevronRight className="w-4 h-4 text-stone-400 group-hover:translate-x-1 transition-transform" />
                   </button>
 
-                  <button
-                    type="button"
-                    onClick={() => handleOpenEdit(diary)}
-                    className="p-2.5 rounded-xl border border-stone-200 hover:border-[#C83E5C] text-slate-600 hover:text-[#C83E5C] hover:bg-rose-50 transition-colors"
-                    title="Edit blog"
-                  >
-                    <Edit3 className="w-4 h-4" />
-                  </button>
+                  {/* Admin-only Edit and Delete Controls on Card */}
+                  {isAdmin && (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => handleOpenEdit(diary)}
+                        className="p-2.5 rounded-xl border border-stone-200 hover:border-[#C83E5C] text-slate-600 hover:text-[#C83E5C] hover:bg-rose-50 transition-colors"
+                        title="Edit blog"
+                      >
+                        <Edit3 className="w-4 h-4" />
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteBlog(diary.id)}
+                        className="p-2.5 rounded-xl border border-stone-200 hover:border-rose-400 text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+                        title="Delete blog"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </>
+                  )}
                 </div>
               </article>
             ))}
@@ -417,7 +523,7 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
         )}
 
         {/* Community Submission Box */}
-        <div className="rounded-3xl bg-gradient-to-br from-[#101B2B] via-[#16253B] to-[#1C2E46] text-white p-8 sm:p-12 shadow-2xl border border-white/10 relative overflow-hidden">
+        <div className="mt-16 rounded-3xl bg-gradient-to-br from-[#101B2B] via-[#16253B] to-[#1C2E46] text-white p-8 sm:p-12 shadow-2xl border border-white/10 relative overflow-hidden">
           <div className="absolute -top-16 -right-16 w-64 h-64 bg-[#C83E5C]/20 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-amber-400/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -451,212 +557,224 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
                 href={AGENCY_DETAILS.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold py-3.5 px-6 rounded-xl border border-white/20 transition-all"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-sm py-3.5 px-6 rounded-xl border border-white/20 transition-all"
               >
                 <Instagram className="w-4 h-4 text-pink-400" />
-                <span>Follow @pinkcityroutes on Instagram</span>
+                <span>Follow @pinkcityroutes</span>
               </a>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Write / Edit Blog Modal */}
-      {(isCreatingNew || editingDiary) && (
+      {/* Blog Editor Modal: STRICTLY Admin Only */}
+      {isAdmin && (isCreatingNew || editingDiary) && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-stone-200 max-h-[92vh] flex flex-col">
             {/* Modal Header */}
-            <div className="p-6 bg-slate-900 text-white flex items-center justify-between">
-              <div>
-                <span className="text-xs uppercase tracking-wider text-amber-300 font-bold block mb-1">
-                  {editingDiary ? 'Edit Regular Blog Post' : 'Write & Publish New Travel Blog'}
-                </span>
-                <h3 className="font-display text-2xl font-bold">
-                  {editingDiary ? 'Update Blog Story' : 'Create a New Journey Story'}
-                </h3>
+            <div className="p-6 border-b border-stone-200 flex items-center justify-between bg-[#FAF7F2]">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-[#C83E5C]/10 text-[#C83E5C] flex items-center justify-center font-bold">
+                  {isCreatingNew ? <PlusCircle className="w-5 h-5" /> : <Edit3 className="w-5 h-5" />}
+                </div>
+                <div>
+                  <h3 className="font-display font-bold text-slate-900 text-lg">
+                    {isCreatingNew ? 'Create New Travel Blog' : 'Edit Travel Blog Post'}
+                  </h3>
+                  <p className="text-xs text-slate-500">
+                    Admin editorial controls · Saves instantly to Pinkcityroutes
+                  </p>
+                </div>
               </div>
               <button
                 onClick={() => {
-                  setEditingDiary(null);
                   setIsCreatingNew(false);
+                  setEditingDiary(null);
                 }}
-                className="p-2 rounded-full text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+                className="p-2 text-stone-400 hover:text-slate-800 rounded-full hover:bg-stone-200 transition-colors"
                 aria-label="Close"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            {/* Modal Form Body */}
-            <form onSubmit={handleSaveBlog} className="p-6 overflow-y-auto space-y-5 text-left text-xs">
-              {/* Title */}
+            {/* Modal Form */}
+            <form onSubmit={handleSaveBlog} className="p-6 overflow-y-auto space-y-4 flex-1">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
                   Blog Title *
                 </label>
                 <input
                   type="text"
-                  required
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   placeholder="e.g. Day 1 in the Pink City: Exploring Amer Fort at Sunrise"
-                  className="w-full bg-stone-50 border border-stone-300 rounded-xl px-4 py-2.5 text-sm text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
+                  className="w-full bg-[#FAF7F2] border border-stone-300 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
+                  required
                 />
               </div>
 
-              {/* Author, Location, Date */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                    Author / Writer
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    Author / Traveler Name
                   </label>
                   <input
                     type="text"
                     value={formData.author}
                     onChange={(e) => setFormData({ ...formData, author: e.target.value })}
-                    placeholder="e.g. Harshvardhan / Sneha Sharma"
-                    className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
+                    placeholder="e.g. Harshvardhan, Sneha & Rohan"
+                    className="w-full bg-[#FAF7F2] border border-stone-300 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
                     Destination / Location
                   </label>
                   <input
                     type="text"
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                    placeholder="e.g. Amer Fort, Jaipur"
-                    className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
+                    placeholder="e.g. Jaipur, Rajasthan"
+                    className="w-full bg-[#FAF7F2] border border-stone-300 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
                   />
                 </div>
+              </div>
 
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                    Category / Type
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    Traveler Category / Tag
                   </label>
                   <select
                     value={formData.travelerType}
                     onChange={(e) => setFormData({ ...formData, travelerType: e.target.value })}
-                    className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
+                    className="w-full bg-[#FAF7F2] border border-stone-300 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
                   >
-                    <option value="Curated Guide">Curated Guide</option>
-                    <option value="Couple Trip">Couple Trip</option>
-                    <option value="Family Vacation">Family Vacation</option>
-                    <option value="Solo Traveler">Solo Traveler</option>
-                    <option value="Heritage Route">Heritage Route</option>
-                    <option value="Travel Tips">Travel Tips</option>
+                    <option value="Curated Guide">Curated Guide (Harshvardhan)</option>
+                    <option value="Couple Trip">Couple Anniversary / Honeymoon</option>
+                    <option value="Family Tour">Family Heritage Tour</option>
+                    <option value="Solo Explorer">Solo Traveler Diary</option>
+                    <option value="Corporate / Group">Group Expedition</option>
                   </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    Display Date
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.date}
+                    onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                    placeholder="e.g. October 2026"
+                    className="w-full bg-[#FAF7F2] border border-stone-300 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
+                  />
                 </div>
               </div>
 
-              {/* Cover Photo URL + Fast Preset Buttons */}
+              {/* Photo Selector */}
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 flex items-center justify-between">
-                  <span>Cover Photo URL</span>
-                  <span className="text-[10px] text-slate-400 lowercase">select preset below or paste custom image link</span>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  Cover Photo
                 </label>
-                <input
-                  type="url"
-                  value={formData.image}
-                  onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                  placeholder="https://..."
-                  className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
-                />
-                <div className="flex flex-wrap gap-1.5 mt-2">
-                  {presetPhotos.map((p) => (
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {presetPhotos.map((p, idx) => (
                     <button
-                      key={p.label}
                       type="button"
+                      key={idx}
                       onClick={() => setFormData({ ...formData, image: p.url })}
-                      className={`text-[10px] px-2 py-1 rounded-md border transition-all ${
+                      className={`text-[11px] px-2.5 py-1 rounded-lg border transition-all ${
                         formData.image === p.url
-                          ? 'bg-[#C83E5C] text-white border-[#C83E5C]'
-                          : 'bg-white text-slate-600 border-stone-200 hover:bg-stone-50'
+                          ? 'border-[#C83E5C] bg-[#C83E5C] text-white font-bold'
+                          : 'border-stone-300 bg-white text-slate-700 hover:bg-stone-100'
                       }`}
                     >
                       {p.label}
                     </button>
                   ))}
                 </div>
-              </div>
-
-              {/* Short Excerpt */}
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                  Short Excerpt (Teaser on cards)
-                </label>
                 <input
                   type="text"
-                  value={formData.excerpt}
-                  onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
-                  placeholder="Brief 1-2 sentence preview of the journey..."
-                  className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
+                  value={formData.image}
+                  onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                  placeholder="Or paste custom image URL..."
+                  className="w-full bg-[#FAF7F2] border border-stone-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
                 />
               </div>
 
-              {/* Full Story Content */}
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                  Full Story & Experience Article *
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  Card Short Excerpt (Preview text)
                 </label>
                 <textarea
-                  rows={6}
-                  required
-                  value={formData.fullStory}
-                  onChange={(e) => setFormData({ ...formData, fullStory: e.target.value })}
-                  placeholder="Write your day's journey, secret spots, advice on timing, and recommendations for future travelers..."
-                  className="w-full bg-stone-50 border border-stone-300 rounded-xl px-4 py-3 text-xs leading-relaxed text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
+                  value={formData.excerpt}
+                  onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
+                  placeholder="Short 2-line summary for the blog card..."
+                  rows={2}
+                  className="w-full bg-[#FAF7F2] border border-stone-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
                 />
               </div>
 
-              {/* Highlights (comma separated) */}
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                  Key Highlights / Tips (comma separated)
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  Full Travel Story / Daily Log *
+                </label>
+                <textarea
+                  value={formData.fullStory}
+                  onChange={(e) => setFormData({ ...formData, fullStory: e.target.value })}
+                  placeholder="Write the complete daily trip details, schedule, recommendations, chauffeur highlights..."
+                  rows={6}
+                  className="w-full bg-[#FAF7F2] border border-stone-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  Key Highlights (comma-separated)
                 </label>
                 <input
                   type="text"
                   value={formData.highlights}
                   onChange={(e) => setFormData({ ...formData, highlights: e.target.value })}
-                  placeholder="e.g. Sunrise view at Maota Lake, Pyaaz Kachori breakfast, Skip the ticket lines"
-                  className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
+                  placeholder="e.g. Sunrise view, Chauffeur assistance, Traditional kachori breakfast"
+                  className="w-full bg-[#FAF7F2] border border-stone-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C83E5C]"
                 />
               </div>
 
-              {/* Submit Buttons */}
-              <div className="pt-4 border-t border-stone-200 flex items-center justify-between gap-3">
-                {editingDiary ? (
+              {/* Form Buttons */}
+              <div className="pt-4 border-t border-stone-200 flex items-center justify-between">
+                {editingDiary && (
                   <button
                     type="button"
                     onClick={() => handleDeleteBlog(editingDiary.id)}
-                    className="inline-flex items-center gap-1.5 text-rose-600 hover:text-rose-700 px-3 py-2 rounded-lg hover:bg-rose-50 transition-colors font-semibold"
+                    className="inline-flex items-center gap-1.5 text-rose-600 hover:text-rose-700 text-xs font-bold px-3 py-2 rounded-xl hover:bg-rose-50"
                   >
-                    <Trash2 className="w-3.5 h-3.5" />
+                    <Trash2 className="w-4 h-4" />
                     <span>Delete Blog</span>
                   </button>
-                ) : (
-                  <div />
                 )}
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 ml-auto">
                   <button
                     type="button"
                     onClick={() => {
-                      setEditingDiary(null);
                       setIsCreatingNew(false);
+                      setEditingDiary(null);
                     }}
-                    className="px-4 py-2 rounded-xl text-slate-600 hover:bg-stone-100 font-semibold"
+                    className="px-4 py-2.5 rounded-xl border border-stone-300 text-slate-700 hover:bg-stone-100 text-xs font-bold transition-colors"
                   >
                     Cancel
                   </button>
+
                   <button
                     type="submit"
-                    className="inline-flex items-center gap-2 bg-[#C83E5C] hover:bg-[#B0334E] text-white font-bold px-6 py-2.5 rounded-xl shadow transition-all"
+                    className="inline-flex items-center gap-1.5 bg-[#C83E5C] hover:bg-[#B0334E] text-white text-xs font-bold px-5 py-2.5 rounded-xl shadow-md transition-all hover:scale-105"
                   >
                     <Save className="w-4 h-4" />
-                    <span>Save & Publish Blog</span>
+                    <span>{isCreatingNew ? 'Publish Blog' : 'Save Changes'}</span>
                   </button>
                 </div>
               </div>
@@ -665,7 +783,7 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
         </div>
       )}
 
-      {/* Full Diary Story Modal */}
+      {/* Full Diary Story Modal (Accessible to all visitors) */}
       {activeDiary && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-stone-200 max-h-[92vh] flex flex-col">
@@ -728,16 +846,23 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
               </div>
 
               <div className="pt-3 border-t border-stone-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-                <button
-                  onClick={() => {
-                    handleOpenEdit(activeDiary);
-                    setActiveDiary(null);
-                  }}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 text-slate-700 hover:text-[#C83E5C] font-bold px-3 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 transition-colors"
-                >
-                  <Edit3 className="w-3.5 h-3.5" />
-                  <span>Edit This Blog</span>
-                </button>
+                {/* Edit button is only visible to Admin */}
+                {isAdmin ? (
+                  <button
+                    onClick={() => {
+                      handleOpenEdit(activeDiary);
+                      setActiveDiary(null);
+                    }}
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 text-slate-700 hover:text-[#C83E5C] font-bold px-3 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 transition-colors"
+                  >
+                    <Edit3 className="w-3.5 h-3.5" />
+                    <span>Edit This Blog</span>
+                  </button>
+                ) : (
+                  <div className="text-[11px] text-slate-400">
+                    Curated on-ground travel story
+                  </div>
+                )}
 
                 <a
                   href={createWhatsAppUrl(
@@ -745,7 +870,7 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
                   )}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 bg-[#128C7E] text-white font-bold px-5 py-2.5 rounded-xl shadow-xs transition-all"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 bg-[#128C7E] hover:bg-[#075E54] text-white font-bold px-5 py-2.5 rounded-xl shadow-xs transition-all"
                 >
                   <MessageSquare className="w-3.5 h-3.5" />
                   <span>Plan Similar Journey on WhatsApp</span>
@@ -755,6 +880,16 @@ export const TravelDiaries: React.FC<TravelDiariesProps> = ({ onOpenDedicatedBlo
           </div>
         </div>
       )}
+
+      {/* Secret Admin Passcode Modal */}
+      <AdminPasscodeModal
+        isOpen={isPasscodeModalOpen}
+        onClose={() => {
+          setIsPasscodeModalOpen(false);
+          setPendingAdminAction(null);
+        }}
+        onSuccess={handlePasscodeSuccess}
+      />
     </section>
   );
 };

@@ -20,14 +20,19 @@ export const Hero: React.FC<HeroProps> = ({ onExplorePackages, onOpenPlanner }) 
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-[#101b2b] via-[#16253b] to-[#1c2d47] text-white">
-      {/* Background imagery with rich cinematic overlay and warm ambient glow */}
+      {/* Background video showcase with rich cinematic overlay and warm ambient glow */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        <img
-          src="/assets/aistudio/Rajasthan-1_c57fba4b.jpg"
-          alt="Jaipur Amber Fort & Heritage Architecture - Pinkcityroutes"
-          className="w-full h-full object-cover object-center filter brightness-[0.42] saturate-[1.25]"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#101b2b]/75 via-[#101b2b]/55 to-[#101b2b]/95" />
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="/assets/aistudio/Rajasthan-1_c57fba4b.jpg"
+          className="w-full h-full object-cover object-center filter brightness-[0.45] saturate-[1.2] scale-105 transition-all duration-700"
+        >
+          <source src="/assets/aistudio/slide_video_pink_city_routes_431fdfc7.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#101b2b]/80 via-[#101b2b]/60 to-[#101b2b]/95" />
       </div>
 
       {/* Decorative gradient radial glows */}
