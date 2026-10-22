@@ -79,20 +79,26 @@ export const WhyUsPage: React.FC<WhyUsPageProps> = ({
   return (
     <div className="bg-[#FAF7F2] min-h-screen text-slate-800 antialiased pb-24">
       {/* Top Breadcrumb Header */}
-      <div className="bg-[#111A24] text-white py-12 px-4 sm:px-6 lg:px-8 border-b border-amber-900/30 relative overflow-hidden">
+      <div className="bg-[#111A24] text-white pt-16 sm:pt-20 lg:pt-24 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 border-b border-amber-900/30 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#C83E5C]/15 rounded-full blur-3xl pointer-events-none" />
         <div className="max-w-6xl mx-auto relative z-10">
-          <button
-            onClick={onBackToHome}
-            className="inline-flex items-center gap-2 text-amber-300 hover:text-amber-200 text-xs sm:text-sm font-semibold mb-6 transition-colors group"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            <span>Back to Home</span>
-          </button>
+          {/* Navigation Bar & Badge with Decent Gap */}
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-6">
+            <button
+              type="button"
+              onClick={onBackToHome}
+              className="inline-flex items-center gap-2 text-amber-300 hover:text-white bg-white/10 hover:bg-white/15 border border-white/15 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all group shrink-0 shadow-sm"
+            >
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+              <span>Back to Home</span>
+            </button>
 
-          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400 mb-3 bg-amber-400/10 border border-amber-400/20 px-3 py-1 rounded-full">
-            <ShieldCheck className="w-3.5 h-3.5" />
-            Why Choose Pinkcityroutes
+            <span className="h-4 w-px bg-white/20 hidden sm:inline-block shrink-0" aria-hidden="true" />
+
+            <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-300 bg-amber-400/10 border border-amber-400/20 px-3.5 py-1.5 rounded-full shrink-0">
+              <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+              <span>Why Choose Pinkcityroutes</span>
+            </div>
           </div>
 
           <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white max-w-3xl leading-tight">

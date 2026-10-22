@@ -7,7 +7,7 @@ export const OneDayTours: React.FC = () => {
   const [activeTourModal, setActiveTourModal] = useState<OneDayTour | null>(null);
 
   return (
-    <section id="one-day-tours" className="py-24 bg-white relative">
+    <section id="one-day-tours" className="py-24 bg-white relative scroll-mt-28 lg:scroll-mt-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto mb-16">
@@ -38,6 +38,12 @@ export const OneDayTours: React.FC = () => {
                     src={tour.image}
                     alt={tour.title}
                     loading="lazy"
+                    onError={(e) => {
+                      const img = e.currentTarget;
+                      if (!img.src.includes('photo-1512343879784-a960bf40e7f2')) {
+                        img.src = 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80';
+                      }
+                    }}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
@@ -137,6 +143,9 @@ export const OneDayTours: React.FC = () => {
               <img
                 src={activeTourModal.image}
                 alt={activeTourModal.title}
+                onError={(e) => {
+                  e.currentTarget.src = 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80';
+                }}
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent" />

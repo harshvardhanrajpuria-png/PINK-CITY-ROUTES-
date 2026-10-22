@@ -228,13 +228,8 @@ export const FEATURED_PACKAGES: TourPackage[] = [
     category: 'domestic',
     circuitCategory: 'jaipur',
     badge: 'Express Gateway',
-    image: 'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80',
-    images: [
-      'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80', // Amer Fort
-      'https://images.unsplash.com/photo-1603288967396-857c70f05561?auto=format&fit=crop&w=1200&q=80', // Hawa Mahal
-      'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80', // Jal Mahal
-      '/assets/aistudio/Rajasthan-1_c57fba4b.jpg', // Amer Fort Courtyard
-    ],
+    image: '/assets/aistudio/pi1_2087e314.jpg',
+    images: ['/assets/aistudio/pi1_2087e314.jpg'],
     rating: 4.96,
     reviewsCount: 168,
     route: 'Jaipur Airport / Station · Amer Fort · Jaigarh · Nahargarh · Jal Mahal · City Palace · Jantar Mantar · Hawa Mahal',
@@ -302,13 +297,8 @@ export const FEATURED_PACKAGES: TourPackage[] = [
     category: 'domestic',
     circuitCategory: 'jaipur',
     badge: 'Best Seller',
-    image: 'https://images.unsplash.com/photo-1603288967396-857c70f05561?auto=format&fit=crop&w=1200&q=80',
-    images: [
-      'https://images.unsplash.com/photo-1603288967396-857c70f05561?auto=format&fit=crop&w=1200&q=80', // Hawa Mahal
-      'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80', // Amer Fort
-      'https://images.unsplash.com/photo-1617854818583-09e7f077a156?auto=format&fit=crop&w=1200&q=80', // Patrika Gate
-      'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80', // Jal Mahal
-    ],
+    image: '/assets/aistudio/pi2_0f88c286.jpg',
+    images: ['/assets/aistudio/pi2_0f88c286.jpg'],
     rating: 4.98,
     reviewsCount: 220,
     route: 'Jaipur · Birla Mandir · Albert Hall · Patrika Gate · Chokhi Dhani · Amer Fort · Panna Meena Stepwell · Jaigarh · Nahargarh · City Palace · Jantar Mantar',
@@ -390,13 +380,8 @@ export const FEATURED_PACKAGES: TourPackage[] = [
     category: 'domestic',
     circuitCategory: 'desert',
     badge: 'Spiritual Trail',
-    image: 'https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=1200&q=80',
-    images: [
-      'https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=1200&q=80', // Pushkar Ghats
-      'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1200&q=80', // Temple / Ajmer Heritage
-      'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80', // Amer Fort
-      'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80', // Jal Mahal
-    ],
+    image: '/assets/aistudio/pi3_6369dce4.jpg',
+    images: ['/assets/aistudio/pi3_6369dce4.jpg'],
     rating: 4.95,
     reviewsCount: 142,
     route: 'Jaipur · Amer Fort · Jal Mahal · Ajmer Sharif Dargah · Adhai Din Ka Jhonpra · Pushkar Holy Lake · Brahma Temple · Savitri Hill',
@@ -477,13 +462,8 @@ export const FEATURED_PACKAGES: TourPackage[] = [
     category: 'domestic',
     circuitCategory: 'wildlife',
     badge: 'Wildlife Adventure',
-    image: 'https://images.unsplash.com/photo-1561731216-c3a4d99437d5?auto=format&fit=crop&w=1200&q=80',
-    images: [
-      'https://images.unsplash.com/photo-1561731216-c3a4d99437d5?auto=format&fit=crop&w=1200&q=80', // Royal Bengal Tiger
-      'https://images.unsplash.com/photo-1534567153574-2b12153a87f0?auto=format&fit=crop&w=1200&q=80', // Tiger Wilderness
-      'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80', // Amer Fort
-      'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=1200&q=80', // Jungle Forest
-    ],
+    image: '/assets/aistudio/pi4_8fe5132c.jpg',
+    images: ['/assets/aistudio/pi4_8fe5132c.jpg'],
     rating: 4.97,
     reviewsCount: 154,
     route: 'Jaipur · Amer Fort · Jal Mahal · Sawai Madhopur · Ranthambore Tiger Reserve Safari · Ranthambore Fort · Trinetra Ganesha',
@@ -562,13 +542,8 @@ export const FEATURED_PACKAGES: TourPackage[] = [
     category: 'domestic',
     circuitCategory: 'golden-triangle',
     badge: 'Weekend Special',
-    image: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80',
-    images: [
-      'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80', // Taj Mahal
-      'https://images.unsplash.com/photo-1585135497273-1a86b09fe70e?auto=format&fit=crop&w=1200&q=80', // Agra Fort
-      'https://images.unsplash.com/photo-1592635196078-9fdc757f27f4?auto=format&fit=crop&w=1200&q=80', // Fatehpur Sikri
-      'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80', // Amer Fort
-    ],
+    image: '/assets/aistudio/pi5_133ea296.jpg',
+    images: ['/assets/aistudio/pi5_133ea296.jpg'],
     rating: 4.96,
     reviewsCount: 188,
     route: 'Jaipur · Chand Baori Stepwell (Abhaneri) · Fatehpur Sikri · Mehtab Bagh · Taj Mahal Sunrise · Agra Fort',
@@ -635,13 +610,8 @@ export const FEATURED_PACKAGES: TourPackage[] = [
     category: 'domestic',
     circuitCategory: 'mewar',
     badge: 'Royal Corridor',
-    image: 'https://images.unsplash.com/photo-1615836245337-f5b9b2303f10?auto=format&fit=crop&w=1200&q=80',
-    images: [
-      'https://images.unsplash.com/photo-1615836245337-f5b9b2303f10?auto=format&fit=crop&w=1200&q=80', // Lake Pichola & City Palace
-      'https://images.unsplash.com/photo-1590766940554-634a7ed41450?auto=format&fit=crop&w=1200&q=80', // Udaipur Ghats
-      'https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=1200&q=80', // Pushkar Ghats
-      'https://images.unsplash.com/photo-1603288967396-857c70f05561?auto=format&fit=crop&w=1200&q=80', // Hawa Mahal
-    ],
+    image: '/assets/aistudio/pi6_0d128b89.jpg',
+    images: ['/assets/aistudio/pi6_0d128b89.jpg'],
     rating: 4.98,
     reviewsCount: 195,
     route: 'Jaipur · Ajmer Sharif · Pushkar Lake · Udaipur · Lake Pichola Boat Cruise · City Palace · Saheliyon Ki Bari · Sajjangarh Monsoon Palace',
@@ -721,14 +691,8 @@ export const FEATURED_PACKAGES: TourPackage[] = [
     category: 'domestic',
     circuitCategory: 'mewar',
     badge: 'Popular Grand Circuit',
-    image: 'https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=1200&q=80',
-    images: [
-      'https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=1200&q=80', // Mehrangarh Fort Jodhpur
-      'https://images.unsplash.com/photo-1615836245337-f5b9b2303f10?auto=format&fit=crop&w=1200&q=80', // Udaipur Pichola
-      'https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&w=1200&q=80', // Jodhpur Blue City
-      'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80', // Amer Fort
-      'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80', // Jaswant Thada
-    ],
+    image: '/assets/aistudio/pu7_ec8ec6c1.jpg',
+    images: ['/assets/aistudio/pu7_ec8ec6c1.jpg'],
     rating: 4.99,
     reviewsCount: 234,
     route: 'Jaipur · Ajmer & Pushkar · Udaipur · Ranakpur Jain Temples · Jodhpur (Mehrangarh, Jaswant Thada, Blue City)',
@@ -816,14 +780,8 @@ export const FEATURED_PACKAGES: TourPackage[] = [
     category: 'domestic',
     circuitCategory: 'desert',
     badge: 'Epic Desert Safari',
-    image: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80',
-    images: [
-      'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80', // Sam Sand Dunes Jaisalmer
-      'https://images.unsplash.com/photo-1585123388867-3bfe6dd4bdbf?auto=format&fit=crop&w=1200&q=80', // Jaisalmer Golden Fort
-      'https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=1200&q=80', // Mehrangarh Fort
-      'https://images.unsplash.com/photo-1615836245337-f5b9b2303f10?auto=format&fit=crop&w=1200&q=80', // Lake Pichola Udaipur
-      'https://images.unsplash.com/photo-1609137144813-7d9921338f24?auto=format&fit=crop&w=1200&q=80', // Junagarh Fort Bikaner
-    ],
+    image: '/assets/aistudio/pu8_5178fc62.jpg',
+    images: ['/assets/aistudio/pu8_5178fc62.jpg'],
     rating: 4.99,
     reviewsCount: 260,
     route: 'Jaipur · Bikaner · Jaisalmer (Sam Sand Dunes) · Jodhpur · Udaipur · Chittorgarh · Pushkar · Jaipur',
@@ -926,13 +884,8 @@ export const FEATURED_PACKAGES: TourPackage[] = [
     category: 'domestic',
     circuitCategory: 'wildlife',
     badge: 'National Park Special',
-    image: 'https://images.unsplash.com/photo-1534567153574-2b12153a87f0?auto=format&fit=crop&w=1200&q=80',
-    images: [
-      'https://images.unsplash.com/photo-1534567153574-2b12153a87f0?auto=format&fit=crop&w=1200&q=80', // Tiger
-      'https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1200&q=80', // Delhi India Gate
-      'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80', // Jaipur Amer Fort
-      'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=1200&q=80', // Wilderness
-    ],
+    image: '/assets/aistudio/pi9_7717741d.jpg',
+    images: ['/assets/aistudio/pi9_7717741d.jpg'],
     rating: 4.95,
     reviewsCount: 110,
     route: 'Delhi · Sariska Tiger Reserve · Keoladeo Bharatpur Bird Sanctuary · Ranthambore Tiger Safari · Jaipur Forts · Delhi',
@@ -1021,14 +974,8 @@ export const FEATURED_PACKAGES: TourPackage[] = [
     category: 'domestic',
     circuitCategory: 'golden-triangle',
     badge: 'Global Signature',
-    image: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80',
-    images: [
-      'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80', // Taj Mahal
-      'https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1200&q=80', // India Gate Delhi
-      'https://images.unsplash.com/photo-1603288967396-857c70f05561?auto=format&fit=crop&w=1200&q=80', // Hawa Mahal Jaipur
-      'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80', // Amer Fort
-      'https://images.unsplash.com/photo-1592635196078-9fdc757f27f4?auto=format&fit=crop&w=1200&q=80', // Fatehpur Sikri
-    ],
+    image: '/assets/aistudio/pi10_0cc16d99.jpg',
+    images: ['/assets/aistudio/pi10_0cc16d99.jpg'],
     rating: 4.98,
     reviewsCount: 280,
     route: 'Delhi · Agra (Taj Mahal, Agra Fort) · Fatehpur Sikri · Abhaneri · Jaipur (Amer, City Palace, Hawa Mahal) · Delhi',
@@ -1110,14 +1057,8 @@ export const FEATURED_PACKAGES: TourPackage[] = [
     category: 'domestic',
     circuitCategory: 'grand',
     badge: 'Comprehensive Odyssey',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
-    images: [
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80', // Mandawa Haveli
-      'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80', // Jaisalmer Dunes
-      'https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=1200&q=80', // Mehrangarh Fort
-      'https://images.unsplash.com/photo-1615836245337-f5b9b2303f10?auto=format&fit=crop&w=1200&q=80', // Lake Pichola Udaipur
-      'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80', // Amer Fort Jaipur
-    ],
+    image: '/assets/aistudio/pi11_8e868e66.jpg',
+    images: ['/assets/aistudio/pi11_8e868e66.jpg'],
     rating: 5.0,
     reviewsCount: 310,
     route: 'Jaipur · Pushkar · Udaipur · Jodhpur · Jaisalmer Dunes · Bikaner · Mandawa (Shekhawati Open-Air Art Gallery) · Jaipur',
@@ -1234,14 +1175,8 @@ export const FEATURED_PACKAGES: TourPackage[] = [
     category: 'domestic',
     circuitCategory: 'grand',
     badge: 'Ultimate Royal Flagship',
-    image: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80',
-    images: [
-      'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80', // Taj Mahal
-      'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80', // Sam Dunes Jaisalmer
-      'https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=1200&q=80', // Mehrangarh Fort
-      'https://images.unsplash.com/photo-1615836245337-f5b9b2303f10?auto=format&fit=crop&w=1200&q=80', // Lake Pichola Udaipur
-      'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80', // Amer Fort Jaipur
-    ],
+    image: '/assets/aistudio/pi12_9bc25218.jpg',
+    images: ['/assets/aistudio/pi12_9bc25218.jpg'],
     rating: 5.0,
     reviewsCount: 345,
     route: 'Delhi · Mandawa · Bikaner · Jaisalmer · Jodhpur · Mount Abu · Udaipur · Chittorgarh · Pushkar · Jaipur · Agra · Delhi',
@@ -1386,14 +1321,8 @@ export const FEATURED_PACKAGES: TourPackage[] = [
     category: 'domestic',
     circuitCategory: 'desert',
     badge: 'Fresco & Dunes Special',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
-    images: [
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80', // Mandawa Haveli
-      'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80', // Sam Dunes Jaisalmer
-      'https://images.unsplash.com/photo-1585123388867-3bfe6dd4bdbf?auto=format&fit=crop&w=1200&q=80', // Jaisalmer Golden Fort
-      'https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=1200&q=80', // Mehrangarh Fort
-      'https://images.unsplash.com/photo-1609137144813-7d9921338f24?auto=format&fit=crop&w=1200&q=80', // Junagarh Fort Bikaner
-    ],
+    image: '/assets/aistudio/pi13_a5d3e9f4.jpg',
+    images: ['/assets/aistudio/pi13_a5d3e9f4.jpg'],
     rating: 4.97,
     reviewsCount: 176,
     route: 'Jaipur · Mandawa (Open-Air Art Gallery) · Bikaner (Junagarh) · Jaisalmer (Golden Fort & Sam Dunes Camp) · Jodhpur (Mehrangarh & Blue City)',
@@ -1745,7 +1674,7 @@ export const ONE_DAY_TOURS: OneDayTour[] = [
       'All interstate road taxes, union tolls & parking included',
       'Full flexibility to stop at traditional highway dhabas & tea stalls',
     ],
-    image: 'https://images.unsplash.com/photo-1609137144822-0a1835749f50?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80',
     bestFor: 'Devotional pilgrimages, families, and cultural wanderers',
   },
 ];
@@ -1761,6 +1690,7 @@ export interface FleetCategory {
   idealFor: string;
   features: string[];
   image: string;
+  fallbackImage?: string;
 }
 
 export const FLEET_CATEGORIES: FleetCategory[] = [
@@ -1774,7 +1704,8 @@ export const FLEET_CATEGORIES: FleetCategory[] = [
     rateEstimate: 'Starting ₹1,799 / Day',
     idealFor: 'Couples, solo travelers, and city sightseeing.',
     features: ['Chilled Air-Conditioning', 'Clean & Sanitized Interiors', 'Experienced City Chauffeur', 'Mobile Charging Ports'],
-    image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80',
+    image: '/assets/aistudio/cp1_2a7bea11.jpg',
+    fallbackImage: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 'family-suv',
@@ -1786,7 +1717,8 @@ export const FLEET_CATEGORIES: FleetCategory[] = [
     rateEstimate: 'Starting ₹2,499 / Day',
     idealFor: 'Comfortable legroom for medium families and airport transfers.',
     features: ['Tri-Zone Roof AC Vents', 'Ample Legroom & Reclining Rows', 'Punctual Chauffeur Service', 'Smooth Highway Drive'],
-    image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80',
+    image: '/assets/aistudio/cp2_7f5c64e3.jpg',
+    fallbackImage: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 'premium-muv',
@@ -1798,7 +1730,8 @@ export const FLEET_CATEGORIES: FleetCategory[] = [
     rateEstimate: 'Starting ₹3,499 / Day',
     idealFor: 'Long-distance highway comfort, executive business travel.',
     features: ['Superior Highway Shock Absorption', 'Plush Captain Seat Options', 'Professional Uniformed Chauffeur', 'High Luggage Boot Space'],
-    image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80',
+    image: '/assets/aistudio/crysta_fb024996.jpg',
+    fallbackImage: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 'ultra-luxury-suv',
@@ -1810,7 +1743,8 @@ export const FLEET_CATEGORIES: FleetCategory[] = [
     rateEstimate: 'Starting ₹6,999 / Day',
     idealFor: 'VIP travel, royal heritage tours, premium event arrivals.',
     features: ['Commanding Road Presence', 'Leather Seating & Sunroof', 'All-Terrain Smooth Stability', 'VIP Chauffeur Concierge'],
-    image: 'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=800&q=80',
+    image: '/assets/aistudio/Fortuner-Car-Price-In-India_ccd36399.jpg',
+    fallbackImage: 'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 'luxury-executive',
@@ -1822,7 +1756,8 @@ export const FLEET_CATEGORIES: FleetCategory[] = [
     rateEstimate: 'Starting ₹9,999 / Day',
     idealFor: 'Wedding convoys, VIP guests, and high-end luxury transfers.',
     features: ['Signature German Luxury', 'Rear Passenger Climate Control', 'Chauffeur with White-Glove Protocol', 'Mineral Water & Refreshments'],
-    image: 'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80',
+    image: '/assets/aistudio/image_2b624c84.png',
+    fallbackImage: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 'tempo-12',
@@ -1834,7 +1769,8 @@ export const FLEET_CATEGORIES: FleetCategory[] = [
     rateEstimate: 'Starting ₹4,999 / Day',
     idealFor: 'Small group tours, pushback seats, individual AC vents.',
     features: ['High-Roof Walkthrough Cabin', 'Individual AC Vents per Row', 'Pushback Ergonomic Seats', 'Dedicated Music & Mic System'],
-    image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80',
+    image: '/assets/aistudio/cp6_dc11a1d0.jpg',
+    fallbackImage: 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 'tempo-maharaja',
@@ -1846,7 +1782,8 @@ export const FLEET_CATEGORIES: FleetCategory[] = [
     rateEstimate: 'Starting ₹6,499 / Day',
     idealFor: 'Reclining luxury captain seats, ample luggage space, audio-video setups.',
     features: ['Ultra-Plush 1x1 Captain Recliners', 'Ambient LED Mood Ceiling Lighting', 'Wide LED TV & Dolby Surround Sound', 'Rear Luggage Compartment'],
-    image: 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=800&q=80',
+    image: '/assets/aistudio/cp6_dc11a1d0.jpg',
+    fallbackImage: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 'volvo-coach',
@@ -1858,7 +1795,8 @@ export const FLEET_CATEGORIES: FleetCategory[] = [
     rateEstimate: 'Custom Route Quotation',
     idealFor: 'Large corporate outings, wedding delegations, and state tour groups.',
     features: ['Air-Suspension Glide Ride', 'Huge Luggage Undercarriage', 'Dual Chauffeur Support on Long Routes', 'Public Address Mic System'],
-    image: 'https://images.unsplash.com/photo-1570125909517-53cb21c89ff2?auto=format&fit=crop&w=800&q=80',
+    image: '/assets/aistudio/pcp8_4ce9ce13.jpg',
+    fallbackImage: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80',
   },
 ];
 

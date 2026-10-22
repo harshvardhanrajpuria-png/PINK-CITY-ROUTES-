@@ -12,7 +12,7 @@ export const FleetSection: React.FC = () => {
   });
 
   return (
-    <section id="fleet" className="py-24 bg-[#FAF7F2] relative overflow-hidden">
+    <section id="fleet" className="py-24 bg-[#FAF7F2] relative overflow-hidden scroll-mt-28 lg:scroll-mt-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
@@ -94,14 +94,22 @@ export const FleetSection: React.FC = () => {
             >
               <div>
                 {/* Vehicle Image */}
-                <div className="relative h-44 overflow-hidden bg-stone-100">
+                <div className="relative h-48 sm:h-52 overflow-hidden bg-stone-100">
                   <img
                     src={vehicle.image}
                     alt={vehicle.name}
                     loading="lazy"
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      const img = e.currentTarget;
+                      const fallback = vehicle.fallbackImage || 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1200&q=80';
+                      if (img.src !== fallback) {
+                        img.src = fallback;
+                      }
+                    }}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent pointer-events-none" />
 
                   {/* Rate Badge in Image */}
                   <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between text-white">

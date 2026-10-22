@@ -51,7 +51,7 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-24 bg-[#101B2B] text-white relative overflow-hidden">
+    <section id="contact" className="py-24 bg-[#101B2B] text-white relative overflow-hidden scroll-mt-28 lg:scroll-mt-32">
       {/* Background glow effects */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-[#C83E5C]/15 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />

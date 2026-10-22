@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   CheckCircle2, 
   FileText, 
@@ -31,7 +31,7 @@ interface PackageItem {
   itinerary: ItineraryDay[];
 }
 
-// 13 Curated Tour Packages with EXACTLY 3 unique images per package (39 completely distinct, non-copyrighted photos)
+// 13 Curated Tour Packages with 1 dedicated authentic photo per package (pi1 to pi13)
 const packagesData: PackageItem[] = [
   {
     id: 'pkg-1',
@@ -40,11 +40,7 @@ const packagesData: PackageItem[] = [
     nights: 1,
     duration: '1N / 2D',
     route: 'Jaipur Local Heritage Circuit',
-    images: [
-      'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80', // Amer Fort ramparts
-      '/assets/aistudio/Rajasthan-1_c57fba4b.jpg', // Amer Fort royal courtyards
-      'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80' // Jal Mahal water pavilion
-    ],
+    images: ['/assets/aistudio/pi1_2087e314.jpg'],
     inclusions: [
       'Chauffeur-driven private AC cab for 2 days',
       '1 Night accommodation in verified heritage hotel',
@@ -76,11 +72,7 @@ const packagesData: PackageItem[] = [
     nights: 2,
     duration: '2N / 3D',
     route: 'Jaipur & Surrounding Royal Heritage',
-    images: [
-      'https://images.unsplash.com/photo-1602351447937-745cb720612f?auto=format&fit=crop&w=1200&q=80', // Jaipur Hawa Mahal honeycomb windows
-      'https://images.unsplash.com/photo-1599818816930-5b1285038f23?auto=format&fit=crop&w=1200&q=80', // Galtaji monkey temple
-      'https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?auto=format&fit=crop&w=1200&q=80' // Jaipur royal palace arches
-    ],
+    images: ['/assets/aistudio/pi2_0f88c286.jpg'],
     inclusions: [
       'Dedicated private AC cab for all 3 days',
       '2 Nights stay in handpicked Jaipur heritage hotel',
@@ -117,11 +109,7 @@ const packagesData: PackageItem[] = [
     nights: 2,
     duration: '2N / 3D',
     route: 'Jaipur – Ajmer – Pushkar – Jaipur',
-    images: [
-      'https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=1200&q=80', // Pushkar Lake sacred ghats
-      'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1200&q=80', // Sufi shrine & dome architecture
-      'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80' // Holy Pushkar town
-    ],
+    images: ['/assets/aistudio/pi3_6369dce4.jpg'],
     inclusions: [
       'Intercity private AC cab for 3 days',
       '2 Nights accommodation (1N Jaipur + 1N Pushkar/Ajmer)',
@@ -158,11 +146,7 @@ const packagesData: PackageItem[] = [
     nights: 2,
     duration: '2N / 3D',
     route: 'Jaipur – Sawai Madhopur (Ranthambore) – Jaipur',
-    images: [
-      'https://images.unsplash.com/photo-1561731216-c3a4d99437d5?auto=format&fit=crop&w=1200&q=80', // Royal Bengal Tiger close-up
-      'https://images.unsplash.com/photo-1534567153574-2b12153a87f0?auto=format&fit=crop&w=1200&q=80', // Wild tiger in forest grass
-      'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=1200&q=80' // Ranthambore wilderness lake
-    ],
+    images: ['/assets/aistudio/pi4_8fe5132c.jpg'],
     inclusions: [
       'Dedicated private AC cab for 3 days',
       '2 Nights stay (1N Jaipur + 1N Ranthambore resort)',
@@ -199,11 +183,7 @@ const packagesData: PackageItem[] = [
     nights: 1,
     duration: '1N / 2D',
     route: 'Jaipur – Abhaneri – Fatehpur Sikri – Agra – Jaipur/Delhi',
-    images: [
-      'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80', // Taj Mahal sunrise
-      'https://images.unsplash.com/photo-1585135497273-1a86b09fe70e?auto=format&fit=crop&w=1200&q=80', // Agra Fort red sandstone
-      'https://images.unsplash.com/photo-1592635196078-9fdc757f27f4?auto=format&fit=crop&w=1200&q=80' // Fatehpur Sikri Buland Darwaza
-    ],
+    images: ['/assets/aistudio/pi5_133ea296.jpg'],
     inclusions: [
       'Intercity private AC cab for 2 days',
       '1 Night hotel stay in Agra',
@@ -235,11 +215,7 @@ const packagesData: PackageItem[] = [
     nights: 4,
     duration: '4N / 5D',
     route: 'Jaipur – Ajmer – Pushkar – Udaipur',
-    images: [
-      'https://images.unsplash.com/photo-1588096344356-9a2f643e2f5b?auto=format&fit=crop&w=1200&q=80', // Lake Pichola scenic sunset
-      'https://images.unsplash.com/photo-1622308644420-a6813426e959?auto=format&fit=crop&w=1200&q=80', // Udaipur white palace & water reflections
-      'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80' // Jag Mandir island palace courtyard
-    ],
+    images: ['/assets/aistudio/pi6_0d128b89.jpg'],
     inclusions: [
       'Private AC cab for 5 full days',
       '4 Nights hotel stay (2N Jaipur + 2N Udaipur)',
@@ -286,11 +262,7 @@ const packagesData: PackageItem[] = [
     nights: 5,
     duration: '5N / 6D',
     route: 'Jaipur – Ajmer – Pushkar – Udaipur – Ranakpur – Jodhpur',
-    images: [
-      'https://images.unsplash.com/photo-1591289009723-aef0a1a8a211?auto=format&fit=crop&w=1200&q=80', // Mehrangarh Fort towering ramparts
-      'https://images.unsplash.com/photo-1566837945700-30057527ade0?auto=format&fit=crop&w=1200&q=80', // Jodhpur blue city streets
-      'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80' // Jaswant Thada white marble memorial
-    ],
+    images: ['/assets/aistudio/pu7_ec8ec6c1.jpg'],
     inclusions: [
       'Private AC cab for 6 days',
       '5 Nights hotel stay (2N Jaipur + 2N Udaipur + 1N Jodhpur)',
@@ -342,11 +314,7 @@ const packagesData: PackageItem[] = [
     nights: 8,
     duration: '8N / 9D',
     route: 'Jaipur – Bikaner – Jaisalmer – Jodhpur – Udaipur – Ajmer – Pushkar',
-    images: [
-      'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80', // Sam Sand Dunes golden desert sunset
-      'https://images.unsplash.com/photo-1585123388867-3bfe6dd4bdbf?auto=format&fit=crop&w=1200&q=80', // Jaisalmer Golden Fort ramparts
-      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80' // Desert camel ridge
-    ],
+    images: ['/assets/aistudio/pu8_5178fc62.jpg'],
     inclusions: [
       'Dedicated private AC cab for 9 days',
       '8 Nights stay (including 1N Sam Desert Camp with camel trek & folk dinner)',
@@ -413,11 +381,7 @@ const packagesData: PackageItem[] = [
     nights: 6,
     duration: '6N / 7D',
     route: 'Delhi – Sariska – Bharatpur – Ranthambore – Jaipur – Delhi',
-    images: [
-      'https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1200&q=80', // India Gate & Delhi boulevard
-      'https://images.unsplash.com/photo-1552728089-57bdde30beb3?auto=format&fit=crop&w=1200&q=80', // Keoladeo wetland bird sanctuary
-      'https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=1200&q=80' // Indian wildlife sanctuary landscape
-    ],
+    images: ['/assets/aistudio/pi9_7717741d.jpg'],
     inclusions: [
       'Private AC vehicle for 7 days',
       '6 Nights accommodation (1N Delhi + 1N Sariska + 1N Bharatpur + 2N Ranthambore + 1N Jaipur)',
@@ -474,11 +438,7 @@ const packagesData: PackageItem[] = [
     nights: 5,
     duration: '5N / 6D',
     route: 'Delhi – Agra – Fatehpur Sikri – Jaipur – Delhi',
-    images: [
-      'https://images.unsplash.com/photo-1598890777032-bde835ba27c2?auto=format&fit=crop&w=1200&q=80', // Red Fort Delhi sandstone citadel
-      'https://images.unsplash.com/photo-1534177616072-ef7dc120449d?auto=format&fit=crop&w=1200&q=80', // Mughal architecture & gardens
-      'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1200&q=80' // Imperial heritage monument
-    ],
+    images: ['/assets/aistudio/pi10_0cc16d99.jpg'],
     inclusions: [
       'Private AC cab for 6 days',
       '5 Nights hotel stay (2N Delhi + 1N Agra + 2N Jaipur)',
@@ -530,11 +490,7 @@ const packagesData: PackageItem[] = [
     nights: 10,
     duration: '10N / 11D',
     route: 'Jaipur – Pushkar – Udaipur – Jodhpur – Jaisalmer – Bikaner – Mandawa – Jaipur',
-    images: [
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80', // Mandawa fresco haveli courtyard
-      'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80', // Desert campfire & night sky
-      'https://images.unsplash.com/photo-1597655601841-214a4cfe8b2c?auto=format&fit=crop&w=1200&q=80' // Rajasthani haveli carved jharokha
-    ],
+    images: ['/assets/aistudio/pi11_8e868e66.jpg'],
     inclusions: [
       'Dedicated private AC cab for 11 days',
       '10 Nights hotel/heritage accommodation',
@@ -611,11 +567,7 @@ const packagesData: PackageItem[] = [
     nights: 14,
     duration: '14N / 15D',
     route: 'Jaipur – Mandawa – Bikaner – Jaisalmer – Jodhpur – Mount Abu – Udaipur – Chittorgarh – Pushkar – Agra – Delhi',
-    images: [
-      'https://images.unsplash.com/photo-1598890777436-e0d0c367469a?auto=format&fit=crop&w=1200&q=80', // Chittorgarh Fort Vijay Stambh victory tower
-      'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=1200&q=80', // Mount Abu Nakki Lake & Aravalli rocks
-      'https://images.unsplash.com/photo-1565354049444-8d488950d696?auto=format&fit=crop&w=1200&q=80' // Dilwara marble carved temple ceiling
-    ],
+    images: ['/assets/aistudio/pi12_9bc25218.jpg'],
     inclusions: [
       'Private AC cab for 15 days',
       '14 Nights hotel accommodation across royal cities',
@@ -713,11 +665,7 @@ const packagesData: PackageItem[] = [
     nights: 5,
     duration: '5N / 6D',
     route: 'Jaipur – Mandawa – Bikaner – Jaisalmer – Jodhpur',
-    images: [
-      'https://images.unsplash.com/photo-1589308078059-be1415eab4c3?auto=format&fit=crop&w=1200&q=80', // Gadisar Lake stone chattris
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80', // Marwar Thar desert highway drive
-      'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1200&q=80' // Shekhawati painted fresco murals
-    ],
+    images: ['/assets/aistudio/pi13_a5d3e9f4.jpg'],
     inclusions: [
       'Private AC cab for 6 days',
       '5 Nights hotel stay across heritage destinations',
@@ -766,23 +714,68 @@ const packagesData: PackageItem[] = [
 
 function CardImageSlider({ images, title }: { images: string[]; title: string }) {
   const [currentIdx, setCurrentIdx] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
 
-  const prevSlide = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  // Auto-rotate every 4 seconds (pauses on user hover/touch)
+  useEffect(() => {
+    if (images.length <= 1 || isPaused) return;
+    const interval = setInterval(() => {
+      setCurrentIdx((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [images.length, isPaused]);
+
+  const prevSlide = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
     setCurrentIdx((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
 
-  const nextSlide = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const nextSlide = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
     setCurrentIdx((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
+  // Mobile Touch Swipe Handlers (iOS Safari & Android Chrome compatible)
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setIsPaused(true);
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    setIsPaused(false);
+    if (!touchStartX.current || !touchEndX.current) return;
+    const distance = touchStartX.current - touchEndX.current;
+    const minSwipeDistance = 40;
+    if (distance > minSwipeDistance) {
+      // Swiped left -> next
+      nextSlide();
+    } else if (distance < -minSwipeDistance) {
+      // Swiped right -> prev
+      prevSlide();
+    }
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
+
   return (
-    <div className="relative w-full h-56 overflow-hidden bg-stone-900 group select-none">
+    <div
+      className="relative w-full h-56 overflow-hidden bg-stone-900 group select-none transform-gpu"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
       <img
         src={images[currentIdx]}
         alt={`${title} highlight ${currentIdx + 1}`}
-        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        className="w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:scale-105"
         loading="lazy"
         onError={(e) => {
           // Graceful fallback to verified heritage image if network glitch occurs
@@ -798,7 +791,7 @@ function CardImageSlider({ images, title }: { images: string[]; title: string })
             type="button"
             onClick={prevSlide}
             aria-label="Previous slide"
-            className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center opacity-80 sm:opacity-0 group-hover:opacity-100 transition-opacity z-20 cursor-pointer"
+            className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center opacity-80 sm:opacity-0 group-hover:opacity-100 transition-opacity z-20 cursor-pointer shadow-md"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
@@ -806,16 +799,22 @@ function CardImageSlider({ images, title }: { images: string[]; title: string })
             type="button"
             onClick={nextSlide}
             aria-label="Next slide"
-            className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center opacity-80 sm:opacity-0 group-hover:opacity-100 transition-opacity z-20 cursor-pointer"
+            className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center opacity-80 sm:opacity-0 group-hover:opacity-100 transition-opacity z-20 cursor-pointer shadow-md"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
-          <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20 pointer-events-none">
+          <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20">
             {images.map((_, i) => (
-              <span
+              <button
                 key={i}
-                className={`h-1.5 rounded-full transition-all ${
-                  i === currentIdx ? 'w-5 bg-amber-400' : 'w-1.5 bg-white/60'
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setCurrentIdx(i);
+                }}
+                aria-label={`Go to slide ${i + 1}`}
+                className={`h-1.5 rounded-full transition-all cursor-pointer ${
+                  i === currentIdx ? 'w-5 bg-amber-400' : 'w-1.5 bg-white/60 hover:bg-white'
                 }`}
               />
             ))}
@@ -837,7 +836,7 @@ export const FeaturedPackages: React.FC = () => {
   };
 
   return (
-    <section id="packages" className="py-16 bg-stone-50">
+    <section id="packages" className="py-16 bg-stone-50 scroll-mt-28 lg:scroll-mt-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

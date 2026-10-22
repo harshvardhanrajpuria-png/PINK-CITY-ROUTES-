@@ -21,7 +21,7 @@ export const FounderStory: React.FC = () => {
   const [ananyaImgFailed, setAnanyaImgFailed] = useState(false);
 
   return (
-    <section id="founders" className="py-24 bg-gradient-to-b from-white via-[#FAF7F2] to-white relative overflow-hidden">
+    <section id="founders" className="py-24 bg-gradient-to-b from-white via-[#FAF7F2] to-white relative overflow-hidden scroll-mt-28 lg:scroll-mt-32">
       {/* Decorative ambient radial glows */}
       <div className="absolute top-10 -left-32 w-96 h-96 bg-[#C83E5C]/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-10 -right-32 w-96 h-96 bg-amber-400/15 rounded-full blur-3xl pointer-events-none" />
