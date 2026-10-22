@@ -42,8 +42,8 @@ export const Hero: React.FC<HeroProps> = ({ onExplorePackages, onOpenPlanner }) 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-20 lg:pt-24 lg:pb-28">
         <div className="text-center max-w-4xl mx-auto">
           {/* Official Emblem Logo Badge */}
-          <div className="flex items-center justify-center mb-4">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-amber-300/40 shadow-2xl bg-white p-0.5 hover:scale-105 transition-transform">
+          <div className="flex items-center justify-center mb-5">
+            <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-2 border-amber-300/60 shadow-2xl bg-white p-1 hover:scale-105 transition-transform">
               <img
                 src="/assets/aistudio/pinkcityroutes_logo_c1ea2897.jpg"
                 alt="Pinkcityroutes Official Emblem"

@@ -22,13 +22,17 @@ interface NavbarProps {
   onOpenPlanner: () => void;
   onNavigateToBlog?: () => void;
   onNavigateToHome?: () => void;
-  currentView?: 'home' | 'blog';
+  onNavigateToWhyUs?: () => void;
+  onNavigateToWhyRajasthan?: () => void;
+  currentView?: 'home' | 'blog' | 'why-us' | 'why-rajasthan';
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   onOpenPlanner,
   onNavigateToBlog,
   onNavigateToHome,
+  onNavigateToWhyUs,
+  onNavigateToWhyRajasthan,
   currentView = 'home',
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -61,6 +65,16 @@ export const Navbar: React.FC<NavbarProps> = ({
     { name: 'Fleet & Cars', href: '#fleet' },
     { name: 'Tour Packages', href: '#packages' },
     {
+      name: 'Why Choose Us',
+      href: '/why-us',
+      isWhyUs: true,
+    },
+    {
+      name: 'Why Rajasthan',
+      href: '/why-rajasthan',
+      isWhyRajasthan: true,
+    },
+    {
       name: 'Travel Blog',
       href: '#diaries',
       isBlog: true,
@@ -84,16 +98,29 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const handleLinkClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
-    link: { name: string; href: string; isBlog?: boolean }
+    link: { name: string; href: string; isBlog?: boolean; isWhyUs?: boolean; isWhyRajasthan?: boolean }
   ) => {
     setMoreDropdownOpen(false);
+
+    if (link.isWhyUs && onNavigateToWhyUs) {
+      e.preventDefault();
+      onNavigateToWhyUs();
+      return;
+    }
+
+    if (link.isWhyRajasthan && onNavigateToWhyRajasthan) {
+      e.preventDefault();
+      onNavigateToWhyRajasthan();
+      return;
+    }
+
     if (link.isBlog && onNavigateToBlog) {
       e.preventDefault();
       onNavigateToBlog();
       return;
     }
 
-    if (currentView === 'blog' && onNavigateToHome) {
+    if (currentView !== 'home' && onNavigateToHome) {
       e.preventDefault();
       onNavigateToHome();
       setTimeout(() => {
@@ -190,25 +217,25 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a
               href="#"
               onClick={(e) => {
-                if (currentView === 'blog' && onNavigateToHome) {
+                if (currentView !== 'home' && onNavigateToHome) {
                   e.preventDefault();
                   onNavigateToHome();
                 }
               }}
-              className="flex items-center gap-2.5 sm:gap-3 group shrink-0 mr-3 lg:mr-5"
+              className="flex items-center gap-2.5 sm:gap-3 group shrink-0 mr-2 sm:mr-3 lg:mr-5"
             >
-              <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden shadow-sm border-2 border-[#C83E5C]/30 group-hover:scale-105 transition-transform shrink-0 bg-white">
+              <div className="relative w-12 h-12 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full overflow-hidden shadow-md border-2 border-[#C83E5C]/40 group-hover:scale-105 transition-transform shrink-0 bg-white p-0.5">
                 <img
                   src={AGENCY_DETAILS.logo}
                   alt="Pinkcityroutes Official Brand Logo"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover rounded-full"
                 />
               </div>
               <div className="shrink-0">
-                <span className="font-display text-lg sm:text-xl xl:text-2xl font-bold tracking-tight text-slate-900 block leading-tight whitespace-nowrap">
+                <span className="font-display text-xl sm:text-2xl font-bold tracking-tight text-slate-900 block leading-tight whitespace-nowrap">
                   Pinkcity<span className="text-[#C83E5C]">routes</span>
                 </span>
-                <span className="text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-[#C83E5C] block whitespace-nowrap">
+                <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-[#C83E5C] block whitespace-nowrap">
                   Explore · Experience · Remember
                 </span>
               </div>
@@ -226,10 +253,12 @@ export const Navbar: React.FC<NavbarProps> = ({
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleLinkClick(e, link)}
-                className={`text-xs xl:text-sm font-semibold transition-colors relative py-1.5 whitespace-nowrap shrink-0 flex items-center gap-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#C83E5C] hover:after:w-full after:transition-all ${
-                  link.isBlog && currentView === 'blog'
-                    ? 'text-[#C83E5C] font-bold'
-                    : 'text-slate-700 hover:text-[#C83E5C]'
+                className={`text-xs xl:text-sm font-semibold transition-colors relative py-1.5 whitespace-nowrap shrink-0 flex items-center gap-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-[#C83E5C] hover:after:w-full after:transition-all ${
+                  (link.isBlog && currentView === 'blog') ||
+                  (link.isWhyUs && currentView === 'why-us') ||
+                  (link.isWhyRajasthan && currentView === 'why-rajasthan')
+                    ? 'text-[#C83E5C] font-bold after:w-full'
+                    : 'text-slate-700 hover:text-[#C83E5C] after:w-0'
                 }`}
               >
                 <span>{link.name}</span>
@@ -280,7 +309,27 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
 
               {moreDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 rounded-xl bg-white shadow-xl border border-stone-200 py-1.5 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                <div className="absolute right-0 mt-2 w-52 rounded-xl bg-white shadow-xl border border-stone-200 py-1.5 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                  {/* Why Choose Us */}
+                  <a
+                    href="/why-us"
+                    onClick={(e) => handleLinkClick(e, { name: 'Why Choose Us', href: '/why-us', isWhyUs: true })}
+                    className="flex items-center gap-2.5 px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-rose-50 hover:text-[#C83E5C] transition-colors"
+                  >
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Why Choose Us</span>
+                  </a>
+
+                  {/* Why Rajasthan */}
+                  <a
+                    href="/why-rajasthan"
+                    onClick={(e) => handleLinkClick(e, { name: 'Why Rajasthan', href: '/why-rajasthan', isWhyRajasthan: true })}
+                    className="flex items-center gap-2.5 px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-rose-50 hover:text-[#C83E5C] transition-colors"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                    <span>Why Rajasthan</span>
+                  </a>
+
                   {/* Offers inside dropdown if screen < xl */}
                   <a
                     href="#coupons"

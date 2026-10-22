@@ -23,78 +23,208 @@ import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { BlogPage } from './components/BlogPage';
 import { TravelerAdvisoryModal } from './components/TravelerAdvisoryModal';
 
+import { WhyUsPage } from './components/WhyUsPage';
+import { WhyRajasthanPage } from './components/WhyRajasthanPage';
+
+export type AppView = 'home' | 'blog' | 'why-us' | 'why-rajasthan';
+
 export default function App() {
-  const [currentView, setCurrentView] = useState<'home' | 'blog'>(() => {
-    return window.location.hash === '#blog' ? 'blog' : 'home';
+  const [currentView, setCurrentView] = useState<AppView>(() => {
+    const hash = window.location.hash;
+    const path = window.location.pathname;
+    if (hash === '#why-us' || path === '/why-us') return 'why-us';
+    if (hash === '#why-rajasthan' || path === '/why-rajasthan') return 'why-rajasthan';
+    if (hash === '#blog' || path === '/blog') return 'blog';
+    return 'home';
   });
 
   const [selectedPlannerDestination, setSelectedPlannerDestination] = useState<string | undefined>(undefined);
 
-  // Sync hash with current view
+  // Sync hash / popstate with current view
   useEffect(() => {
-    const handleHashChange = () => {
-      if (window.location.hash === '#blog') {
+    const handleNavigation = () => {
+      const hash = window.location.hash;
+      const path = window.location.pathname;
+      if (hash === '#why-us' || path === '/why-us') {
+        setCurrentView('why-us');
+      } else if (hash === '#why-rajasthan' || path === '/why-rajasthan') {
+        setCurrentView('why-rajasthan');
+      } else if (hash === '#blog' || path === '/blog') {
         setCurrentView('blog');
-      } else if (window.location.hash === '#home' || window.location.hash === '') {
+      } else if (hash === '#home' || hash === '' || path === '/') {
         setCurrentView('home');
       }
     };
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    window.addEventListener('hashchange', handleNavigation);
+    window.addEventListener('popstate', handleNavigation);
+    return () => {
+      window.removeEventListener('hashchange', handleNavigation);
+      window.removeEventListener('popstate', handleNavigation);
+    };
   }, []);
 
   const navigateToBlog = () => {
     setCurrentView('blog');
     window.location.hash = '#blog';
+    try {
+      window.history.pushState(null, '', '/blog');
+    } catch {
+      // fallback to hash
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const navigateToWhyUs = () => {
+    setCurrentView('why-us');
+    window.location.hash = '#why-us';
+    try {
+      window.history.pushState(null, '', '/why-us');
+    } catch {
+      // fallback
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const navigateToWhyRajasthan = () => {
+    setCurrentView('why-rajasthan');
+    window.location.hash = '#why-rajasthan';
+    try {
+      window.history.pushState(null, '', '/why-rajasthan');
+    } catch {
+      // fallback
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const navigateToHome = () => {
     setCurrentView('home');
     window.location.hash = '#home';
+    try {
+      window.history.pushState(null, '', '/');
+    } catch {
+      // fallback
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleExplorePackages = () => {
-    if (currentView === 'blog') {
-      setCurrentView('home');
+    if (currentView !== 'home') {
+      navigateToHome();
     }
     setTimeout(() => {
       const el = document.getElementById('packages');
       if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }, 50);
+    }, 100);
   };
 
   const handleScrollToCoupons = () => {
-    if (currentView === 'blog') {
-      setCurrentView('home');
+    if (currentView !== 'home') {
+      navigateToHome();
     }
     setTimeout(() => {
       const el = document.getElementById('coupons');
       if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }, 50);
+    }, 100);
   };
 
   const handleOpenPlanner = (destName?: string) => {
     if (destName) {
       setSelectedPlannerDestination(destName);
     }
-    if (currentView === 'blog') {
-      setCurrentView('home');
+    if (currentView !== 'home') {
+      navigateToHome();
     }
     setTimeout(() => {
       const el = document.getElementById('planner');
       if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }, 50);
+    }, 100);
   };
+
+  // Dedicated "Why Choose Us" View
+  if (currentView === 'why-us') {
+    return (
+      <div className="min-h-screen flex flex-col bg-[#FAF7F2] text-slate-800 antialiased selection:bg-[#E05A76] selection:text-white">
+        <Navbar
+          currentView="why-us"
+          onOpenPlanner={() => handleOpenPlanner()}
+          onNavigateToBlog={navigateToBlog}
+          onNavigateToHome={navigateToHome}
+          onNavigateToWhyUs={navigateToWhyUs}
+          onNavigateToWhyRajasthan={navigateToWhyRajasthan}
+        />
+        <main className="flex-1">
+          <WhyUsPage
+            onBackToHome={navigateToHome}
+            onExplorePackages={handleExplorePackages}
+            onOpenPlanner={() => handleOpenPlanner()}
+          />
+        </main>
+        <Footer
+          onNavigateToWhyUs={navigateToWhyUs}
+          onNavigateToWhyRajasthan={navigateToWhyRajasthan}
+          onNavigateToBlog={navigateToBlog}
+          onNavigateToHome={navigateToHome}
+        />
+        <FloatingWhatsApp />
+        <TravelerAdvisoryModal />
+      </div>
+    );
+  }
+
+  // Dedicated "Why Rajasthan" View
+  if (currentView === 'why-rajasthan') {
+    return (
+      <div className="min-h-screen flex flex-col bg-[#FAF7F2] text-slate-800 antialiased selection:bg-[#E05A76] selection:text-white">
+        <Navbar
+          currentView="why-rajasthan"
+          onOpenPlanner={() => handleOpenPlanner()}
+          onNavigateToBlog={navigateToBlog}
+          onNavigateToHome={navigateToHome}
+          onNavigateToWhyUs={navigateToWhyUs}
+          onNavigateToWhyRajasthan={navigateToWhyRajasthan}
+        />
+        <main className="flex-1">
+          <WhyRajasthanPage
+            onBackToHome={navigateToHome}
+            onExplorePackages={handleExplorePackages}
+            onOpenPlanner={() => handleOpenPlanner()}
+          />
+        </main>
+        <Footer
+          onNavigateToWhyUs={navigateToWhyUs}
+          onNavigateToWhyRajasthan={navigateToWhyRajasthan}
+          onNavigateToBlog={navigateToBlog}
+          onNavigateToHome={navigateToHome}
+        />
+        <FloatingWhatsApp />
+        <TravelerAdvisoryModal />
+      </div>
+    );
+  }
 
   // If in dedicated Blog Page mode
   if (currentView === 'blog') {
     return (
       <div className="min-h-screen flex flex-col bg-[#FAF7F2] text-slate-800 antialiased selection:bg-[#E05A76] selection:text-white">
-        <BlogPage
-          onBackToHome={navigateToHome}
+        <Navbar
+          currentView="blog"
           onOpenPlanner={() => handleOpenPlanner()}
+          onNavigateToBlog={navigateToBlog}
+          onNavigateToHome={navigateToHome}
+          onNavigateToWhyUs={navigateToWhyUs}
+          onNavigateToWhyRajasthan={navigateToWhyRajasthan}
+        />
+        <main className="flex-1">
+          <BlogPage
+            onBackToHome={navigateToHome}
+            onOpenPlanner={() => handleOpenPlanner()}
+          />
+        </main>
+        <Footer
+          onNavigateToWhyUs={navigateToWhyUs}
+          onNavigateToWhyRajasthan={navigateToWhyRajasthan}
+          onNavigateToBlog={navigateToBlog}
+          onNavigateToHome={navigateToHome}
         />
         <FloatingWhatsApp />
         <TravelerAdvisoryModal />
@@ -111,6 +241,8 @@ export default function App() {
         onOpenPlanner={() => handleOpenPlanner()}
         onNavigateToBlog={navigateToBlog}
         onNavigateToHome={navigateToHome}
+        onNavigateToWhyUs={navigateToWhyUs}
+        onNavigateToWhyRajasthan={navigateToWhyRajasthan}
       />
 
       {/* Main Content Sections */}
@@ -160,7 +292,12 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <Footer />
+      <Footer
+        onNavigateToWhyUs={navigateToWhyUs}
+        onNavigateToWhyRajasthan={navigateToWhyRajasthan}
+        onNavigateToBlog={navigateToBlog}
+        onNavigateToHome={navigateToHome}
+      />
 
       {/* Floating WhatsApp and Mobile sticky bar */}
       <FloatingWhatsApp />

@@ -56,12 +56,21 @@ export const FounderStory: React.FC = () => {
             <div>
               {/* Photo & Identity Row */}
               <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-6">
-                <div className="relative w-36 h-44 sm:w-40 sm:h-48 rounded-2xl overflow-hidden bg-slate-900 shrink-0 border-2 border-amber-300/40 shadow-lg">
+                <div className="relative w-36 sm:w-44 aspect-[4/5] rounded-2xl overflow-hidden bg-slate-900 shrink-0 border-2 border-amber-300/40 shadow-lg transform-gpu">
                   {!harshImgFailed ? (
                     <img
-                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80"
+                      src="/founder.jpg"
                       alt="Harsh Vardhan Gupta - Co-Founder of Pinkcityroutes"
-                      onError={() => setHarshImgFailed(true)}
+                      onError={() => {
+                        // Attempt fallback to local asset if /founder.jpg fails
+                        const target = document.getElementById('harsh-avatar-img') as HTMLImageElement;
+                        if (target && !target.src.includes('20250121_235344_c15c3e04.jpg')) {
+                          target.src = '/assets/aistudio/20250121_235344_c15c3e04.jpg';
+                        } else {
+                          setHarshImgFailed(true);
+                        }
+                      }}
+                      id="harsh-avatar-img"
                       className="w-full h-full object-cover object-top filter brightness-95 group-hover:scale-105 transition-transform duration-500"
                     />
                   ) : (
@@ -72,7 +81,7 @@ export const FounderStory: React.FC = () => {
                       <span className="text-xs font-semibold">Harsh Vardhan</span>
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
                   <div className="absolute bottom-2 left-2 right-2 text-center sm:text-left">
                     <span className="text-[10px] uppercase font-bold text-amber-300 tracking-wider">
                       Jaipur Native
@@ -168,12 +177,20 @@ export const FounderStory: React.FC = () => {
             <div>
               {/* Photo & Identity Row */}
               <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-6">
-                <div className="relative w-36 h-44 sm:w-40 sm:h-48 rounded-2xl overflow-hidden bg-slate-900 shrink-0 border-2 border-rose-300/40 shadow-lg">
+                <div className="relative w-36 sm:w-44 aspect-[4/5] rounded-2xl overflow-hidden bg-slate-900 shrink-0 border-2 border-rose-300/40 shadow-lg transform-gpu">
                   {!ananyaImgFailed ? (
                     <img
-                      src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80"
+                      src="/ananya.jpg"
                       alt="Ananya Gupta - Co-Founder of Pinkcityroutes"
-                      onError={() => setAnanyaImgFailed(true)}
+                      onError={() => {
+                        const target = document.getElementById('ananya-avatar-img') as HTMLImageElement;
+                        if (target && !target.src.includes('ananya_upright.jpg')) {
+                          target.src = '/assets/aistudio/ananya_upright.jpg';
+                        } else {
+                          setAnanyaImgFailed(true);
+                        }
+                      }}
+                      id="ananya-avatar-img"
                       className="w-full h-full object-cover object-top filter brightness-95 group-hover:scale-105 transition-transform duration-500"
                     />
                   ) : (
@@ -184,7 +201,7 @@ export const FounderStory: React.FC = () => {
                       <span className="text-xs font-semibold">Ananya</span>
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
                   <div className="absolute bottom-2 left-2 right-2 text-center sm:text-left">
                     <span className="text-[10px] uppercase font-bold text-amber-300 tracking-wider">
                       Hospitality Curator
@@ -207,7 +224,7 @@ export const FounderStory: React.FC = () => {
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mt-3">
                     With an eye for boutique elegance and authentic cultural charm, Ananya curates
                     our stay collections and guest touchpoints. She personally evaluates heritage havelis,
-                    oversees complimentary welcome/farewell goodies, and coordinates curated culinary walks.
+                    manages complimentary welcome and farewell gifts, and coordinates curated culinary walks.
                   </p>
                 </div>
               </div>
@@ -232,7 +249,7 @@ export const FounderStory: React.FC = () => {
                   </div>
                   <div className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Welcome & Good Bye Gift Curation</span>
+                    <span>Welcome & Farewell Gift Curation</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-emerald-600 shrink-0" />
@@ -286,7 +303,7 @@ export const FounderStory: React.FC = () => {
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-2xl mx-auto">
               Whether you are traveling solo, planning a once-in-a-lifetime honeymoon, or coordinating a multi-generation
-              family reunion, Harsh Vardhan Gupta and Ananya Gupta oversee your journey with direct accountability.
+              family reunion, Harsh Vardhan Gupta and Ananya Gupta personally manage and coordinate your journey with direct accountability.
             </p>
 
             <div className="pt-4 flex flex-wrap items-center justify-center gap-4">

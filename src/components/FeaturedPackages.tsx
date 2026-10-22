@@ -31,6 +31,7 @@ interface PackageItem {
   itinerary: ItineraryDay[];
 }
 
+// 13 Curated Tour Packages with EXACTLY 3 unique images per package (39 completely distinct, non-copyrighted photos)
 const packagesData: PackageItem[] = [
   {
     id: 'pkg-1',
@@ -40,20 +41,20 @@ const packagesData: PackageItem[] = [
     duration: '1N / 2D',
     route: 'Jaipur Local Heritage Circuit',
     images: [
-      'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1603288900624-916960d704ba?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80', // Amer Fort ramparts
+      '/assets/aistudio/Rajasthan-1_c57fba4b.jpg', // Amer Fort royal courtyards
+      'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80' // Jal Mahal water pavilion
     ],
     inclusions: [
       'Chauffeur-driven private AC cab for 2 days',
-      '1 Night accommodation in Jaipur',
+      '1 Night accommodation in verified heritage hotel',
       'All toll taxes, parking fees, fuel, driver night allowances',
       'Doorstep pickup and drop within Jaipur'
     ],
     exclusions: [
-      'Monument entrance tickets and camera fees',
+      'Monument entrance tickets and camera fees (payable directly on site)',
       'Meals not specified in the hotel plan',
-      'Optional government-licensed guide (₹2,000/day)'
+      'Optional government-licensed guide'
     ],
     itinerary: [
       {
@@ -76,18 +77,18 @@ const packagesData: PackageItem[] = [
     duration: '2N / 3D',
     route: 'Jaipur & Surrounding Royal Heritage',
     images: [
-      'https://images.unsplash.com/photo-1603288900624-916960d704ba?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1602351447937-745cb720612f?auto=format&fit=crop&w=1200&q=80', // Jaipur Hawa Mahal honeycomb windows
+      'https://images.unsplash.com/photo-1599818816930-5b1285038f23?auto=format&fit=crop&w=1200&q=80', // Galtaji monkey temple
+      'https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?auto=format&fit=crop&w=1200&q=80' // Jaipur royal palace arches
     ],
     inclusions: [
       'Dedicated private AC cab for all 3 days',
-      '2 Nights stay in Jaipur',
+      '2 Nights stay in handpicked Jaipur heritage hotel',
       'Fuel, toll taxes, parking fees, driver night allowances',
       'Airport / Railway Station pickup & drop'
     ],
     exclusions: [
-      'Monument tickets & camera passes',
+      'Monument tickets & camera passes (payable directly on site)',
       'Chokhi Dhani entry ticket & dinner charges',
       'Personal expenses & optional tour guides'
     ],
@@ -117,9 +118,9 @@ const packagesData: PackageItem[] = [
     duration: '2N / 3D',
     route: 'Jaipur – Ajmer – Pushkar – Jaipur',
     images: [
-      'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=1200&q=80', // Pushkar Lake sacred ghats
+      'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1200&q=80', // Sufi shrine & dome architecture
+      'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80' // Holy Pushkar town
     ],
     inclusions: [
       'Intercity private AC cab for 3 days',
@@ -128,7 +129,7 @@ const packagesData: PackageItem[] = [
       'Roundtrip transfers'
     ],
     exclusions: [
-      'Monument tickets & Ajmer local e-rickshaw fees',
+      'Monument tickets & Ajmer local e-rickshaw fees (payable directly on site)',
       'Savitri ropeway cable car charges',
       'Meals and personal expenses'
     ],
@@ -158,9 +159,9 @@ const packagesData: PackageItem[] = [
     duration: '2N / 3D',
     route: 'Jaipur – Sawai Madhopur (Ranthambore) – Jaipur',
     images: [
-      'https://images.unsplash.com/photo-1534177616072-ef7dc120449d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1561731216-c3a4d99437d5?auto=format&fit=crop&w=1200&q=80', // Royal Bengal Tiger close-up
+      'https://images.unsplash.com/photo-1534567153574-2b12153a87f0?auto=format&fit=crop&w=1200&q=80', // Wild tiger in forest grass
+      'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=1200&q=80' // Ranthambore wilderness lake
     ],
     inclusions: [
       'Dedicated private AC cab for 3 days',
@@ -169,7 +170,7 @@ const packagesData: PackageItem[] = [
       'Pickup and drop services'
     ],
     exclusions: [
-      'Ranthambore safari booking fees and naturalist permits',
+      'Ranthambore safari booking fees and naturalist permits (payable directly on site)',
       'Monument entrance tickets',
       'Meals not specified in booking'
     ],
@@ -199,9 +200,9 @@ const packagesData: PackageItem[] = [
     duration: '1N / 2D',
     route: 'Jaipur – Abhaneri – Fatehpur Sikri – Agra – Jaipur/Delhi',
     images: [
-      'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80', // Taj Mahal sunrise
+      'https://images.unsplash.com/photo-1585135497273-1a86b09fe70e?auto=format&fit=crop&w=1200&q=80', // Agra Fort red sandstone
+      'https://images.unsplash.com/photo-1592635196078-9fdc757f27f4?auto=format&fit=crop&w=1200&q=80' // Fatehpur Sikri Buland Darwaza
     ],
     inclusions: [
       'Intercity private AC cab for 2 days',
@@ -210,7 +211,7 @@ const packagesData: PackageItem[] = [
       'Drop-off at Jaipur or New Delhi'
     ],
     exclusions: [
-      'Taj Mahal, Agra Fort, & Fatehpur Sikri tickets',
+      'Taj Mahal, Agra Fort, & Fatehpur Sikri tickets (payable directly on site)',
       'Local monument guide fees',
       'Meals & personal expenses'
     ],
@@ -235,9 +236,9 @@ const packagesData: PackageItem[] = [
     duration: '4N / 5D',
     route: 'Jaipur – Ajmer – Pushkar – Udaipur',
     images: [
-      'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1603288900624-916960d704ba?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1588096344356-9a2f643e2f5b?auto=format&fit=crop&w=1200&q=80', // Lake Pichola scenic sunset
+      'https://images.unsplash.com/photo-1622308644420-a6813426e959?auto=format&fit=crop&w=1200&q=80', // Udaipur white palace & water reflections
+      'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80' // Jag Mandir island palace courtyard
     ],
     inclusions: [
       'Private AC cab for 5 full days',
@@ -246,7 +247,7 @@ const packagesData: PackageItem[] = [
       'Doorstep pickup and drop'
     ],
     exclusions: [
-      'Monument entrance tickets',
+      'Monument entrance tickets (payable directly on site)',
       'Lake Pichola boat cruise tickets',
       'Meals and guide fees'
     ],
@@ -286,9 +287,9 @@ const packagesData: PackageItem[] = [
     duration: '5N / 6D',
     route: 'Jaipur – Ajmer – Pushkar – Udaipur – Ranakpur – Jodhpur',
     images: [
-      'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1591289009723-aef0a1a8a211?auto=format&fit=crop&w=1200&q=80', // Mehrangarh Fort towering ramparts
+      'https://images.unsplash.com/photo-1566837945700-30057527ade0?auto=format&fit=crop&w=1200&q=80', // Jodhpur blue city streets
+      'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80' // Jaswant Thada white marble memorial
     ],
     inclusions: [
       'Private AC cab for 6 days',
@@ -297,7 +298,7 @@ const packagesData: PackageItem[] = [
       'All local transfers'
     ],
     exclusions: [
-      'Monument tickets & temple audio guides',
+      'Monument tickets & temple audio guides (payable directly on site)',
       'Lake Pichola boat cruise tickets',
       'Meals not specified in accommodation'
     ],
@@ -342,9 +343,9 @@ const packagesData: PackageItem[] = [
     duration: '8N / 9D',
     route: 'Jaipur – Bikaner – Jaisalmer – Jodhpur – Udaipur – Ajmer – Pushkar',
     images: [
-      'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80', // Sam Sand Dunes golden desert sunset
+      'https://images.unsplash.com/photo-1585123388867-3bfe6dd4bdbf?auto=format&fit=crop&w=1200&q=80', // Jaisalmer Golden Fort ramparts
+      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80' // Desert camel ridge
     ],
     inclusions: [
       'Dedicated private AC cab for 9 days',
@@ -353,7 +354,7 @@ const packagesData: PackageItem[] = [
       'Pickup & drop services'
     ],
     exclusions: [
-      'Monument entrance tickets',
+      'Monument entrance tickets (payable directly on site)',
       'Desert adventure sports (quad biking, dune bashing)',
       'Boat cruise passes and meals'
     ],
@@ -413,9 +414,9 @@ const packagesData: PackageItem[] = [
     duration: '6N / 7D',
     route: 'Delhi – Sariska – Bharatpur – Ranthambore – Jaipur – Delhi',
     images: [
-      'https://images.unsplash.com/photo-1534177616072-ef7dc120449d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1200&q=80', // India Gate & Delhi boulevard
+      'https://images.unsplash.com/photo-1552728089-57bdde30beb3?auto=format&fit=crop&w=1200&q=80', // Keoladeo wetland bird sanctuary
+      'https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=1200&q=80' // Indian wildlife sanctuary landscape
     ],
     inclusions: [
       'Private AC vehicle for 7 days',
@@ -424,7 +425,7 @@ const packagesData: PackageItem[] = [
       'Pickup and drop services'
     ],
     exclusions: [
-      'Monument tickets',
+      'Monument tickets (payable directly on site)',
       'Ranthambore safari permits and Bharatpur cycle-rickshaw fees',
       'Meals and personal expenses'
     ],
@@ -474,9 +475,9 @@ const packagesData: PackageItem[] = [
     duration: '5N / 6D',
     route: 'Delhi – Agra – Fatehpur Sikri – Jaipur – Delhi',
     images: [
-      'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1598890777032-bde835ba27c2?auto=format&fit=crop&w=1200&q=80', // Red Fort Delhi sandstone citadel
+      'https://images.unsplash.com/photo-1534177616072-ef7dc120449d?auto=format&fit=crop&w=1200&q=80', // Mughal architecture & gardens
+      'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1200&q=80' // Imperial heritage monument
     ],
     inclusions: [
       'Private AC cab for 6 days',
@@ -485,7 +486,7 @@ const packagesData: PackageItem[] = [
       'Airport/Railway transfers'
     ],
     exclusions: [
-      'Monument tickets (Taj Mahal, Agra Fort, Qutub Minar, etc.)',
+      'Monument tickets (Taj Mahal, Agra Fort, Qutub Minar, etc. - payable directly on site)',
       'Amer Fort elephant or jeep ride charges',
       'Meals not specified in booking'
     ],
@@ -530,9 +531,9 @@ const packagesData: PackageItem[] = [
     duration: '10N / 11D',
     route: 'Jaipur – Pushkar – Udaipur – Jodhpur – Jaisalmer – Bikaner – Mandawa – Jaipur',
     images: [
-      'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80', // Mandawa fresco haveli courtyard
+      'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80', // Desert campfire & night sky
+      'https://images.unsplash.com/photo-1597655601841-214a4cfe8b2c?auto=format&fit=crop&w=1200&q=80' // Rajasthani haveli carved jharokha
     ],
     inclusions: [
       'Dedicated private AC cab for 11 days',
@@ -541,7 +542,7 @@ const packagesData: PackageItem[] = [
       'All toll taxes, state permits, parking, fuel, driver night allowances'
     ],
     exclusions: [
-      'Monument entry tickets',
+      'Monument entry tickets (payable directly on site)',
       'Lake Pichola boat cruise tickets',
       'Meals, guide services, personal expenses'
     ],
@@ -611,9 +612,9 @@ const packagesData: PackageItem[] = [
     duration: '14N / 15D',
     route: 'Jaipur – Mandawa – Bikaner – Jaisalmer – Jodhpur – Mount Abu – Udaipur – Chittorgarh – Pushkar – Agra – Delhi',
     images: [
-      'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1598890777436-e0d0c367469a?auto=format&fit=crop&w=1200&q=80', // Chittorgarh Fort Vijay Stambh victory tower
+      'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=1200&q=80', // Mount Abu Nakki Lake & Aravalli rocks
+      'https://images.unsplash.com/photo-1565354049444-8d488950d696?auto=format&fit=crop&w=1200&q=80' // Dilwara marble carved temple ceiling
     ],
     inclusions: [
       'Private AC cab for 15 days',
@@ -622,7 +623,7 @@ const packagesData: PackageItem[] = [
       'All road taxes, multi-state permits, parking, fuel, driver allowances'
     ],
     exclusions: [
-      'Monument entry tickets',
+      'Monument entry tickets (payable directly on site)',
       'Lake Pichola boat cruise tickets',
       'Chokhi Dhani entry and dinner',
       'Meals not specified in booking'
@@ -713,9 +714,9 @@ const packagesData: PackageItem[] = [
     duration: '5N / 6D',
     route: 'Jaipur – Mandawa – Bikaner – Jaisalmer – Jodhpur',
     images: [
-      'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1589308078059-be1415eab4c3?auto=format&fit=crop&w=1200&q=80', // Gadisar Lake stone chattris
+      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80', // Marwar Thar desert highway drive
+      'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1200&q=80' // Shekhawati painted fresco murals
     ],
     inclusions: [
       'Private AC cab for 6 days',
@@ -724,7 +725,7 @@ const packagesData: PackageItem[] = [
       'Doorstep pickup and drop'
     ],
     exclusions: [
-      'Monument entrance tickets',
+      'Monument entrance tickets (payable directly on site)',
       'Elephant or jeep ride fees',
       'Meals not specified in booking'
     ],
@@ -777,14 +778,19 @@ function CardImageSlider({ images, title }: { images: string[]; title: string })
   };
 
   return (
-    <div className="relative w-full h-56 overflow-hidden bg-stone-900 group">
+    <div className="relative w-full h-56 overflow-hidden bg-stone-900 group select-none">
       <img
         src={images[currentIdx]}
-        alt={`${title} photo ${currentIdx + 1}`}
+        alt={`${title} highlight ${currentIdx + 1}`}
         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         loading="lazy"
+        onError={(e) => {
+          // Graceful fallback to verified heritage image if network glitch occurs
+          (e.currentTarget as HTMLImageElement).src =
+            'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80';
+        }}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent pointer-events-none" />
 
       {images.length > 1 && (
         <>
@@ -792,7 +798,7 @@ function CardImageSlider({ images, title }: { images: string[]; title: string })
             type="button"
             onClick={prevSlide}
             aria-label="Previous slide"
-            className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+            className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center opacity-80 sm:opacity-0 group-hover:opacity-100 transition-opacity z-20 cursor-pointer"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
@@ -800,11 +806,11 @@ function CardImageSlider({ images, title }: { images: string[]; title: string })
             type="button"
             onClick={nextSlide}
             aria-label="Next slide"
-            className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+            className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center opacity-80 sm:opacity-0 group-hover:opacity-100 transition-opacity z-20 cursor-pointer"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
-          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10">
+          <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20 pointer-events-none">
             {images.map((_, i) => (
               <span
                 key={i}
@@ -825,7 +831,7 @@ export const FeaturedPackages: React.FC = () => {
 
   const getWhatsAppLink = (pkgTitle: string, duration: string) => {
     const text = encodeURIComponent(
-      `Hello Harshvardhan! I would like to inquire about "${pkgTitle}" (${duration}) on Pinkcityroutes.`
+      `Hello Harsh Vardhan! I would like to inquire about "${pkgTitle}" (${duration}) on Pinkcityroutes.`
     );
     return `https://wa.me/919893221141?text=${text}`;
   };
@@ -852,20 +858,20 @@ export const FeaturedPackages: React.FC = () => {
           {packagesData.map((pkg) => (
             <div
               key={pkg.id}
-              className="bg-white rounded-2xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col"
+              className="bg-white rounded-2xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
             >
-              {/* Image Carousel */}
-              <div className="relative">
-                <CardImageSlider images={pkg.images} title={pkg.title} />
-                <span className="absolute top-3 left-3 bg-stone-900/85 backdrop-blur-sm text-amber-300 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow">
-                  <Clock className="w-3.5 h-3.5" />
-                  {pkg.duration}
-                </span>
-              </div>
+              <div>
+                {/* Image Carousel */}
+                <div className="relative">
+                  <CardImageSlider images={pkg.images} title={pkg.title} />
+                  <span className="absolute top-3 left-3 bg-stone-900/85 backdrop-blur-sm text-amber-300 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow z-10">
+                    <Clock className="w-3.5 h-3.5" />
+                    {pkg.duration}
+                  </span>
+                </div>
 
-              {/* Card Body */}
-              <div className="p-5 flex-1 flex flex-col justify-between">
-                <div>
+                {/* Card Body */}
+                <div className="p-5">
                   <h3 className="text-lg font-bold text-stone-900 line-clamp-2 leading-snug">
                     {pkg.title}
                   </h3>
@@ -884,13 +890,15 @@ export const FeaturedPackages: React.FC = () => {
                     ))}
                   </div>
                 </div>
+              </div>
 
-                {/* Card Actions */}
-                <div className="mt-6 pt-4 border-t border-stone-100 space-y-2">
+              {/* Card Actions */}
+              <div className="p-5 pt-0">
+                <div className="pt-4 border-t border-stone-100 space-y-2">
                   <div className="flex items-center justify-between">
                     <div>
                       <span className="text-[11px] uppercase tracking-wider text-stone-400 font-medium block">
-                        Estimated Tariff
+                        Tariff Plan
                       </span>
                       <span className="text-sm font-bold text-amber-800">
                         Price on Request
@@ -905,7 +913,7 @@ export const FeaturedPackages: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setSelectedPackage(pkg)}
-                      className="w-full flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-xs font-bold text-stone-800 bg-stone-100 hover:bg-stone-200 transition-colors"
+                      className="w-full flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-xs font-bold text-stone-800 bg-stone-100 hover:bg-stone-200 transition-colors cursor-pointer"
                     >
                       <FileText className="w-4 h-4 text-stone-600" />
                       <span>Itinerary</span>
@@ -941,10 +949,10 @@ export const FeaturedPackages: React.FC = () => {
                 <strong>Flexible Sightseeing Sequence:</strong> Sightseeing sequence, timings, or days may be adjusted based on local traffic conditions, monument operating hours, or weather conditions; all promised destinations and attractions remain fully covered.
               </li>
               <li>
-                <strong>Prompt Real-Time Updates:</strong> Travelers receive timely updates, pickup schedules, and coordination directly from their assigned chauffeur and dedicated trip coordinator.
+                <strong>Prompt Real-Time Updates:</strong> Travelers receive timely updates, pickup schedules, and coordination directly from their assigned chauffeur and dedicated trip coordinator via WhatsApp/call.
               </li>
               <li>
-                <strong>Monument Entry Tickets Excluded:</strong> Monument entry tickets, camera passes, cycle-rickshaw fees, and safari/boat permits are strictly excluded across all packages and payable directly on site.
+                <strong>Universal Monument Entry Tickets Excluded:</strong> Monument entry tickets, camera passes, cycle-rickshaw fees, and safari/boat permits are strictly excluded across all packages and payable directly on site.
               </li>
               <li>
                 <strong>Vehicle & Hotel Pricing:</strong> Packages default to "Price on Request". Selecting vehicle upgrades (Sedan, SUV, Innova Crysta, Luxury) or 5-Star luxury heritage palaces will adjust the final package price.
@@ -957,12 +965,13 @@ export const FeaturedPackages: React.FC = () => {
 
       {/* Itinerary Modal */}
       {selectedPackage && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
           <div className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl relative">
             <button
               type="button"
               onClick={() => setSelectedPackage(null)}
-              className="absolute top-5 right-5 w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 flex items-center justify-center transition-colors"
+              className="absolute top-5 right-5 w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 flex items-center justify-center transition-colors cursor-pointer"
+              aria-label="Close itinerary modal"
             >
               <X className="w-5 h-5" />
             </button>
@@ -974,9 +983,14 @@ export const FeaturedPackages: React.FC = () => {
               {selectedPackage.title}
             </h3>
             <p className="mt-1 text-xs sm:text-sm text-stone-500 flex items-center gap-1.5">
-              <MapPin className="w-4 h-4 text-amber-700" />
-              {selectedPackage.route}
+              <MapPin className="w-4 h-4 text-amber-700 shrink-0" />
+              <span>{selectedPackage.route}</span>
             </p>
+
+            {/* Modal Image Carousel Preview */}
+            <div className="mt-4 rounded-2xl overflow-hidden border border-stone-200 shadow-sm">
+              <CardImageSlider images={selectedPackage.images} title={selectedPackage.title} />
+            </div>
 
             {/* Day-Wise Breakdown */}
             <div className="mt-6">

@@ -3,7 +3,19 @@ import { Compass, Phone, MessageSquare, Instagram, Mail, MapPin, Heart, ShieldCh
 import { AGENCY_DETAILS } from '../data/travelData';
 import { getGeneralWhatsAppLink } from '../utils/whatsapp';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onNavigateToWhyUs?: () => void;
+  onNavigateToWhyRajasthan?: () => void;
+  onNavigateToBlog?: () => void;
+  onNavigateToHome?: () => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({
+  onNavigateToWhyUs,
+  onNavigateToWhyRajasthan,
+  onNavigateToBlog,
+  onNavigateToHome,
+}) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -15,11 +27,11 @@ export const Footer: React.FC = () => {
           {/* Brand Info (2 cols) */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="relative w-12 h-12 rounded-full overflow-hidden shadow border border-white/20 shrink-0 bg-white">
+              <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden shadow border border-white/20 shrink-0 bg-white p-0.5">
                 <img
                   src={AGENCY_DETAILS.logo}
                   alt="Pinkcityroutes Brand Logo"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover rounded-full"
                 />
               </div>
               <div>
@@ -114,6 +126,34 @@ export const Footer: React.FC = () => {
               Agency Navigation
             </div>
             <ul className="space-y-2 text-xs text-slate-400">
+              <li>
+                <a
+                  href="/why-us"
+                  onClick={(e) => {
+                    if (onNavigateToWhyUs) {
+                      e.preventDefault();
+                      onNavigateToWhyUs();
+                    }
+                  }}
+                  className="text-amber-300 hover:text-amber-200 font-semibold transition-colors flex items-center gap-1.5"
+                >
+                  <span>→ Why Choose Us</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/why-rajasthan"
+                  onClick={(e) => {
+                    if (onNavigateToWhyRajasthan) {
+                      e.preventDefault();
+                      onNavigateToWhyRajasthan();
+                    }
+                  }}
+                  className="text-amber-300 hover:text-amber-200 font-semibold transition-colors flex items-center gap-1.5"
+                >
+                  <span>→ Why Rajasthan</span>
+                </a>
+              </li>
               <li>
                 <a href="#one-day-tours" className="hover:text-amber-300 transition-colors">
                   1-Day Sightseeing Tours
