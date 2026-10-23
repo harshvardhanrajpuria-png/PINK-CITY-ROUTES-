@@ -1,0 +1,6 @@
+{
+  "name": "Pinkcityroutes - Premier Travel & Tour Agency",
+  "description": "Book private AC cabs, verified chauffeurs, and personalized tour packages across Jaipur, Jodhpur, Udaipur, and Jaisalmer with Pinkcityroutes. Founded by Harshvardhan.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
